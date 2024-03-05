@@ -1,0 +1,31 @@
+---
+import Layout from "../../layouts/Layout.astro";
+// newt
+import { newtClient } from "../../lib/newt/client";
+import type { Article } from "../../lib/newt/types";
+
+const { items: articles } = await newtClient.getContents<Article>({
+	appUid: "blog",
+	modelUid: "article",
+	query: {
+		select: ["title", "slug", "description"],
+	},
+});
+
+// prerender page
+export const prerender = true;
+---
+
+<Layout title={`ブログ | ${import.meta.env.APP_NAME}`} description="ブログ">
+	<ul>
+		{
+			articles.map((article) => {
+				return (
+					<li>
+						<a href={`/blog/article/${article.slug}`}>{article.title}</a>
+					</li>
+				);
+			})
+		}
+	</ul>
+</Layout>

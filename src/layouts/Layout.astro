@@ -1,51 +1,100 @@
 ---
+import Header from "../components/common/Header.astro";
+import Footer from "../components/common/Footer.astro";
+
 interface Props {
 	title: string;
+	description: string;
 }
 
-const { title } = Astro.props;
+const { title, description } = Astro.props;
+
+// prerender page
+export const prerender = true;
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
+<html lang="ja">
+	<head prefix="og: https://ogp.me/ns#">
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:title" content={title} />
+		<meta property="og:image" content={`${import.meta.env.APP_URL}/public/portfolio-favicon.png`} />
+
+		<!--noindex nofollow-->
+		<!-- <meta name="robots" content="noindex" />
+		<meta name="robots" content="nofollow" /> -->
+
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" href="/portfolio-favicon.png" />
+
+		<!--Reset CSS -->
+		<link rel="stylesheet" href="https://unpkg.com/destyle.css@3.0.2/destyle.min.css" />
+
+		<!--Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;900&family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&&family=Zen+Dots&display=swap" rel="stylesheet" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
+
 	<body>
-		<slot />
+		<Header />
+		<main>
+			<slot />
+		</main>]
+		<Footer />
+
+		<!--ダークモード -->
+		<script is:inline>
+			// localStorageにデータがあるときはそちらを適用
+			if (typeof window.localStorage.getItem("theme") === "string") {
+				const currentTheme = window.localStorage.getItem("theme");
+				if (currentTheme === "dark") {
+					document.documentElement.classList.add("dark");
+				}
+			}
+			// localStorageになにもない時はmatchMediaで判定
+			if (typeof window.localStorage.getItem("theme") !== "string" && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+				document.documentElement.classList.add("dark");
+			}
+		</script>
 	</body>
 </html>
-<style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
+
+<style is:global lang="scss">
 	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
+		font-family: "Montserrat", "Noto sans JP", "sans-serif";
+		scroll-behavior: smooth;
 	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
+
+	body {
+		overflow-x: hidden;
+		line-break: strict;
+		word-break: break-word;
+		overflow-wrap: break-word;
+		word-wrap: break-word;
+	}
+
+	main {
+		color: var(--text-primary-color);
+		background: var(--bg-primary-color);
+		width: 100%;
+		margin-top: 36px;
+		min-height: calc(100vh - 36px);
+
+		@include resp(sm) {
+			margin-top: 48px;
+			min-height: calc(100vh - 40px);
+		}
+
+		@include resp(lg) {
+			margin-top: 64px;
+			min-height: calc(100vh - 44px);
+		}
 	}
 </style>

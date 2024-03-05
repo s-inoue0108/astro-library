@@ -1,0 +1,63 @@
+$amber: rgb(251 191 36);
+$orange: rgb(251 146 60);
+$rose: rgb(251 113 133);
+$sky: rgb(14 165 233);
+$tropic-gradient: linear-gradient(90deg, $amber, $orange 50%, $rose);
+$tropic-gradient-to-above: linear-gradient(0deg, $amber, $orange 50%, $rose);
+$tropic-gradient-to-left: linear-gradient(-90deg, $amber, $orange 50%, $rose);
+
+$black: rgb(0, 0, 0);
+$white: rgb(255, 255, 255);
+$slate: rgb(232, 236, 241);
+$sten-white: rgb(243, 243, 243);
+$deep-gray: rgb(9, 13, 24);
+$dark-gray: rgb(17, 24, 39);
+$shadow-gray: #ccc;
+$navy: rgb(0 11 41);
+$slate-400: rgb(148 163 184);
+$gray-600: rgb(75 85 99);
+
+// テーマ
+$schemes: light, dark;
+
+$scheme-colors: (
+	bg-primary: (
+		$slate,
+		$deep-gray,
+	),
+	bg-secondary: (
+		$sten-white,
+		$dark-gray,
+	),
+	bg-accent: (
+		$rose,
+		$sky,
+	),
+	text-primary: (
+		$black,
+		$white,
+	),
+	text-secondary: (
+		$gray-600,
+		$slate-400,
+	),
+	border: (
+		$slate-400,
+		$gray-600,
+	),
+	shadow: (
+		$shadow-gray,
+		$black,
+	),
+);
+
+@each $scheme in $schemes {
+	// テーマごとのクラスを作成
+	.#{$scheme} {
+		// 色を定義
+		@each $name, $colors in $scheme-colors {
+			$color: nth($colors, index($schemes, $scheme));
+			--#{$name}-color: #{$color};
+		}
+	}
+}

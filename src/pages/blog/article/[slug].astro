@@ -1,0 +1,70 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import Toc from "../../../components/blog/article/Toc.vue";
+// Newt
+import { newtClient } from "../../../lib/newt/client";
+import type { Article } from "../../../lib/newt/types";
+// KaTeX
+import "katex/dist/katex.min.css";
+// Prism
+import Prism from "prismjs";
+// Prism Language
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-bash";
+import "prismjs/components/prism-css";
+import "prismjs/components/prism-css-extras";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-json";
+import "prismjs/components/prism-markup";
+import "prismjs/components/prism-markup-templating";
+import "prismjs/components/prism-php";
+import "prismjs/components/prism-pug";
+import "prismjs/components/prism-scss";
+import "prismjs/components/prism-csv";
+import "prismjs/components/prism-django";
+import "prismjs/components/prism-docker";
+import "prismjs/components/prism-yaml";
+import "prismjs/components/prism-wolfram";
+import "prismjs/components/prism-vim";
+import "prismjs/components/prism-excel-formula";
+import "prismjs/components/prism-latex";
+import "prismjs/components/prism-sql";
+import "prismjs/components/prism-regex";
+import "prismjs/components/prism-markdown";
+// Prism Theme
+import "prismjs/themes/prism-okaidia.min.css";
+// Cheerio
+import { load } from "cheerio";
+
+// prerender config
+export const getStaticPaths = async () => {
+	const { items: articles } = await newtClient.getContents<Article>({
+		appUid: "blog",
+		modelUid: "article",
+	});
+	return articles.map((article) => ({
+		params: { slug: article.slug },
+		props: { article },
+	}));
+};
+
+const { article } = Astro.props;
+
+// Table of contents
+const headings: string[] = [];
+const $ = load(article.content.data);
+$("h1,h2,h3").each((_, elm) => {
+	const heading = $(elm).text();
+	headings.push(heading);
+	$(elm).contents().wrap(`<a id="${heading}" href="#${heading}"></a>`);
+});
+article.content.data = $.html();
+
+// prerender page
+export const prerender = true;
+---
+
+<Layout title={`${article.title}`} description={`${article.description}`}>
+	<Toc headings={headings} />
+	<article set:html={article.content.data} />
+</Layout>
