@@ -1,11 +1,15 @@
 ---
 import Theme from "./buttons/Theme.vue";
+// Image
+import { Image } from "astro:assets";
+// HeaderImage
+import HeaderImage from "../../images/common/portfolio-favicon.png";
 ---
 
 <header>
 	<ul class="app-title">
 		<a href={import.meta.env.APP_URL} class="header-img">
-			<img src="/portfolio-favicon.png" />
+			<Image src={HeaderImage} alt={import.meta.env.APP_NAME} />
 		</a>
 		<h1 class="title">
 			{import.meta.env.APP_NAME}
@@ -65,26 +69,36 @@ import Theme from "./buttons/Theme.vue";
 			}
 
 			.header-img {
+				width: calc(36px * 0.8);
 				height: calc(36px * 0.8);
 
 				@include resp(sm) {
+					width: calc(48px * 0.8);
 					height: calc(48px * 0.8);
 				}
 
 				@include resp(lg) {
+					width: calc(64px * 0.8);
 					height: calc(64px * 0.8);
 				}
 
 				img {
+					width: 100%;
 					height: 100%;
-					object-fit: cover;
-					border-radius: 2px;
+					border-radius: 8px;
+					object-fit: contain;
 
 					&:active {
 						opacity: 0.7;
 					}
 				}
 			}
+		}
+
+		.buttons {
+			display: flex;
+			align-items: baseline;
+			gap: 64px;
 		}
 	}
 </style>
