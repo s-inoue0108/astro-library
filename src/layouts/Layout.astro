@@ -9,6 +9,8 @@ interface Props {
 
 const { title, description } = Astro.props;
 
+const currentPath = Astro.url.pathname;
+
 // prerender page
 export const prerender = true;
 ---
@@ -43,24 +45,30 @@ export const prerender = true;
 	</head>
 
 	<body>
-		<Header />
+		{currentPath !== "/" ? <Header /> : <></>}
 		<main>
 			<slot />
-		</main>]
+		</main>
 		<Footer />
 
 		<!--ダークモード -->
 		<script is:inline>
-			// localStorageにデータがあるときはそちらを適用
 			if (typeof window.localStorage.getItem("theme") === "string") {
-				const currentTheme = window.localStorage.getItem("theme");
-				if (currentTheme === "dark") {
+				if (window.localStorage.getItem("theme") === "dark") {
+					document.documentElement.classList.remove("light");
 					document.documentElement.classList.add("dark");
+				} else {
+					document.documentElement.classList.remove("dark");
+					document.documentElement.classList.add("light");
 				}
-			}
-			// localStorageになにもない時はmatchMediaで判定
-			if (typeof window.localStorage.getItem("theme") !== "string" && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-				document.documentElement.classList.add("dark");
+			} else {
+				if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+				    document.documentElement.classList.remove("light");
+				    document.documentElement.classList.add("dark");
+			    } else {
+				    document.documentElement.classList.remove("dark");
+				    document.documentElement.classList.add("light");
+			    }
 			}
 		</script>
 	</body>
@@ -81,21 +89,20 @@ export const prerender = true;
 	}
 
 	main {
-		color: var(--text-primary-color);
-		background: var(--bg-primary-color);
+		color: getColor(--text-primary-color);
+		background: getColor(--bg-primary-color);
 		width: 100%;
-		margin-top: 36px;
 		min-height: calc(100vh - 36px);
-
-		padding: 0 1rem;
+		padding: 1rem;
+		padding-top: calc(36px + 1rem);
 
 		@include resp(sm) {
-			margin-top: 48px;
+			padding-top: calc(48px + 1rem);
 			min-height: calc(100vh - 40px);
 		}
 
 		@include resp(lg) {
-			margin-top: 64px;
+			padding-top: calc(64px + 1rem);
 			min-height: calc(100vh - 44px);
 		}
 	}

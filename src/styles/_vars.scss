@@ -17,47 +17,45 @@ $navy: rgb(0 11 41);
 $slate-400: rgb(148 163 184);
 $gray-600: rgb(75 85 99);
 
-// テーマ
-$schemes: light, dark;
+// HEX形式のカラーコードをRGBに変換
+@function hexToRgb($hex) {
+	@return red($hex), green($hex), blue($hex);
+}
 
-$scheme-colors: (
-	bg-primary: (
-		$slate,
-		$deep-gray,
-	),
-	bg-secondary: (
-		$sten-white,
-		$dark-gray,
-	),
-	bg-accent: (
-		$rose,
-		$sky,
-	),
-	text-primary: (
-		$black,
-		$white,
-	),
-	text-secondary: (
-		$gray-600,
-		$slate-400,
-	),
-	border: (
-		$slate-400,
-		$gray-600,
-	),
-	shadow: (
-		$shadow-gray,
-		$black,
-	),
+// CSS変数をRGBA関数で使えるようにする
+@function getColor($color_name, $alpha: 1) {
+	@return rgba(var(#{$color_name}), $alpha);
+}
+
+// テーマ
+$light-themes: (
+	bg-primary: $slate,
+	bg-secondary: $sten-white,
+	text-primary: $black,
+	text-secondary: $gray-600,
+	border: $slate-400,
+	shadow: $shadow-gray,
 );
 
-@each $scheme in $schemes {
-	// テーマごとのクラスを作成
-	.#{$scheme} {
-		// 色を定義
-		@each $name, $colors in $scheme-colors {
-			$color: nth($colors, index($schemes, $scheme));
-			--#{$name}-color: #{$color};
-		}
+$dark-themes: (
+	bg-primary: $deep-gray,
+	bg-secondary: $dark-gray,
+	text-primary: $white,
+	text-secondary: $slate-400,
+	border: $gray-600,
+	shadow: $black,
+);
+
+// ライトテーマ
+.light {
+	@each $key, $color in $light-themes {
+		--#{$key}-color: #{hexToRgb($color)};
+	}
+}
+
+// ダークテーマ
+.dark {
+	@each $key, $color in $dark-themes {
+		--#{$key}-color: #{hexToRgb($color)};
 	}
 }

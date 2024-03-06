@@ -34,14 +34,14 @@ const year = date.getFullYear();
 		}
 
 		z-index: 9999;
-		position: absolute;
+		position: sticky;
 		top: 100vh;
-		background: var(--bg-secondary-color);
-		box-shadow: 0 0 3px var(--shadow-color);
+		background: getColor(--bg-secondary-color);
+		box-shadow: 0 0 3px getColor(--shadow-color);
 
 		.copyright {
 			font-size: 0.8rem;
-			color: var(--text-primary-color);
+			color: getColor(--text-primary-color);
 			position: absolute;
 			top: 50%;
 			left: 50%;
@@ -58,7 +58,7 @@ const year = date.getFullYear();
 
 		.github-link {
 			font-size: 1.2rem;
-			color: var(--text-primary-color);
+			color: getColor(--text-primary-color);
 			position: absolute;
 			top: 50%;
 			right: 6px;
@@ -69,7 +69,7 @@ const year = date.getFullYear();
 
 			svg {
 				width: 0.9rem;
-				fill: var(--text-primary-color);
+				fill: getColor(--text-primary-color);
 
 				@include resp(sm) {
 					width: 1.4rem;
@@ -81,7 +81,7 @@ const year = date.getFullYear();
 			}
 
 			@include resp(lg) {
-				border: solid 0.5px var(--text-primary-color);
+				border: solid 0.5px getColor(--text-primary-color);
 				border-radius: 12px;
 				padding: 2px 4px;
 			}

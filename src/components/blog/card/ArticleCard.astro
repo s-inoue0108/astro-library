@@ -1,5 +1,6 @@
 ---
 import type { Article } from "../../../lib/newt/types";
+import TagCard from "../card/TagCard.vue";
 // Image
 import { Image } from "astro:assets";
 // Header Image
@@ -11,6 +12,15 @@ interface Props {
 
 const { articleProps } = Astro.props;
 const { title, slug, description, thambnail, category, tags, _sys } = articleProps;
+
+const sliceText = (text: string | undefined, limit: number): string => {
+	if (!text || text.length === 0) {
+		return "";
+	} else if (text && text.length > limit) {
+		return `${text.slice(0, limit)}...`;
+	}
+	return text;
+};
 ---
 
 <a href={`/blog/article/${slug}`} class="card">
@@ -19,28 +29,17 @@ const { title, slug, description, thambnail, category, tags, _sys } = articlePro
 	</div>
 	<ul class="info">
 		<li class="title">
-			<h1>{title}</h1>
+			<h1>{sliceText(title, 30)}</h1>
 		</li>
 		<li class="description">
-			<p>{description}</p>
+			<p>{sliceText(description, 40)}</p>
 		</li>
 		<li class="meta-info">
 			<div class="tags">
 				{
 					tags && tags.length !== 0 ? (
 						tags.slice(0, 2).map((tag) => {
-							return (
-								<div class="tag">
-									{tag.icon ? (
-										<Image src={tag.icon.src} width={tag.icon.width} height={tag.icon.height} alt={tag.icon?.altText ?? ""} />
-									) : (
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-											<path d="M0 80V229.5c0 17 6.7 33.3 18.7 45.3l176 176c25 25 65.5 25 90.5 0L418.7 317.3c25-25 25-65.5 0-90.5l-176-176c-12-12-28.3-18.7-45.3-18.7H48C21.5 32 0 53.5 0 80zm112 32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
-										</svg>
-									)}
-									<label>{tag.name}</label>
-								</div>
-							);
+							return <TagCard tag={tag} isLinkDisabled={true} />;
 						})
 					) : (
 						<div>No Tag</div>
@@ -60,11 +59,23 @@ const { title, slug, description, thambnail, category, tags, _sys } = articlePro
 <style lang="scss">
 	.card {
 		position: relative;
-		display: block;
 		width: 100%;
 		height: 256px;
-		border: solid 2px var(--border-color);
+		border: solid 2px getColor(--border-color);
 		border-radius: 8px;
+
+		&:active {
+			opacity: 0.5;
+			transition: 0.3s ease;
+		}
+
+		@include resp(lg) {
+			width: calc(50% - 0.5rem);
+		}
+
+		@include resp(xl) {
+			width: calc(25% - 0.25rem);
+		}
 
 		.thambnail {
 			width: 100%;
@@ -85,19 +96,21 @@ const { title, slug, description, thambnail, category, tags, _sys } = articlePro
 			position: absolute;
 			bottom: 0;
 			border-radius: 0 0 6px 6px;
-			background: var(--bg-secondary-color);
-			opacity: 0.8;
+			background: getColor(--bg-secondary-color, 0.7);
 
 			.title {
-				font-size: 1.5rem;
+				height: calc(2.8rem + 10px);
+				font-size: 1.4rem;
 				font-weight: 700;
-				padding: 0.1rem 0.2rem;
+				padding: 0.2rem;
+				letter-spacing: 0.7px;
 			}
 
 			.description {
+				height: calc(2rem + 10px);
 				font-size: 1rem;
 				font-weight: 400;
-				padding: 0.2rem 0.2rem;
+				padding: 0.2rem;
 			}
 
 			.meta-info {
@@ -115,37 +128,23 @@ const { title, slug, description, thambnail, category, tags, _sys } = articlePro
 					align-items: center;
 					gap: 0.5rem;
 					height: 100%;
-
-					.tag {
-						background: $rose;
-						border-radius: 4px;
-						padding: 0.2rem;
-						height: 100%;
-						display: flex;
-						align-items: center;
-						gap: 0.2rem;
-
-						img {
-							width: auto;
-							height: 0.8rem;
-							object-fit: contain;
-						}
-
-						label {
-							font-size: 0.8rem;
-							font-weight: 700;
-						}
-					}
 				}
 
 				.published-at {
 					height: 100%;
 					display: flex;
 					align-items: center;
-					gap: 0.2rem;
+					gap: 0.3rem;
+
 					svg {
-						height: 1rem;
-						fill: var(--text-primary-color);
+						height: 0.8rem;
+						fill: getColor(--text-primary-color);
+					}
+
+					label {
+						font-size: 0.8rem;
+						font-weight: 700;
+						letter-spacing: 0.7px;
 					}
 				}
 			}
