@@ -8,8 +8,6 @@ const articles = await getArticles(10, "desc");
 
 // prerender page
 export const prerender = true;
-
-console.log(articles);
 ---
 
 <Layout title={`ブログ | ${import.meta.env.APP_NAME}`} description="ブログ">

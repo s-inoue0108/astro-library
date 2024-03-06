@@ -1,4 +1,5 @@
 import { createClient } from "newt-client-js";
+import type { Article } from "../newt/types";
 
 // Newt Client
 export const newtClient = createClient({
