@@ -27,11 +27,24 @@ const { title, slug, description, thambnail, category, tags, _sys } = articlePro
 		<li class="meta-info">
 			<div class="tags">
 				{
-					tags
-						? tags.slice(0, 2).map((tag) => {
-								return <span class="tag">{tag.name}</span>;
-							})
-						: ""
+					tags && tags.length !== 0 ? (
+						tags.slice(0, 2).map((tag) => {
+							return (
+								<div class="tag">
+									{tag.icon ? (
+										<Image src={tag.icon.src} width={tag.icon.width} height={tag.icon.height} alt={tag.icon?.altText ?? ""} />
+									) : (
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+											<path d="M0 80V229.5c0 17 6.7 33.3 18.7 45.3l176 176c25 25 65.5 25 90.5 0L418.7 317.3c25-25 25-65.5 0-90.5l-176-176c-12-12-28.3-18.7-45.3-18.7H48C21.5 32 0 53.5 0 80zm112 32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+										</svg>
+									)}
+									<label>{tag.name}</label>
+								</div>
+							);
+						})
+					) : (
+						<div>No tags</div>
+					)
 				}
 			</div>
 			<div class="published-at">
@@ -71,6 +84,27 @@ const { title, slug, description, thambnail, category, tags, _sys } = articlePro
 			border-radius: 0 0 6px 6px;
 			background: var(--bg-secondary-color);
 			opacity: 0.5;
+
+			.meta-info {
+				height: 1rem;
+
+				.tags {
+					display: flex;
+					align-items: center;
+					gap: 0.2rem;
+					height: 1rem;
+
+					.tag {
+						height: 1rem;
+
+						img {
+							width: auto;
+							height: 100%;
+							object-fit: contain;
+						}
+					}
+				}
+			}
 		}
 	}
 </style>
