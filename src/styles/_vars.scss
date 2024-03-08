@@ -13,9 +13,10 @@ $sten-white: rgb(243, 243, 243);
 $deep-gray: rgb(9, 13, 24);
 $dark-gray: rgb(17, 24, 39);
 $shadow-gray: #ccc;
-$navy: rgb(0 11 41);
-$slate-400: rgb(148 163 184);
-$gray-600: rgb(75 85 99);
+$navy: rgb(0, 11, 41);
+$slate-300: rgb(203, 213, 225);
+$slate-400: rgb(148, 163, 184);
+$gray-600: rgb(75, 85, 99);
 
 // HEX形式のカラーコードをRGBに変換
 @function hexToRgb($hex) {
@@ -33,7 +34,7 @@ $light-themes: (
 	bg-secondary: $sten-white,
 	text-primary: $black,
 	text-secondary: $gray-600,
-	border: $slate-400,
+	border: $slate-300,
 	shadow: $shadow-gray,
 );
 

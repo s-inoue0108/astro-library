@@ -16,7 +16,8 @@ const { title, slug, description, thambnail, category, tags, _sys } = articlePro
 const sliceText = (text: string | undefined, limit: number): string => {
 	if (!text || text.length === 0) {
 		return "";
-	} else if (text && text.length > limit) {
+	}
+	if (text && text.length > limit) {
 		return `${text.slice(0, limit)}...`;
 	}
 	return text;
@@ -39,10 +40,10 @@ const sliceText = (text: string | undefined, limit: number): string => {
 				{
 					tags && tags.length !== 0 ? (
 						tags.slice(0, 2).map((tag) => {
-							return <TagCard tag={tag} isLinkDisabled={true} />;
+							return <TagCard tag={tag} isLink={false} />;
 						})
 					) : (
-						<div>No Tag</div>
+						<></>
 					)
 				}
 			</div>
@@ -61,7 +62,7 @@ const sliceText = (text: string | undefined, limit: number): string => {
 		position: relative;
 		width: 100%;
 		height: 256px;
-		border: solid 2px getColor(--border-color);
+		border: solid 4px getColor(--border-color);
 		border-radius: 8px;
 
 		&:active {
@@ -86,7 +87,7 @@ const sliceText = (text: string | undefined, limit: number): string => {
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
-				border-radius: 6px;
+				border-radius: 4px;
 			}
 		}
 
@@ -95,7 +96,7 @@ const sliceText = (text: string | undefined, limit: number): string => {
 			height: 50%;
 			position: absolute;
 			bottom: 0;
-			border-radius: 0 0 6px 6px;
+			border-radius: 0 0 4px 4px;
 			background: getColor(--bg-secondary-color, 0.7);
 
 			.title {
@@ -111,6 +112,10 @@ const sliceText = (text: string | undefined, limit: number): string => {
 				font-size: 1rem;
 				font-weight: 400;
 				padding: 0.2rem;
+
+				p {
+					color: getColor(--text-secondary-color);
+				}
 			}
 
 			.meta-info {
@@ -124,6 +129,7 @@ const sliceText = (text: string | undefined, limit: number): string => {
 				padding: 0 0.2rem;
 
 				.tags {
+					width: max-content;
 					display: flex;
 					align-items: center;
 					gap: 0.5rem;
@@ -131,12 +137,14 @@ const sliceText = (text: string | undefined, limit: number): string => {
 				}
 
 				.published-at {
+					width: max-content;
 					height: 100%;
 					display: flex;
 					align-items: center;
 					gap: 0.3rem;
 
 					svg {
+						width: auto;
 						height: 0.8rem;
 						fill: getColor(--text-primary-color);
 					}

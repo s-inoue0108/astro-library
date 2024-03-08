@@ -5,11 +5,11 @@ import { computed } from "vue";
 
 interface Props {
     tag: Tag;
-    isLinkDisabled: boolean
+    isLink?: boolean
 }
 
-const { tag, isLinkDisabled } = withDefaults(defineProps<Props>(), {
-    isLinkDisabled: false,
+const { tag, isLink } = withDefaults(defineProps<Props>(), {
+    isLink: true,
 })
 
 const themeColor = computed<string>(() => {
@@ -18,7 +18,15 @@ const themeColor = computed<string>(() => {
 </script>
 
 <template>
-    <div class="tag">
+    <a :href="`/blog/tag/${tag.slug}`" class="tag" v-if="isLink">
+        <img :src="tag.icon.src" :alt="tag.icon?.altText ?? ''" v-if="tag.icon" />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" v-else>
+            <path
+                d="M0 80V229.5c0 17 6.7 33.3 18.7 45.3l176 176c25 25 65.5 25 90.5 0L418.7 317.3c25-25 25-65.5 0-90.5l-176-176c-12-12-28.3-18.7-45.3-18.7H48C21.5 32 0 53.5 0 80zm112 32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+        </svg>
+        <label>{{ tag.name }}</label>
+    </a>
+    <div class="tag" v-else>
         <img :src="tag.icon.src" :alt="tag.icon?.altText ?? ''" v-if="tag.icon" />
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" v-else>
             <path
@@ -34,18 +42,16 @@ const themeColor = computed<string>(() => {
     border-radius: 4px;
     padding: 0.2rem;
     height: 100%;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.3rem;
 
     img {
-        width: auto;
         height: 0.8rem;
         object-fit: contain;
     }
 
     svg {
-        width: auto;
         height: 0.8rem;
         fill: getColor(--text-primary-color);
     }

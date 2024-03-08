@@ -1,5 +1,5 @@
 import { createClient } from "newt-client-js";
-import type { Article } from "../newt/types";
+import type { Article, Category, Tag } from "../newt/types";
 
 // Newt Client
 export const newtClient = createClient({
@@ -21,4 +21,22 @@ export const getArticles = async (limit: number = 10, order: "asc" | "desc" = "d
 		},
 	});
 	return articles;
+};
+
+// Get Blog Categories
+export const getCategories = async (): Promise<Category[]> => {
+	const { items: categories } = await newtClient.getContents<Category>({
+		appUid: "blog",
+		modelUid: "category",
+	});
+	return categories;
+};
+
+// Get Blog Tags
+export const getTags = async (): Promise<Tag[]> => {
+	const { items: tags } = await newtClient.getContents<Tag>({
+		appUid: "blog",
+		modelUid: "tag",
+	});
+	return tags;
 };
