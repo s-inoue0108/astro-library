@@ -58,10 +58,12 @@ const toggleOpen = (): void => {
         .title {
             font-size: 1.2rem;
             font-weight: 700;
+            width: calc(100% - 1.2rem);
+            white-space: nowrap;
         }
 
         .toggle-button {
-            width: max-content;
+            width: 1.2rem;
             height: 1.2rem;
 
             svg {
