@@ -38,7 +38,6 @@ const themeColor = computed<string>(() => {
 
 <style scoped lang="scss">
 .tag {
-    cursor: pointer;
     background: v-bind(themeColor);
     border-radius: 4px;
     padding: 0.2rem;
@@ -46,6 +45,11 @@ const themeColor = computed<string>(() => {
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
+
+    &:active {
+        opacity: .5;
+        transition: .3s ease;
+    }
 
     img {
         height: 0.8rem;
@@ -60,6 +64,7 @@ const themeColor = computed<string>(() => {
     label {
         font-size: 0.8rem;
         font-weight: 700;
+        cursor: pointer;
     }
 }
 </style>

@@ -1,8 +1,132 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import SvgButton from "../components/common/buttons/Svg.vue";
+import { svgPaths, svgViewBoxes } from "../lib/svg/paths";
+// Image
+import { Image } from "astro:assets";
+// HeaderImage
+import HeaderImage from "../images/common/portfolio-favicon.png";
 
 // prerender page
 export const prerender = true;
 ---
 
-<Layout title={`ホーム | ${import.meta.env.APP_NAME}`} description="ホーム" />
+<Layout title={`ホーム | ${import.meta.env.APP_NAME}`} description="ホーム">
+	<div class="app-title">
+		<Image src={HeaderImage} alt={import.meta.env.APP_NAME} class="header-img" />
+		<h1 class="title">
+			<span>Shota Inoue</span>
+			<span>Web Library</span>
+		</h1>
+		<ul class="buttons">
+			<li class="button">
+				<SvgButton svgIconPath={svgPaths.user} svgViewBox={svgViewBoxes.user} isLink={true} linkUrl="/profile" />
+			</li>
+			<li class="button">
+				<SvgButton svgIconPath={svgPaths.envelope} svgViewBox={svgViewBoxes.envelope} isLink={true} linkUrl="/contact" />
+			</li>
+			<li class="button">
+				<SvgButton svgIconPath={svgPaths.penNib} svgViewBox={svgViewBoxes.penNib} isLink={true} linkUrl="/blog" title="BLOG" radius="64px" width="6.5rem" />
+			</li>
+		</ul>
+	</div>
+</Layout>
+
+<style scoped lang="scss">
+	.app-title {
+		width: max-content;
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+
+		display: flex;
+		flex-direction: column;
+		gap: 3rem;
+
+		@keyframes fade-in-out {
+			0% {
+				opacity: 0;
+			}
+
+			30% {
+				opacity: 1;
+			}
+
+			70% {
+				opacity: 1;
+			}
+
+			100% {
+				opacity: 0;
+			}
+		}
+
+		@keyframes fade-in-title {
+			0% {
+				opacity: 0;
+			}
+
+			80% {
+				opacity: 0;
+			}
+
+			100% {
+				opacity: 1;
+			}
+		}
+
+		@keyframes fade-in-buttons {
+			0% {
+				opacity: 0;
+			}
+
+			80% {
+				opacity: 0;
+				transform: translateY(8px);
+			}
+
+			100% {
+				opacity: 1;
+			}
+		}
+
+		.header-img {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 128px;
+			height: auto;
+			object-fit: contain;
+			border-radius: 16px;
+			margin: auto;
+			animation: 2s fade-in-out forwards;
+		}
+
+		.title {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 1rem;
+
+			font-size: 2.4rem;
+			font-weight: 700;
+			letter-spacing: 1.5px;
+			animation: 2s fade-in-title forwards;
+		}
+
+		.buttons {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			gap: 0.5rem;
+			animation: 3s fade-in-buttons forwards;
+
+			.button {
+				fill: getColor(--text-primary-color);
+			}
+		}
+	}
+</style>

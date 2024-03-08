@@ -1,13 +1,24 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
-import { svgPaths } from "../../../lib/svg/paths"
+import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths"
 
 type Theme = 'light' | 'dark';
 
+interface SvgMetadata {
+    path: string;
+    viewBox: string;
+}
+
 const theme = ref<Theme | null>(null);
 
-const svgPath = computed<string>(() => {
-    return theme.value === 'dark' ? svgPaths.moon : svgPaths.sun
+const svgMetadata = computed<SvgMetadata>(() => {
+    return theme.value === 'dark' ? {
+        path: svgPaths.moon,
+        viewBox: svgViewBoxes.moon,
+    } : {
+        path: svgPaths.sun,
+        viewBox: svgViewBoxes.sun,
+    }
 })
 
 const switchTheme = (theme: Theme): void => {
@@ -47,8 +58,8 @@ onMounted(() => {
 
 <template>
     <button type="button" @click="toggleTheme" :class="[theme === 'dark' ? 'moon' : 'sun']">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path :d="svgPath" />
+        <svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgMetadata.viewBox">
+            <path :d="svgMetadata.path" />
         </svg>
         <label>{{ theme ? theme.toUpperCase() : "" }}</label>
     </button>

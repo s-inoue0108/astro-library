@@ -1,15 +1,21 @@
 ---
-import { svgPaths } from "../../lib/svg/paths";
+import { svgPaths, svgViewBoxes } from "../../lib/svg/paths";
 const date = new Date();
 const year = date.getFullYear();
+
+const currentPath = Astro.url.pathname;
+
+const isInHome = (path: string): boolean => {
+	return path === "/";
+};
 ---
 
-<footer>
-	<div class="copyright">
+<footer class:list={{ loadingslidefade: isInHome(currentPath) }}>
+	<h6 class:list={["copyright", { loadingfade: isInHome(currentPath) }]}>
 		&copy; {year} Shota Inoue
-	</div>
-	<a href="https://github.com/s-inoue0108" target="_blank" rel="noopener noreferrer" class="github-link">
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
+	</h6>
+	<a href="https://github.com/s-inoue0108" target="_blank" rel="noopener noreferrer" class:list={["github-link", { loadingfade: isInHome(currentPath) }]}>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.gitHub}>
 			<path d={svgPaths.gitHub}> </path>
 		</svg>
 		<label>GitHub</label>
@@ -93,6 +99,44 @@ const year = date.getFullYear();
 					font-size: 1rem;
 				}
 			}
+		}
+	}
+
+	.loadingslidefade {
+		animation: 3s fade-in-footer forwards;
+	}
+
+	@keyframes fade-in-footer {
+		0% {
+			background: getColor(--bg-primary-color);
+			box-shadow: none;
+		}
+
+		80% {
+			background: getColor(--bg-primary-color);
+			box-shadow: none;
+		}
+
+		100% {
+			background: getColor(--bg-secondary-color);
+		}
+	}
+
+	.loadingfade {
+		animation: 3s fade-in-footer-items forwards;
+	}
+
+	@keyframes fade-in-footer-items {
+		0% {
+			opacity: 0;
+		}
+
+		80% {
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 1;
 		}
 	}
 </style>

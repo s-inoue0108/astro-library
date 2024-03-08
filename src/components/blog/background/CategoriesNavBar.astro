@@ -1,16 +1,10 @@
 ---
 import { getCategories } from "../../../lib/newt/client";
-import { svgPaths } from "../../../lib/svg/paths";
+import SvgButton from "../../../components/common/buttons/Svg.vue";
 
 const categories = await getCategories();
 
-const isCurrent = (path: string, slug: string): boolean => {
-	const regex = new RegExp(`\^/blog/category/${slug}/`);
-	return regex.test(path);
-};
-
 const currentPath = Astro.url.pathname;
-console.log(currentPath);
 ---
 
 <nav class="categories">
@@ -19,13 +13,7 @@ console.log(currentPath);
 			categories.map((category) => {
 				return (
 					<li class="category">
-						<a href={`/blog/category/${category.slug}/1`}>
-							<div class:list={["ring", { bgborder: isCurrent(currentPath, category.slug) }]}>
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox={category.svgViewBox} style={{ fill: category.themeColor }}>
-									<path d={category.svgIconPath} />
-								</svg>
-							</div>
-						</a>
+						<SvgButton svgIconPath={category.svgIconPath} svgViewBox={category.svgViewBox} svgFillColor={category.themeColor} isLink={true} linkUrl={`/blog/category/${category.slug}/1`} currentPath={currentPath} testPathRegex={new RegExp(`\^/blog/category/${category.slug}/`)} width="28.8px" height="28.8px" />
 					</li>
 				);
 			})
@@ -57,7 +45,7 @@ console.log(currentPath);
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			gap: 1rem;
+			gap: 0.5rem;
 
 			.category {
 				height: 100%;

@@ -1,6 +1,4 @@
 ---
-import { ViewTransitions } from "astro:transitions";
-
 import Header from "../components/common/Header.astro";
 import Footer from "../components/common/Footer.astro";
 
@@ -44,11 +42,10 @@ export const prerender = true;
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;900&family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&&family=Zen+Dots&display=swap" rel="stylesheet" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-		<ViewTransitions />
 	</head>
 
-	<body>
-		{currentPath !== "/" ? <Header /> : <></>}
+	<body class:list={{ "loading-fade": currentPath !== "/" }}>
+		<Header />
 		<main>
 			<slot />
 		</main>
@@ -66,12 +63,12 @@ export const prerender = true;
 				}
 			} else {
 				if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-				    document.documentElement.classList.remove("light");
-				    document.documentElement.classList.add("dark");
-			    } else {
-				    document.documentElement.classList.remove("dark");
-				    document.documentElement.classList.add("light");
-			    }
+					document.documentElement.classList.remove("light");
+					document.documentElement.classList.add("dark");
+				} else {
+					document.documentElement.classList.remove("dark");
+					document.documentElement.classList.add("light");
+				}
 			}
 		</script>
 	</body>
@@ -89,6 +86,20 @@ export const prerender = true;
 		word-break: break-word;
 		overflow-wrap: break-word;
 		word-wrap: break-word;
+	}
+
+	.loading-fade {
+		animation: loading-fade 0.3s forwards;
+	}
+
+	@keyframes loading-fade {
+		0% {
+			opacity: 0.3;
+		}
+
+		100% {
+			opacity: 1;
+		}
 	}
 
 	main {
