@@ -32,6 +32,8 @@ export interface Category extends CommonProps {
 	slug: string;
 	description?: string;
 	image?: NewtImageProps;
+	svgIconPath: string;
+	svgViewBox: string;
 	themeColor: string;
 }
 

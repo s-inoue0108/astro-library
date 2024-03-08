@@ -38,6 +38,7 @@ const themeColor = computed<string>(() => {
 
 <style scoped lang="scss">
 .tag {
+    cursor: pointer;
     background: v-bind(themeColor);
     border-radius: 4px;
     padding: 0.2rem;

@@ -44,7 +44,7 @@ interface Props {
 const { page, category } = Astro.props;
 ---
 
-<Layout title={`${category.name}の記事一覧 | ブログ | ${import.meta.env.APP_NAME}`} description={`カテゴリ "${category.name}" の記事一覧です`}>
+<Layout title={`${category.name}の記事一覧 | ブログ | ${import.meta.env.APP_NAME}`} description={category.description ?? ""}>
 	<PageTitle title={category.name} bgImage={category.image} />
 	<CategoriesNavBar />
 	<ul class="cards">
