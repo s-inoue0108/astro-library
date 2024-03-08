@@ -16,7 +16,7 @@ const { title, svgIconPath, iconImage, bgImage } = Astro.props;
 ---
 
 <div class="page-title">
-	{bgImage ? <Image src={bgImage.src} width={bgImage.width} height={bgImage.height} alt={bgImage.altText} class="bg-image" /> : <Image src={TokyoNightScape} alt="Tokyo" class="bg-image" />}
+	{bgImage ? <Image src={bgImage.src} width={bgImage.width} height={bgImage.height} alt={bgImage.altText} class="bg-image" /> : <Image src={TokyoNightScape} alt="東京の夜景" class="bg-image" />}
     <div class="title-section">
         {
             iconImage ? <Image src={iconImage.src} width={iconImage.width} height={iconImage.height} alt={iconImage.altText} class="icon-image" /> : <></>
@@ -41,7 +41,7 @@ const { title, svgIconPath, iconImage, bgImage } = Astro.props;
 			height: 100%;
 			object-fit: cover;
 			object-position: 50% 75%;
-			opacity: 0.7;
+			opacity: 0.5;
 		}
 
         .title-section {

@@ -24,19 +24,25 @@ export const getArticles = async (limit: number = 10, order: "asc" | "desc" = "d
 };
 
 // Get Blog Categories
-export const getCategories = async (): Promise<Category[]> => {
+export const getCategories = async (depth: number = 2): Promise<Category[]> => {
 	const { items: categories } = await newtClient.getContents<Category>({
 		appUid: "blog",
 		modelUid: "category",
+		query: {
+			depth: depth,
+		},
 	});
 	return categories;
 };
 
 // Get Blog Tags
-export const getTags = async (): Promise<Tag[]> => {
+export const getTags = async (depth: number = 2): Promise<Tag[]> => {
 	const { items: tags } = await newtClient.getContents<Tag>({
 		appUid: "blog",
 		modelUid: "tag",
+		query: {
+			depth: depth,
+		},
 	});
 	return tags;
 };

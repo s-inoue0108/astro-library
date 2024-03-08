@@ -5,25 +5,25 @@ import CategoriesNavBar from "../../../../components/blog/background/CategoriesN
 import ArticleCard from "../../../../components/blog/card/ArticleCard.astro";
 import Modal from "../../../../components/common/modal/ToggleableModal.vue";
 import TagCard from "../../../../components/blog/card/TagCard.vue";
-import { getArticles, getTags } from "../../../../lib/newt/client";
-import type { Article, Tag } from "../../../../lib/newt/types";
+import { getArticles, getCategories, getTags } from "../../../../lib/newt/client";
+import type { Article, Category } from "../../../../lib/newt/types";
 import type { Page, GetStaticPathsOptions } from "astro";
 import { svgPaths } from "../../../../lib/svg/paths";
 
 export const getStaticPaths = async ({ paginate }: { paginate: GetStaticPathsOptions["paginate"] }) => {
-	const tags = await getTags();
-	const tagSlugs = tags.map((tag) => tag.slug);
+	const categories = await getCategories();
+	const categorySlugs = categories.map((category) => category.slug);
 
 	const articles = await getArticles(1000);
 
-	const returnArr = tagSlugs.flatMap((tagSlug) => {
+	const returnArr = categorySlugs.flatMap((categorySlug) => {
 		const filteredArticles = articles.filter((article) => {
-			return article.tags && article.tags.map((tag: Tag) => tag.slug).includes(tagSlug);
+			return article.category.slug === categorySlug;
 		});
 		return paginate(filteredArticles, {
-			params: { tagSlug: tagSlug },
+			params: { categorySlug: categorySlug },
 			pageSize: 10,
-			props: { tag: tags.find((tag: Tag) => tag.slug === tagSlug)! },
+			props: { category: categories.find((category: Category) => category.slug === categorySlug)! },
 		});
 	});
 
@@ -33,19 +33,19 @@ export const getStaticPaths = async ({ paginate }: { paginate: GetStaticPathsOpt
 const tags = await getTags();
 
 // Route params
-// const { tagSlug }: { tagSlug: Tag["slug"] } = Astro.params;
+// const { categorySlug }: { categorySlug: Category["slug"] } = Astro.params;
 
 // Props
 interface Props {
 	page: Page<Article>;
-	tag: Tag;
+	category: Category;
 }
 
-const { page, tag } = Astro.props;
+const { page, category } = Astro.props;
 ---
 
-<Layout title={`${tag.name}の記事一覧 | ブログ | ${import.meta.env.APP_NAME}`} description={`タグ "${tag.name}" の記事一覧です`}>
-	<PageTitle title={tag.name} bgImage={tag.parentCategory.image} iconImage={tag.icon} svgIconPath={svgPaths.tag} />
+<Layout title={`${category.name}の記事一覧 | ブログ | ${import.meta.env.APP_NAME}`} description={`カテゴリ "${category.name}" の記事一覧です`}>
+	<PageTitle title={category.name} bgImage={category.image} />
 	<CategoriesNavBar />
 	<ul class="cards">
 		{
