@@ -29,6 +29,7 @@ export const getCategories = async (depth: number = 2): Promise<Category[]> => {
 		appUid: "blog",
 		modelUid: "category",
 		query: {
+			order: ["_sys.customOrder"],
 			depth: depth,
 		},
 	});
@@ -41,6 +42,7 @@ export const getTags = async (depth: number = 2): Promise<Tag[]> => {
 		appUid: "blog",
 		modelUid: "tag",
 		query: {
+			order: ["_sys.customOrder"],
 			depth: depth,
 		},
 	});
