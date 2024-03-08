@@ -1,11 +1,14 @@
 ---
 import Layout from "../../../../layouts/Layout.astro";
+import PageTitle from "../../../../components/blog/background/PageTitle.astro";
+import CategoriesNavBar from "../../../../components/blog/background/CategoriesNavBar.astro";
 import ArticleCard from "../../../../components/blog/card/ArticleCard.astro";
 import { getArticles, getTags } from "../../../../lib/newt/client";
 import type { Article, Tag } from "../../../../lib/newt/types";
-import type { Pager } from "../../../../lib/common/types";
+import type { Page, GetStaticPathsOptions } from "astro";
+import { svgPaths } from "../../../../lib/svg/paths";
 
-export const getStaticPaths = async ({ paginate }) => {
+export const getStaticPaths = async ({ paginate }: { paginate: GetStaticPathsOptions["paginate"] }) => {
 	const tags = await getTags();
 	const tagSlugs = tags.map((tag) => tag.slug);
 
@@ -30,7 +33,7 @@ export const getStaticPaths = async ({ paginate }) => {
 
 // Props
 interface Props {
-	page: Pager<Article>;
+	page: Page<Article>;
 	tag: Tag;
 }
 
@@ -38,6 +41,8 @@ const { page, tag } = Astro.props;
 ---
 
 <Layout title={`${tag.name}の記事一覧 | ブログ | ${import.meta.env.APP_NAME}`} description={`タグ "${tag.name}" の記事一覧です`}>
+	<PageTitle title={tag.name} iconImage={tag.icon} svgIconPath={svgPaths.tag} />
+	<CategoriesNavBar />
 	<ul class="cards">
 		{
 			page.data && page.data.length !== 0 ? (

@@ -1,0 +1,55 @@
+---
+import { getCategories } from "../../../lib/newt/client";
+
+const categories = await getCategories();
+---
+
+<nav class="categories">
+	<ul class="categories-list">
+		{
+			categories.map((category) => {
+				return (
+					<li class="category">
+						<a href={`/blog/category/${category.slug}/1`}>{category.name}</a>
+					</li>
+				);
+			})
+		}
+	</ul>
+</nav>
+
+<style scoped lang="scss">
+	.categories {
+		position: sticky;
+		top: 36px;
+		width: 100vw;
+		height: 2rem;
+		background: getColor(--bg-secondary-color, 0.9);
+		margin: 0 -1rem 2rem -1rem;
+		z-index: 10;
+
+		@include resp(sm) {
+			top: 48px;
+		}
+
+		@include resp(lg) {
+			top: 64px;
+		}
+
+		.categories-list {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 1rem;
+
+			.category {
+				height: 100%;
+				padding: 0.35rem 0;
+
+				a {
+					font-size: 0.7rem;
+				}
+			}
+		}
+	}
+</style>
