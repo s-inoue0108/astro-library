@@ -3,10 +3,11 @@ import { ref, computed } from "vue";
 
 interface Props {
     title: string;
+    svgIconPath?: string;
     isInitOpen?: boolean
 }
 
-const { title, isInitOpen } = withDefaults(defineProps<Props>(), {
+const { title, svgIconPath, isInitOpen } = withDefaults(defineProps<Props>(), {
     isInitOpen: true,
 })
 
@@ -24,9 +25,14 @@ const toggleOpen = (): void => {
 <template>
     <div class="modal">
         <div class="modal-info">
-            <h1 class="title">
-                {{ title }}
-            </h1>
+            <div class="title-section">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" v-if="svgIconPath">
+                    <path :d="svgIconPath" />
+                </svg>
+                <h1 class="title">
+                    {{ title }}
+                </h1>
+            </div>
             <button type="button" @click="toggleOpen" class="toggle-button">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                     <path :d="btnIconPath" />
@@ -34,7 +40,7 @@ const toggleOpen = (): void => {
             </button>
         </div>
         <Transition name="collapse">
-            <div v-if="isOpen">
+            <div v-show="isOpen">
                 <div class="border" />
                 <slot />
             </div>
@@ -55,11 +61,23 @@ const toggleOpen = (): void => {
         justify-content: space-between;
         align-items: center;
 
-        .title {
-            font-size: 1.2rem;
-            font-weight: 700;
+        .title-section {
             width: calc(100% - 1.2rem);
-            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+
+            svg {
+                height: 1.2rem;
+                fill: getColor(--text-primary-color);
+            }
+
+            .title {
+                font-size: 1.2rem;
+                font-weight: 700;
+                white-space: nowrap;
+            }
+
         }
 
         .toggle-button {

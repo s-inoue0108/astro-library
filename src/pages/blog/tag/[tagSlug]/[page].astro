@@ -1,0 +1,67 @@
+---
+import Layout from "../../../../layouts/Layout.astro";
+import ArticleCard from "../../../../components/blog/card/ArticleCard.astro";
+import { getArticles, getTags } from "../../../../lib/newt/client";
+import type { Article, Tag } from "../../../../lib/newt/types";
+import type { Pager } from "../../../../lib/common/types";
+
+export const getStaticPaths = async ({ paginate }) => {
+	const tags = await getTags();
+	const tagSlugs = tags.map((tag) => tag.slug);
+
+	const articles = await getArticles(100);
+
+	const returnArr = tagSlugs.flatMap((tagSlug) => {
+		const filteredArticles = articles.filter((article) => {
+			return article.tags && article.tags.map((tag: Tag) => tag.slug).includes(tagSlug);
+		});
+		return paginate(filteredArticles, {
+			params: { tagSlug: tagSlug },
+			pageSize: 10,
+			props: { tag: tags.find((tag: Tag) => tag.slug === tagSlug)! },
+		});
+	});
+
+	return returnArr;
+};
+
+// Route params
+// const { tagSlug }: { tagSlug: Tag["slug"] } = Astro.params;
+
+// Props
+interface Props {
+	page: Pager<Article>;
+	tag: Tag;
+}
+
+const { page, tag } = Astro.props;
+---
+
+<Layout title={`${tag.name}の記事一覧 | ブログ | ${import.meta.env.APP_NAME}`} description={`タグ "${tag.name}" の記事一覧です`}>
+	<ul class="cards">
+		{
+			page.data && page.data.length !== 0 ? (
+				page.data.map((article) => {
+					return <ArticleCard article={article} />;
+				})
+			) : (
+				<div>記事がありません</div>
+			)
+		}
+	</ul>
+</Layout>
+
+<style lang="scss">
+	.cards {
+		width: 100%;
+		margin: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+
+		@include resp(lg) {
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+	}
+</style>

@@ -2,8 +2,7 @@
 import Layout from "../../../layouts/Layout.astro";
 import Toc from "../../../components/blog/article/Toc.vue";
 // Newt
-import { newtClient } from "../../../lib/newt/client";
-import type { Article } from "../../../lib/newt/types";
+import { getArticles } from "../../../lib/newt/client";
 // KaTeX
 import "katex/dist/katex.min.css";
 // Prism
@@ -38,10 +37,7 @@ import { load } from "cheerio";
 
 // prerender config
 export const getStaticPaths = async () => {
-	const { items: articles } = await newtClient.getContents<Article>({
-		appUid: "blog",
-		modelUid: "article",
-	});
+	const articles = await getArticles();
 	return articles.map((article) => ({
 		params: { slug: article.slug },
 		props: { article },
@@ -64,7 +60,7 @@ article.content.data = $.html();
 export const prerender = true;
 ---
 
-<Layout title={`${article.title}`} description={`${article.description}`}>
+<Layout title={`${article.title} | ブログ | ${import.meta.env.APP_NAME}`} description={`${article.description}`}>
 	<Toc headings={headings} />
 	<article set:html={article.content.data} />
 </Layout>

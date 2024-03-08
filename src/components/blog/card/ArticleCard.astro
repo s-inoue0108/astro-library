@@ -7,11 +7,11 @@ import { Image } from "astro:assets";
 import HeaderImage from "../../../images/common/portfolio-favicon.png";
 
 interface Props {
-	articleProps: Pick<Article, "title" | "slug" | "description" | "thambnail" | "category" | "tags" | "_sys">;
+	article: Pick<Article, "title" | "slug" | "description" | "thambnail" | "category" | "tags" | "_sys">;
 }
 
-const { articleProps } = Astro.props;
-const { title, slug, description, thambnail, category, tags, _sys } = articleProps;
+const { article } = Astro.props;
+const { title, slug, description, thambnail, category, tags, _sys } = article;
 
 const sliceText = (text: string | undefined, limit: number): string => {
 	if (!text || text.length === 0) {

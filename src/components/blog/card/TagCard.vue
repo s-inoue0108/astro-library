@@ -18,7 +18,7 @@ const themeColor = computed<string>(() => {
 </script>
 
 <template>
-    <a :href="`/blog/tag/${tag.slug}`" class="tag" v-if="isLink">
+    <a :href="`/blog/tag/${tag.slug}/1`" class="tag" v-if="isLink">
         <img :src="tag.icon.src" :alt="tag.icon?.altText ?? ''" v-if="tag.icon" />
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" v-else>
             <path

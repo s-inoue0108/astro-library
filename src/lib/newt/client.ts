@@ -2,14 +2,14 @@ import { createClient } from "newt-client-js";
 import type { Article, Category, Tag } from "../newt/types";
 
 // Newt Client
-export const newtClient = createClient({
+const newtClient = createClient({
 	spaceUid: import.meta.env.NEWT_SPACE_UID,
 	token: import.meta.env.NEWT_CDN_API_TOKEN,
 	apiType: "cdn",
 });
 
 // Get Articles
-export const getArticles = async (limit: number = 10, order: "asc" | "desc" = "desc", skip: number = 0, depth: number = 2): Promise<Article[]> => {
+export const getArticles = async (limit: number = 10, order: "asc" | "desc" = "desc", skip: number = 0, depth: number = 2, category?: Category, tags?: Tag[]): Promise<Article[]> => {
 	const { items: articles } = await newtClient.getContents<Article>({
 		appUid: "blog",
 		modelUid: "article",
