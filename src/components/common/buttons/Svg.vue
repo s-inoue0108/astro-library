@@ -32,7 +32,7 @@ const isCurrent = (currentPath?: string, testPathRegex?: RegExp): boolean => {
 
 <template>
     <a :href="linkUrl" v-if="isLink">
-        <div class="ring" :class="[isCurrent(currentPath, testPathRegex) ? 'bgborder' : 'bgsecondary']">
+        <div class="ring" :class="[isCurrent(currentPath, testPathRegex) ? 'bgborder' : 'bgtransparent']">
             <svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBox">
                 <path :d="svgIconPath" />
             </svg>
@@ -85,6 +85,7 @@ button {
             font-size: 1.2rem;
             font-weight: 300;
             white-space: nowrap;
+            cursor: pointer;
         }
     }
 }
@@ -94,7 +95,7 @@ button {
     background: getColor(--border-color);
 }
 
-.bgsecondary {
-    background: getColor(--bg-secondary-color);
+.bgtransparent {
+    background: transparent;
 }
 </style>
