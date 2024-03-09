@@ -1,0 +1,11 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SearchUi from "../../components/blog/large/SearchUi.vue";
+import { getArticles } from "../../lib/newt/client";
+
+const articles = await getArticles();
+---
+
+<Layout title={`記事を検索 | ブログ | ${import.meta.env.APP_NAME}`} description="記事検索ページ">
+	{articles && articles.length > 0 ? <SearchUi articles={articles} client:load /> : <div>記事がありません</div>}
+</Layout>

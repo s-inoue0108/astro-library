@@ -9,7 +9,7 @@ const newtClient = createClient({
 });
 
 // Get Articles
-export const getArticles = async (limit: number = 1000, order: "asc" | "desc" = "desc", depth: 0 | 1 | 2 = 2, keyword?: string, categoryId?: Category["_id"], tagIds?: Tag["_id"][]): Promise<Article[] | null> => {
+export const getArticles = async (limit: number = 1000, order: "asc" | "desc" = "desc", depth: 0 | 1 | 2 = 2, categoryId?: Category["_id"], tagIds?: Tag["_id"][]): Promise<Article[] | null> => {
 	try {
 		const { items: articles } = await newtClient.getContents<Article>({
 			appUid: "blog",
@@ -18,15 +18,6 @@ export const getArticles = async (limit: number = 1000, order: "asc" | "desc" = 
 				order: [`${order === "desc" ? "-" : ""}_sys.raw.publishedAt`],
 				limit: limit,
 				depth: depth,
-				title: {
-					match: keyword,
-				},
-				slug: {
-					match: keyword,
-				},
-				description: {
-					match: keyword,
-				},
 				category: categoryId,
 				tags: {
 					in: tagIds,

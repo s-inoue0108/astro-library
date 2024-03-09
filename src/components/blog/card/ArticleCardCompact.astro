@@ -1,0 +1,39 @@
+---
+import type { Article } from "../../../lib/newt/types";
+
+interface Props {
+	article: Pick<Article, "title" | "slug" | "description">;
+}
+
+const { article } = Astro.props;
+const { title, slug, description } = article;
+
+const sliceText = (text: string | undefined, limit: number): string => {
+	if (!text || text.length === 0) {
+		return "";
+	}
+	if (text && text.length > limit) {
+		return `${text.slice(0, limit)}...`;
+	}
+	return text;
+};
+---
+
+<a href={`/blog/article/${slug}`} class="card-compact">
+	<ul>
+		<li class="title">
+			<h2>{title}</h2>
+		</li>
+		<li class="description">
+			<p>{description}</p>
+		</li>
+	</ul>
+</a>
+
+<style lang="scss">
+	.card-compact {
+		width: 100%;
+		height: 2rem;
+		border: solid 1px 0 1px 0 getColor(--border-color);
+	}
+</style>
