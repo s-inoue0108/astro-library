@@ -1,20 +1,28 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { svgPaths } from "../../../lib/svg/paths"
+import { svgPaths, svgViewBoxes, type SvgMetadata } from "../../../lib/svg/paths"
 
 interface Props {
     title: string;
     svgIconPath?: string;
+    svgViewBox?: string;
     isInitOpen?: boolean
 }
 
-const { title, svgIconPath, isInitOpen } = withDefaults(defineProps<Props>(), {
+const { title, svgIconPath, svgViewBox, isInitOpen } = withDefaults(defineProps<Props>(), {
     isInitOpen: true,
 })
 
 const isOpen = ref<boolean>(isInitOpen);
-const btnIconPath = computed<string>(() => {
-    return isOpen.value ? svgPaths.chevronUp : svgPaths.chevronDown
+
+const btnIconSvg = computed<SvgMetadata>(() => {
+    return isOpen.value ? {
+        path: svgPaths.chevronUp,
+        viewBox: svgViewBoxes.chevronUp,
+    } : {
+        path: svgPaths.chevronDown,
+        viewBox: svgViewBoxes.chevronDown,
+    }
 })
 
 const toggleOpen = (): void => {
@@ -26,7 +34,7 @@ const toggleOpen = (): void => {
     <div class="modal">
         <div class="modal-info">
             <div class="title-section">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" v-if="svgIconPath">
+                <svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBox" v-if="svgIconPath">
                     <path :d="svgIconPath" />
                 </svg>
                 <h1 class="title">
@@ -34,8 +42,8 @@ const toggleOpen = (): void => {
                 </h1>
             </div>
             <button type="button" @click="toggleOpen" class="toggle-button">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <path :d="btnIconPath" />
+                <svg xmlns="http://www.w3.org/2000/svg" :viewBox="btnIconSvg.viewBox">
+                    <path :d="btnIconSvg.path" />
                 </svg>
             </button>
         </div>

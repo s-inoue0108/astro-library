@@ -10,13 +10,15 @@ const currentPath = Astro.url.pathname;
 <nav class="categories">
 	<ul class="categories-list">
 		{
-			categories.map((category) => {
-				return (
-					<li class="category">
-						<SvgButton svgIconPath={category.svgIconPath} svgViewBox={category.svgViewBox} svgFillColor={category.themeColor} isLink={true} linkUrl={`/blog/category/${category.slug}/1`} currentPath={currentPath} testPathRegex={new RegExp(`\^/blog/category/${category.slug}/`)} width="28.8px" height="28.8px" />
-					</li>
-				);
-			})
+			categories &&
+				categories.length > 0 &&
+				categories.map((category) => {
+					return (
+						<li class="category">
+							<SvgButton svgIconPath={category.svgIconPath} svgViewBox={category.svgViewBox} svgFillColor={category.themeColor} isLink={true} linkUrl={`/blog/category/${category.slug}/1`} currentPath={currentPath} testPathRegex={new RegExp(`\^/blog/category/${category.slug}/`)} width="28.8px" height="28.8px" />
+						</li>
+					);
+				})
 		}
 	</ul>
 </nav>

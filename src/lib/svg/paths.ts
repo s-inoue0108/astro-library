@@ -25,3 +25,8 @@ export const svgViewBoxes = {
 	envelope: "0 0 512 512",
 	penNib: "0 0 512 512",
 };
+
+export interface SvgMetadata {
+	path: string;
+	viewBox: string;
+}

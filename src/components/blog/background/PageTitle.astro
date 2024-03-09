@@ -8,11 +8,12 @@ import { Image } from "astro:assets";
 interface Props {
 	title: string;
 	svgIconPath?: string;
+    svgViewBox?: string;
 	iconImage?: NewtImageProps;
 	bgImage?: NewtImageProps;
 }
 
-const { title, svgIconPath, iconImage, bgImage } = Astro.props;
+const { title, svgIconPath, svgViewBox, iconImage, bgImage } = Astro.props;
 ---
 
 <div class="page-title">
@@ -22,7 +23,7 @@ const { title, svgIconPath, iconImage, bgImage } = Astro.props;
             iconImage ? <Image src={iconImage.src} width={iconImage.width} height={iconImage.height} alt={iconImage.altText} class="icon-image" /> : <></>
         }
         {
-            svgIconPath && !iconImage ? <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d={svgIconPath}/></svg> : <></>
+            svgIconPath && !iconImage ? <svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBox ?? "0 0 512 512"}><path d={svgIconPath}/></svg> : <></>
         }
         <h1 class="title">{title}</h1>
     </div>

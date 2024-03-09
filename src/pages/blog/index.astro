@@ -1,19 +1,13 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ArticleCard from "../../components/blog/card/ArticleCard.astro";
-import TagCard from "../../components/blog/card/TagCard.vue";
-import Modal from "../../components/common/modal/ToggleableModal.vue";
+import TagsListModal from "../../components/common/modal/TagsListModal.astro";
 import PageTitle from "../../components/blog/background/PageTitle.astro";
 import CategoriesNavBar from "../../components/blog/background/CategoriesNavBar.astro";
-import { svgPaths } from "../../lib/svg/paths";
 // newt
-import { getArticles, getTags } from "../../lib/newt/client";
+import { getArticles } from "../../lib/newt/client";
 
-const articles = await getArticles(10, "desc");
-const tags = await getTags();
-
-// prerender page
-export const prerender = true;
+const articles = await getArticles(12, "desc", 2);
 ---
 
 <Layout title={`ブログ | ${import.meta.env.APP_NAME}`} description="ブログ">
@@ -21,20 +15,16 @@ export const prerender = true;
 	<CategoriesNavBar />
 	<ul class="cards">
 		{
-			articles.map((article) => {
-				return <ArticleCard article={article} />;
-			})
+			articles && articles.length > 0 ? (
+				articles.map((article) => {
+					return <ArticleCard article={article} />;
+				})
+			) : (
+				<div>記事がありません</div>
+			)
 		}
 	</ul>
-	<Modal title="タグ" svgIconPath={svgPaths.tags} client:visible>
-		<ul class="tags">
-			{
-				tags.map((tag) => {
-					return <TagCard tag={tag} />;
-				})
-			}
-		</ul>
-	</Modal>
+	<TagsListModal />
 </Layout>
 
 <style lang="scss">
@@ -49,12 +39,5 @@ export const prerender = true;
 			flex-direction: row;
 			flex-wrap: wrap;
 		}
-	}
-
-	.tags {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 0.3rem;
 	}
 </style>

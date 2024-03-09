@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
-import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths"
+import { svgPaths, svgViewBoxes, type SvgMetadata } from "../../../lib/svg/paths"
 
 type Theme = 'light' | 'dark';
-
-interface SvgMetadata {
-    path: string;
-    viewBox: string;
-}
 
 const theme = ref<Theme | null>(null);
 

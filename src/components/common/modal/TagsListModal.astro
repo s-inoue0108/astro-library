@@ -1,0 +1,31 @@
+---
+import Modal from "./ToggleableModal.vue";
+import TagCard from "../../blog/card/TagCard.vue";
+import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
+import { getTags } from "../../../lib/newt/client";
+
+const tags = await getTags();
+---
+
+<Modal title="タグ" svgIconPath={svgPaths.tags} svgViewBox={svgViewBoxes.tags} client:visible>
+	<ul class="tags">
+		{
+			tags && tags.length !== 0 ? (
+				tags.map((tag) => {
+					return <TagCard tag={tag} />;
+				})
+			) : (
+				<div>タグがありません</div>
+			)
+		}
+	</ul>
+</Modal>
+
+<style lang="scss">
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.3rem;
+	}
+</style>
