@@ -56,8 +56,30 @@ const { page } = Astro.props;
 	<TagsListModal />
 </Layout>
 
+<script>
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	gsap.registerPlugin(ScrollTrigger);
+
+	const cards = gsap.utils.toArray(".article-card");
+
+	cards.forEach((elm: any) => {
+		gsap.from(elm, {
+			ease: "expo.out",
+			duration: 1.5,
+			xPercent: 50,
+			autoAlpha: 0,
+			overflowX: "hidden",
+			scrollTrigger: {
+				trigger: elm,
+			},
+		});
+	});
+</script>
+
 <style lang="scss">
 	.cards {
+		overflow-x: hidden;
 		width: 100%;
 		margin: auto;
 		display: flex;

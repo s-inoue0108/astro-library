@@ -51,18 +51,11 @@ const articles = await getArticles(12, "desc", 2);
 			},
 		});
 	});
-
-	// gsap.from(".cards", {
-	// 	scrollTrigger: {
-	// 		trigger: ".cards",
-	// 	},
-	// 	opacity: 0,
-	// 	yPercent: 100,
-	// });
 </script>
 
 <style lang="scss">
 	.cards {
+		overflow-x: hidden;
 		width: 100%;
 		margin: auto;
 		display: flex;
