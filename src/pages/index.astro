@@ -34,23 +34,71 @@ import HeaderImage from "../images/common/portfolio-favicon.png";
 	import { gsap } from "gsap";
 
 	const headerImg = document.querySelector(".header-img");
+	const title = document.querySelector(".title");
+	const buttons = gsap.utils.toArray(".button");
+
+	const textWarmTimeline = (target: any) => {
+		const tl = gsap.timeline({ repeat: -1 });
+		tl.to(target, {
+			color: "rgb(251 191 36)",
+			duration: 5,
+		})
+			.to(target, {
+				color: "rgb(251 146 60)",
+				duration: 5,
+			})
+			.to(target, {
+				color: "rgb(251 113 133)",
+				duration: 5,
+			});
+
+		if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+			tl.add(
+				gsap.to(target, {
+					color: "#fff",
+					duration: 5,
+				})
+			);
+		} else {
+			tl.add(
+				gsap.to(target, {
+					color: "#000",
+					duration: 5,
+				})
+			);
+		}
+		return tl;
+	};
+
 	gsap
 		.timeline()
-		.set(headerImg, {
-			x: 0,
-			y: 0,
-		})
 		.from(headerImg, {
-			opacity: 0,
-			duration: 1,
-			ease: "power4.inOut",
+			autoAlpha: 0,
+			y: 20,
+			duration: 0.8,
+			ease: "power3.out",
 		})
 		.to(headerImg, {
-			opacity: 0,
+			autoAlpha: 0,
 			duration: 0.5,
-			delay: 0.5,
+			delay: 0.3,
 			ease: "power4.in",
-		});
+		})
+		.from(title, {
+			autoAlpha: 0,
+			duration: 0.7,
+			ease: "power3.out",
+		})
+		.from(buttons, {
+			autoAlpha: 0,
+			yPercent: 30,
+			duration: 1.2,
+			ease: "power3.out",
+			stagger: {
+				each: 0.4,
+			},
+		})
+		.add(textWarmTimeline(title), "-=0.6");
 </script>
 
 <style scoped lang="scss">
@@ -65,53 +113,6 @@ import HeaderImage from "../images/common/portfolio-favicon.png";
 		flex-direction: column;
 		gap: 3rem;
 
-		// @keyframes fade-in-out {
-		// 	0% {
-		// 		opacity: 0;
-		// 	}
-
-		// 	30% {
-		// 		opacity: 1;
-		// 	}
-
-		// 	70% {
-		// 		opacity: 1;
-		// 	}
-
-		// 	100% {
-		// 		opacity: 0;
-		// 	}
-		// }
-
-		// @keyframes fade-in-title {
-		// 	0% {
-		// 		opacity: 0;
-		// 	}
-
-		// 	80% {
-		// 		opacity: 0;
-		// 	}
-
-		// 	100% {
-		// 		opacity: 1;
-		// 	}
-		// }
-
-		// @keyframes fade-in-buttons {
-		// 	0% {
-		// 		opacity: 0;
-		// 	}
-
-		// 	80% {
-		// 		opacity: 0;
-		// 		transform: translateY(8px);
-		// 	}
-
-		// 	100% {
-		// 		opacity: 1;
-		// 	}
-		// }
-
 		.header-img {
 			position: fixed;
 			top: 50%;
@@ -122,7 +123,6 @@ import HeaderImage from "../images/common/portfolio-favicon.png";
 			object-fit: contain;
 			border-radius: 16px;
 			margin: auto;
-			// animation: 2s fade-in-out forwards;
 		}
 
 		.title {
@@ -134,7 +134,6 @@ import HeaderImage from "../images/common/portfolio-favicon.png";
 			font-size: 2.4rem;
 			font-weight: 700;
 			letter-spacing: 1.5px;
-			// animation: 2s fade-in-title forwards;
 		}
 
 		.buttons {
@@ -143,7 +142,6 @@ import HeaderImage from "../images/common/portfolio-favicon.png";
 			justify-content: center;
 			align-items: center;
 			gap: 0.8rem;
-			// animation: 3s fade-in-buttons forwards;
 
 			.button {
 				color: getColor(--text-secondary-color);

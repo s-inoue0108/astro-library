@@ -140,6 +140,7 @@ const sliceText = (text: string | undefined, limit: number): string => {
         position: relative;
 
         &:active {
+            opacity: .5;
             animation: click .3s ease;
         }
 
