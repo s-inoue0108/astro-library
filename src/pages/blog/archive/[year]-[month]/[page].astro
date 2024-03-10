@@ -58,7 +58,11 @@ const { page, year, month } = Astro.props;
 		{
 			page.data && page.data.length !== 0 ? (
 				page.data.map((article) => {
-					return <ArticleCard article={article} />;
+					return (
+						<li class="article-card">
+							<ArticleCard article={article} />
+						</li>
+					);
 				})
 			) : (
 				<div>記事がありません</div>
@@ -80,6 +84,19 @@ const { page, year, month } = Astro.props;
 		@include resp(lg) {
 			flex-direction: row;
 			flex-wrap: wrap;
+		}
+
+		.article-card {
+			width: 100%;
+			height: 256px;
+
+			@include resp(lg) {
+				width: calc(50% - 0.5rem);
+			}
+
+			@include resp(xl) {
+				width: calc(25% - 0.25rem - 8px);
+			}
 		}
 	}
 </style>

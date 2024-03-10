@@ -12,13 +12,17 @@ const articles = await getArticles(12, "desc", 2);
 ---
 
 <Layout title={`ブログ | ${import.meta.env.APP_NAME}`} description="ブログ">
-	<PageTitle title="BLOG" />
+	<PageTitle title="Blog" />
 	<CategoriesNavBar />
 	<ul class="cards">
 		{
 			articles && articles.length > 0 ? (
 				articles.map((article) => {
-					return <ArticleCard article={article} />;
+					return (
+						<li class="article-card">
+							<ArticleCard article={article} />
+						</li>
+					);
 				})
 			) : (
 				<NoContent message="記事がありません" />
@@ -27,6 +31,28 @@ const articles = await getArticles(12, "desc", 2);
 	</ul>
 	<TagsListModal />
 </Layout>
+
+<script>
+	import { gsap } from "gsap";
+
+	gsap.set(".article-card", {
+		x: 30,
+		y: 0,
+		opacity: 0,
+	});
+
+	gsap.to(".article-card", {
+		ease: "expo.out",
+		duration: 1.5,
+		x: 0,
+		y: 0,
+		opacity: 1,
+		stagger: {
+			each: 0.2, // 遅延させる時間
+			from: "start", // 開始位置の指定 start, end, center, edges, random
+		},
+	});
+</script>
 
 <style lang="scss">
 	.cards {
@@ -39,6 +65,19 @@ const articles = await getArticles(12, "desc", 2);
 		@include resp(lg) {
 			flex-direction: row;
 			flex-wrap: wrap;
+		}
+
+		.article-card {
+			width: 100%;
+			height: 256px;
+
+			@include resp(lg) {
+				width: calc(50% - 0.5rem);
+			}
+
+			@include resp(xl) {
+				width: calc(25% - 0.25rem - 8px);
+			}
 		}
 	}
 </style>

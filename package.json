@@ -16,6 +16,7 @@
     "astro": "^4.4.11",
     "cheerio": "^1.0.0-rc.12",
     "fuse.js": "^7.0.0",
+    "gsap": "^3.12.5",
     "katex": "^0.16.9",
     "newt-client-js": "^3.3.0",
     "prismjs": "^1.29.0",

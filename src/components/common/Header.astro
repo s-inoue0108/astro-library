@@ -7,27 +7,31 @@ import { Image } from "astro:assets";
 import HeaderImage from "../../images/common/portfolio-favicon.png";
 
 const currentPath = Astro.url.pathname;
-
-const isInHome = (path: string): boolean => {
-	return path === "/";
-};
 ---
 
-<header class:list={{ bgprimary: isInHome(currentPath), loadingfade: isInHome(currentPath) }}>
-	<nav>
-		<ul class="app-title">
-			<a href={import.meta.env.APP_URL} class="header-img">
-				<Image src={HeaderImage} alt={import.meta.env.APP_NAME} />
-			</a>
-			<h1 class="title">{import.meta.env.APP_NAME}</h1>
-		</ul>
-		<ul class="pages"></ul>
-		<ThemeButton client:load />
-	</nav>
+<header>
+	<ul class="app-title">
+		<a href={import.meta.env.APP_URL} class="header-img">
+			<Image src={HeaderImage} alt={import.meta.env.APP_NAME} />
+		</a>
+		<h1 class="title">{import.meta.env.APP_NAME}</h1>
+	</ul>
+	<ul class="page-links">
+		<li class="link">
+			<SvgButton title="Profile" isLink={true} linkUrl="/profile" currentPath={currentPath} testPathRegex={new RegExp("^/profile")} widthScale={1.7} heightScale={0.6} fontScale={0.75} />
+		</li>
+		<li class="link">
+			<SvgButton title="Contact" isLink={true} linkUrl="/contact" currentPath={currentPath} testPathRegex={new RegExp("^/contact")} widthScale={1.7} heightScale={0.6} fontScale={0.75} />
+		</li>
+		<li class="link">
+			<SvgButton title="Blog" isLink={true} linkUrl="/blog" currentPath={currentPath} testPathRegex={new RegExp("^/blog")} widthScale={1.7} heightScale={0.6} fontScale={0.75} />
+		</li>
+	</ul>
+	<ThemeButton client:load />
 </header>
 
 <style lang="scss">
-	header nav {
+	header {
 		position: relative;
 		width: 100vw;
 		height: 36px;
@@ -103,42 +107,45 @@ const isInHome = (path: string): boolean => {
 			}
 		}
 
-		.buttons {
+		.page-links {
 			display: flex;
-			flex-direction: row-reverse;
-			align-items: baseline;
-			gap: 1.6rem;
+			align-items: center;
+			gap: 0.6rem;
 
 			@include resp(sm) {
-				gap: 2rem;
+				gap: 1rem;
 			}
 
 			@include resp(lg) {
-				gap: 2.4rem;
+				gap: 2rem;
+			}
+
+			.link {
+				color: getColor(--text-secondary-color);
 			}
 		}
 	}
 
-	.bgprimary {
-		background: getColor(--bg-primary-color);
-	}
+	// .bgprimary {
+	// 	background: getColor(--bg-primary-color);
+	// }
 
-	.loadingfade {
-		animation: 3s fade-in-header forwards;
-	}
+	// .loadingfade {
+	// 	animation: 3s fade-in-header forwards;
+	// }
 
-	@keyframes fade-in-header {
-		0% {
-			opacity: 0;
-		}
+	// @keyframes fade-in-header {
+	// 	0% {
+	// 		opacity: 0;
+	// 	}
 
-		80% {
-			opacity: 0;
-			transform: translateY(-36px);
-		}
+	// 	80% {
+	// 		opacity: 0;
+	// 		transform: translateY(-36px);
+	// 	}
 
-		100% {
-			opacity: 1;
-		}
-	}
+	// 	100% {
+	// 		opacity: 1;
+	// 	}
+	// }
 </style>

@@ -23,11 +23,40 @@ import HeaderImage from "../images/common/portfolio-favicon.png";
 				<SvgButton svgIconPath={svgPaths.envelope} svgViewBox={svgViewBoxes.envelope} isLink={true} linkUrl="/contact" />
 			</li>
 			<li class="button">
-				<SvgButton svgIconPath={svgPaths.penNib} svgViewBox={svgViewBoxes.penNib} isLink={true} linkUrl="/blog" title="BLOG" radius="64px" widthScale={3} />
+				<SvgButton svgIconPath={svgPaths.penNib} svgViewBox={svgViewBoxes.penNib} isLink={true} linkUrl="/blog" title="Blog" widthScale={2.8} />
 			</li>
 		</ul>
 	</div>
 </Layout>
+
+<script>
+	// GSAP
+	import { gsap } from "gsap";
+	const firstFadeTarget = document.querySelector(".header-img");
+	gsap.from(".header-img", {
+		scale: 0,
+		duration: 1.5,
+		ease: "power4.out",
+		stagger: {
+			each: 0.05,
+			from: "center", // 中央から
+			grid: "auto", // 格子状に開始
+			ease: "power4.out", // 間隔に対するイージング
+		},
+	});
+	gsap.to(".header-img", {
+		scale: 0,
+		duration: 1,
+		delay: 2,
+		ease: "power4.in",
+		stagger: {
+			each: 0.05,
+			from: "center", // 中央から
+			grid: "auto", // 格子状に開始
+			ease: "power4.in", // 間隔に対するイージング
+		},
+	});
+</script>
 
 <style scoped lang="scss">
 	.app-title {
@@ -41,52 +70,52 @@ import HeaderImage from "../images/common/portfolio-favicon.png";
 		flex-direction: column;
 		gap: 3rem;
 
-		@keyframes fade-in-out {
-			0% {
-				opacity: 0;
-			}
+		// @keyframes fade-in-out {
+		// 	0% {
+		// 		opacity: 0;
+		// 	}
 
-			30% {
-				opacity: 1;
-			}
+		// 	30% {
+		// 		opacity: 1;
+		// 	}
 
-			70% {
-				opacity: 1;
-			}
+		// 	70% {
+		// 		opacity: 1;
+		// 	}
 
-			100% {
-				opacity: 0;
-			}
-		}
+		// 	100% {
+		// 		opacity: 0;
+		// 	}
+		// }
 
-		@keyframes fade-in-title {
-			0% {
-				opacity: 0;
-			}
+		// @keyframes fade-in-title {
+		// 	0% {
+		// 		opacity: 0;
+		// 	}
 
-			80% {
-				opacity: 0;
-			}
+		// 	80% {
+		// 		opacity: 0;
+		// 	}
 
-			100% {
-				opacity: 1;
-			}
-		}
+		// 	100% {
+		// 		opacity: 1;
+		// 	}
+		// }
 
-		@keyframes fade-in-buttons {
-			0% {
-				opacity: 0;
-			}
+		// @keyframes fade-in-buttons {
+		// 	0% {
+		// 		opacity: 0;
+		// 	}
 
-			80% {
-				opacity: 0;
-				transform: translateY(8px);
-			}
+		// 	80% {
+		// 		opacity: 0;
+		// 		transform: translateY(8px);
+		// 	}
 
-			100% {
-				opacity: 1;
-			}
-		}
+		// 	100% {
+		// 		opacity: 1;
+		// 	}
+		// }
 
 		.header-img {
 			position: fixed;
@@ -98,7 +127,7 @@ import HeaderImage from "../images/common/portfolio-favicon.png";
 			object-fit: contain;
 			border-radius: 16px;
 			margin: auto;
-			animation: 2s fade-in-out forwards;
+			// animation: 2s fade-in-out forwards;
 		}
 
 		.title {
@@ -110,7 +139,7 @@ import HeaderImage from "../images/common/portfolio-favicon.png";
 			font-size: 2.4rem;
 			font-weight: 700;
 			letter-spacing: 1.5px;
-			animation: 2s fade-in-title forwards;
+			// animation: 2s fade-in-title forwards;
 		}
 
 		.buttons {
@@ -119,10 +148,11 @@ import HeaderImage from "../images/common/portfolio-favicon.png";
 			justify-content: center;
 			align-items: center;
 			gap: 0.8rem;
-			animation: 3s fade-in-buttons forwards;
+			// animation: 3s fade-in-buttons forwards;
 
 			.button {
-				fill: getColor(--text-primary-color);
+				color: getColor(--text-secondary-color);
+				fill: getColor(--text-secondary-color);
 			}
 		}
 	}

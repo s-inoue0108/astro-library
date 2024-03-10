@@ -12,9 +12,16 @@ export const getSegments = async (articles: Article[]): Promise<Segment[]> => {
 	const segments: Segment[] = [];
 
 	articles.forEach((article) => {
-		const words = segmenter.segment(article.description ?? "");
+		const wordsFromTitle = segmenter.segment(article.title ?? "");
+		const wordsFromDescription = segmenter.segment(article.description ?? "");
 
-		for (const data of words) {
+		for (const data of wordsFromTitle) {
+			if (data.isWordLike && data.segment.length > 1) {
+				segments.push({ word: data.segment, relateSlug: article.slug });
+			}
+		}
+
+		for (const data of wordsFromDescription) {
 			if (data.isWordLike && data.segment.length > 1) {
 				segments.push({ word: data.segment, relateSlug: article.slug });
 			}
@@ -28,6 +35,6 @@ export const getSegments = async (articles: Article[]): Promise<Segment[]> => {
 };
 
 // FuseJS Client
-export const fuseClient = async (segments: Segment[], threshold: number = 0.3, minMatchCharLength: number = 2): Promise<Fuse<Segment>> => {
+export const fuseClient = async (segments: Segment[], threshold: number = 0.2, minMatchCharLength: number = 2): Promise<Fuse<Segment>> => {
 	return new Fuse(segments, { keys: ["word"], threshold: threshold, minMatchCharLength: minMatchCharLength });
 };

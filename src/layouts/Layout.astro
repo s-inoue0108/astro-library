@@ -42,7 +42,9 @@ const currentPath = Astro.url.pathname;
 	</head>
 
 	<body class:list={{ "loading-fade": currentPath !== "/" }}>
-		<Header />
+		{
+			currentPath !== "/" ? <Header /> : <></>
+		}
 		<main>
 			<slot />
 		</main>
