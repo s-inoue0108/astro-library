@@ -48,26 +48,29 @@ const currentPath = Astro.url.pathname;
 				    gsap.timeline()
 			            .set("body", {
 				            background: "rgb(17, 24, 39)",
+							visibility: "hidden",
+							autoAlpha: 0,
 			            })
-			            .from("body", {
-				            autoAlpha: 0,
+			            .to("body", {
+				            autoAlpha: 1,
 				            duration: 1,
+							delay: 0.5,
 				            ease: "expo.out",
 			        })
 			    } else {
 				    gsap.timeline()
 			            .set("body", {
 				            background: "rgb(243, 243, 243)",
+							autoAlpha: 0,
 			            })
-			            .from("body", {
-				            autoAlpha: 0,
+			            .to("body", {
+				            autoAlpha: 1,
 				            duration: 1,
+							delay: 0.5,
 				            ease: "expo.out",
 			        })
 			    }
 		    }
-
-			
 		</script>
 	</head>
 
