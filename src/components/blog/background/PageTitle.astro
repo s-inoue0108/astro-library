@@ -29,6 +29,22 @@ const { title, svgIconPath, svgViewBox, iconImage, bgImage } = Astro.props;
     </div>
 </div>
 
+<script>
+    import { gsap } from "gsap";
+
+    const bgImg = document.querySelector(".bg-image");
+
+    gsap.timeline()
+		.set(bgImg, {
+			x: 0,
+			y: 0,
+		}).from(bgImg, {
+            autoAlpha: 0,
+            duration: 1,
+            ease: "power4.out",
+    });
+</script>
+
 <style scoped lang="scss">
 	.page-title {
 		width: 100vw;

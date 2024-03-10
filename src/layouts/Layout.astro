@@ -39,6 +39,34 @@ const currentPath = Astro.url.pathname;
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;900&family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&&family=Zen+Dots&display=swap" rel="stylesheet" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+
+		<script>
+			import { gsap } from "gsap";
+
+			if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+				gsap.timeline()
+			        .set("body", {
+				        background: "rgb(17, 24, 39)",
+			        })
+			        .from("body", {
+				        autoAlpha: 0,
+				        duration: 1,
+				        ease: "expo.out",
+			    })
+			} else {
+				gsap.timeline()
+			        .set("body", {
+				        background: "rgb(243, 243, 243)",
+			        })
+			        .from("body", {
+				        autoAlpha: 0,
+				        duration: 1,
+				        ease: "expo.out",
+			    })
+			}
+
+			
+		</script>
 	</head>
 
 	<body class:list={{ "loading-fade": currentPath !== "/" }}>
@@ -88,19 +116,19 @@ const currentPath = Astro.url.pathname;
 		word-wrap: break-word;
 	}
 
-	.loading-fade {
-		animation: loading-fade 0.3s forwards;
-	}
+	// .loading-fade {
+	// 	animation: loading-fade 0.3s forwards;
+	// }
 
-	@keyframes loading-fade {
-		0% {
-			opacity: 0.3;
-		}
+	// @keyframes loading-fade {
+	// 	0% {
+	// 		opacity: 0.3;
+	// 	}
 
-		100% {
-			opacity: 1;
-		}
-	}
+	// 	100% {
+	// 		opacity: 1;
+	// 	}
+	// }
 
 	main {
 		color: getColor(--text-primary-color);
