@@ -43,27 +43,29 @@ const currentPath = Astro.url.pathname;
 		<script>
 			import { gsap } from "gsap";
 
-			if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-				gsap.timeline()
-			        .set("body", {
-				        background: "rgb(17, 24, 39)",
+		    if (location.pathname !== "/") {
+			    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+				    gsap.timeline()
+			            .set("body", {
+				            background: "rgb(17, 24, 39)",
+			            })
+			            .from("body", {
+				            autoAlpha: 0,
+				            duration: 1,
+				            ease: "expo.out",
 			        })
-			        .from("body", {
-				        autoAlpha: 0,
-				        duration: 1,
-				        ease: "expo.out",
-			    })
-			} else {
-				gsap.timeline()
-			        .set("body", {
-				        background: "rgb(243, 243, 243)",
+			    } else {
+				    gsap.timeline()
+			            .set("body", {
+				            background: "rgb(243, 243, 243)",
+			            })
+			            .from("body", {
+				            autoAlpha: 0,
+				            duration: 1,
+				            ease: "expo.out",
 			        })
-			        .from("body", {
-				        autoAlpha: 0,
-				        duration: 1,
-				        ease: "expo.out",
-			    })
-			}
+			    }
+		    }
 
 			
 		</script>
