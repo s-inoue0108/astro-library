@@ -32,30 +32,25 @@ import HeaderImage from "../images/common/portfolio-favicon.png";
 <script>
 	// GSAP
 	import { gsap } from "gsap";
-	const firstFadeTarget = document.querySelector(".header-img");
-	gsap.from(".header-img", {
-		scale: 0,
-		duration: 1.5,
-		ease: "power4.out",
-		stagger: {
-			each: 0.05,
-			from: "center", // 中央から
-			grid: "auto", // 格子状に開始
-			ease: "power4.out", // 間隔に対するイージング
-		},
-	});
-	gsap.to(".header-img", {
-		scale: 0,
-		duration: 1,
-		delay: 2,
-		ease: "power4.in",
-		stagger: {
-			each: 0.05,
-			from: "center", // 中央から
-			grid: "auto", // 格子状に開始
-			ease: "power4.in", // 間隔に対するイージング
-		},
-	});
+
+	const headerImg = document.querySelector(".header-img");
+	gsap
+		.timeline()
+		.set(headerImg, {
+			x: 0,
+			y: 0,
+		})
+		.from(headerImg, {
+			opacity: 0,
+			duration: 1,
+			ease: "power4.inOut",
+		})
+		.to(headerImg, {
+			opacity: 0,
+			duration: 0.5,
+			delay: 0.5,
+			ease: "power4.in",
+		});
 </script>
 
 <style scoped lang="scss">

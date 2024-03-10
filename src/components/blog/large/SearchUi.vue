@@ -66,40 +66,42 @@ const sliceText = (text: string | undefined, limit: number): string => {
             </svg>
         </button>
     </div>
-    <ul class="hit-articles" v-if="showedArticles && showedArticles.length > 0">
-        <li v-for="article in showedArticles" :key="article._id" class="card-compact">
-            <a :href="`/blog/article/${article.slug}`">
-                <ul class="info">
-                    <li class="title">
-                        <h2>{{ sliceText(article.title, 50) }}</h2>
-                    </li>
-                    <li class="description">
-                        <p>{{ sliceText(article.description, 100) }}</p>
-                    </li>
-                </ul>
-            </a>
-        </li>
-    </ul>
-    <div class="no-hit" v-else-if="keyword && keyword.length > 0">
-        <svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.circleExclamation">
-            <path :d="svgPaths.circleExclamation" />
-        </svg>
-        <h1>記事がありません</h1>
-        <div class="see-all-posts">
-            <SvgButton title="See all posts" :is-link="true" linkUrl="/blog/all/1" :width-scale="4.4"
-                :svgIconPath="svgPaths.caretRight" :svgViewBox="svgViewBoxes.caretRight" :height-scale="0.8" />
+    <Transition name="swap">
+        <ul class="hit-articles" v-if="showedArticles && showedArticles.length > 0">
+            <li v-for="article in showedArticles" :key="article._id" class="card-compact">
+                <a :href="`/blog/article/${article.slug}`">
+                    <ul class="info">
+                        <li class="title">
+                            <h2>{{ sliceText(article.title, 50) }}</h2>
+                        </li>
+                        <li class="description">
+                            <p>{{ sliceText(article.description, 100) }}</p>
+                        </li>
+                    </ul>
+                </a>
+            </li>
+        </ul>
+        <div class="no-hit" v-else-if="keyword && keyword.length > 0">
+            <svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.circleExclamation">
+                <path :d="svgPaths.circleExclamation" />
+            </svg>
+            <h1>記事がありません</h1>
+            <div class="see-all-posts">
+                <SvgButton title="See all entries" :is-link="true" linkUrl="/blog/all/1" :width-scale="4.8"
+                    :svgIconPath="svgPaths.caretRight" :svgViewBox="svgViewBoxes.caretRight" :height-scale="0.8" />
+            </div>
         </div>
-    </div>
-    <div class="no-hit" v-else>
-        <svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.magnifyingGlass">
-            <path :d="svgPaths.magnifyingGlass" />
-        </svg>
-        <h1>記事を検索</h1>
-        <div class="see-all-posts">
-            <SvgButton title="See all posts" :is-link="true" linkUrl="/blog/all/1" :width-scale="4.4"
-                :svgIconPath="svgPaths.caretRight" :svgViewBox="svgViewBoxes.caretRight" :height-scale="0.8" />
+        <div class="no-hit" v-else>
+            <svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.magnifyingGlass">
+                <path :d="svgPaths.magnifyingGlass" />
+            </svg>
+            <h1>記事を検索</h1>
+            <div class="see-all-posts">
+                <SvgButton title="See all entries" :is-link="true" linkUrl="/blog/all/1" :width-scale="4.8"
+                    :svgIconPath="svgPaths.caretRight" :svgViewBox="svgViewBoxes.caretRight" :height-scale="0.8" />
+            </div>
         </div>
-    </div>
+    </Transition>
 </template>
 
 <style scoped lang="scss">
@@ -247,5 +249,17 @@ const sliceText = (text: string | undefined, limit: number): string => {
 
         fill: getColor(--text-secondary-color);
     }
+}
+
+.swap-enter-from,
+.swap-leave-to {
+    opacity: 0;
+    transition: .1s ease-in;
+}
+
+.swap-enter-to,
+.swap-leave-from {
+    opacity: 1;
+    transition: .1s ease-out;
 }
 </style>

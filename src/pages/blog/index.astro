@@ -34,24 +34,30 @@ const articles = await getArticles(12, "desc", 2);
 
 <script>
 	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	gsap.registerPlugin(ScrollTrigger);
 
-	gsap.set(".article-card", {
-		x: 30,
-		y: 0,
-		opacity: 0,
+	const cards = gsap.utils.toArray(".article-card");
+
+	cards.forEach((elm: any) => {
+		gsap.from(elm, {
+			ease: "expo.out",
+			duration: 1.5,
+			xPercent: 50,
+			autoAlpha: 0,
+			scrollTrigger: {
+				trigger: elm,
+			},
+		});
 	});
 
-	gsap.to(".article-card", {
-		ease: "expo.out",
-		duration: 1.5,
-		x: 0,
-		y: 0,
-		opacity: 1,
-		stagger: {
-			each: 0.2, // 遅延させる時間
-			from: "start", // 開始位置の指定 start, end, center, edges, random
-		},
-	});
+	// gsap.from(".cards", {
+	// 	scrollTrigger: {
+	// 		trigger: ".cards",
+	// 	},
+	// 	opacity: 0,
+	// 	yPercent: 100,
+	// });
 </script>
 
 <style lang="scss">
