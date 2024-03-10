@@ -5,6 +5,7 @@ import CategoriesNavBar from "../../../components/blog/background/CategoriesNavB
 import ArticleCard from "../../../components/blog/card/ArticleCard.astro";
 import TagsListModal from "../../../components/common/modal/TagsListModal.astro";
 import Pager from "../../../components/blog/background/Pager.vue";
+import NoContent from "../../../components/blog/background/NoContent.astro";
 import { getArticles } from "../../../lib/newt/client";
 import type { Article } from "../../../lib/newt/types";
 import type { Page, GetStaticPathsOptions } from "astro";
@@ -43,7 +44,7 @@ const { page } = Astro.props;
 					return <ArticleCard article={article} />;
 				})
 			) : (
-				<div>記事がありません</div>
+				<NoContent message="記事がありません" />
 			)
 		}
 	</ul>

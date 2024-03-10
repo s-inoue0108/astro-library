@@ -4,6 +4,7 @@ import ArticleCard from "../../components/blog/card/ArticleCard.astro";
 import TagsListModal from "../../components/common/modal/TagsListModal.astro";
 import PageTitle from "../../components/blog/background/PageTitle.astro";
 import CategoriesNavBar from "../../components/blog/background/CategoriesNavBar.astro";
+import NoContent from "../../components/blog/background/NoContent.astro";
 // newt
 import { getArticles } from "../../lib/newt/client";
 
@@ -20,7 +21,7 @@ const articles = await getArticles(12, "desc", 2);
 					return <ArticleCard article={article} />;
 				})
 			) : (
-				<div>記事がありません</div>
+				<NoContent message="記事がありません" />
 			)
 		}
 	</ul>

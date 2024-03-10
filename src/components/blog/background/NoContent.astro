@@ -1,0 +1,42 @@
+---
+import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
+
+interface Props {
+	svgIconPath?: string;
+	svgViewBox?: string;
+	message: string;
+}
+
+const { svgIconPath, svgViewBox, message } = Astro.props;
+---
+
+<div class="no-content">
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBox ?? svgViewBoxes.circleExclamation}>
+		<path d={svgIconPath ?? svgPaths.circleExclamation}></path>
+	</svg>
+	<h1>{message}</h1>
+</div>
+
+<style lang="scss">
+	.no-content {
+		margin: 3rem 0;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.2rem;
+
+		svg {
+			width: 5rem;
+			height: auto;
+			fill: getColor(--text-secondary-color);
+		}
+
+		h1 {
+			color: getColor(--text-secondary-color);
+			font-size: 1.6rem;
+			font-weight: 700;
+			letter-spacing: 1px;
+		}
+	}
+</style>

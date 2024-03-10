@@ -3,6 +3,7 @@ import Modal from "./ToggleableModal.vue";
 import TagCard from "../../blog/card/TagCard.vue";
 import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 import { getTags } from "../../../lib/newt/client";
+import NoContent from "../../blog/background/NoContent.astro";
 
 const tags = await getTags();
 ---
@@ -15,7 +16,7 @@ const tags = await getTags();
 					return <TagCard tag={tag} />;
 				})
 			) : (
-				<div>タグがありません</div>
+				<NoContent message="タグがありません" svgIconPath={svgPaths.tags} svgViewBox={svgViewBoxes.tags} />
 			)
 		}
 	</ul>

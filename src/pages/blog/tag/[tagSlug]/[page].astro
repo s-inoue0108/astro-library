@@ -4,6 +4,7 @@ import PageTitle from "../../../../components/blog/background/PageTitle.astro";
 import CategoriesNavBar from "../../../../components/blog/background/CategoriesNavBar.astro";
 import ArticleCard from "../../../../components/blog/card/ArticleCard.astro";
 import TagsListModal from "../../../../components/common/modal/TagsListModal.astro";
+import NoContent from "../../../../components/blog/background/NoContent.astro";
 import { getArticles, getTags } from "../../../../lib/newt/client";
 import type { Article, Tag } from "../../../../lib/newt/types";
 import type { Page, GetStaticPathsOptions } from "astro";
@@ -49,7 +50,7 @@ const { page, tag } = Astro.props;
 					return <ArticleCard article={article} />;
 				})
 			) : (
-				<div>記事がありません</div>
+				<NoContent message="記事がありません" />
 			)
 		}
 	</ul>
