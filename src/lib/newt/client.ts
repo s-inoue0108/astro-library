@@ -15,7 +15,7 @@ export const getArticles = async (limit: number = 1000, order: "asc" | "desc" = 
 			appUid: "blog",
 			modelUid: "article",
 			query: {
-				order: [`${order === "desc" ? "-" : ""}_sys.raw.publishedAt`],
+				order: [`${order === "desc" ? "-" : ""}_sys.raw.firstPublishedAt`],
 				limit: limit,
 				depth: depth,
 				category: categoryId,

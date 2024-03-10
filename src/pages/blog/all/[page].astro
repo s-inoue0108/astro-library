@@ -18,7 +18,7 @@ export const getStaticPaths = async ({ paginate }: { paginate: GetStaticPathsOpt
 
 	const routes = articles.flatMap((article) => {
 		return paginate(articles, {
-			pageSize: 1,
+			pageSize: 12,
 			props: { article: article },
 		});
 	});

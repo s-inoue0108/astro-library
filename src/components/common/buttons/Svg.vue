@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-    svgIconPath: string;
+    svgIconPath?: string;
     svgViewBox?: string;
     svgFillColor?: string;
     isLink?: boolean;
@@ -9,16 +9,16 @@ interface Props {
     currentPath?: string;
     testPathRegex?: RegExp;
     title?: string;
-    width?: string;
-    height?: string;
+    widthScale?: number;
+    heightScale?: number;
     radius?: string;
 }
 
-const { svgIconPath, svgViewBox, isLink, linkUrl, event, currentPath, testPathRegex, title } = withDefaults(defineProps<Props>(), {
+const { svgIconPath, svgViewBox, isLink, linkUrl, event, currentPath, testPathRegex, title, widthScale, heightScale } = withDefaults(defineProps<Props>(), {
     svgViewBox: "0 0 512 512",
     isLink: false,
-    width: "36px",
-    height: "36px",
+    widthScale: 1,
+    heightScale: 1,
     radius: "9999px",
 })
 
@@ -33,7 +33,7 @@ const isCurrent = (currentPath?: string, testPathRegex?: RegExp): boolean => {
 <template>
     <a :href="linkUrl" v-if="isLink">
         <div class="ring" :class="[isCurrent(currentPath, testPathRegex) ? 'bgborder' : 'bgtransparent']">
-            <svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBox">
+            <svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBox" v-if="svgIconPath">
                 <path :d="svgIconPath" />
             </svg>
             <label v-if="title">
@@ -43,7 +43,7 @@ const isCurrent = (currentPath?: string, testPathRegex?: RegExp): boolean => {
     </a>
     <button type="button" @click="event" v-else>
         <div class="ring">
-            <svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBox">
+            <svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBox" v-if="svgIconPath">
                 <path :d="svgIconPath" />
             </svg>
             <label v-if="title">
@@ -56,6 +56,8 @@ const isCurrent = (currentPath?: string, testPathRegex?: RegExp): boolean => {
 <style scoped lang="scss">
 a,
 button {
+    width: 100%;
+    height: 100%;
 
     &:active {
         opacity: .5;
@@ -63,13 +65,22 @@ button {
     }
 
     .ring {
-        margin: calc(v-bind(height) / 8);
         position: relative;
         border: solid 2px getColor(--border-color);
         border-radius: v-bind(radius);
-        width: v-bind(width);
-        height: v-bind(height);
+        width: calc(36px * v-bind(widthScale));
+        height: calc(36px * v-bind(heightScale));
         box-shadow: 0 0 7px getColor(--border-color);
+
+        @include resp(sm) {
+            width: calc(48px * v-bind(widthScale));
+            height: calc(48px * v-bind(heightScale));
+        }
+
+        @include resp(lg) {
+            width: calc(64px * v-bind(widthScale));
+            height: calc(64px * v-bind(heightScale));
+        }
 
         display: flex;
         justify-content: center;
@@ -86,6 +97,14 @@ button {
             font-weight: 300;
             white-space: nowrap;
             cursor: pointer;
+
+            @include resp(sm) {
+                font-size: 1.6rem;
+            }
+
+            @include resp(lg) {
+                font-size: 2rem;
+            }
         }
     }
 }
