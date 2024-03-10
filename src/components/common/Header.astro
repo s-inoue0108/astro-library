@@ -1,5 +1,6 @@
 ---
-import Theme from "./buttons/Theme.vue";
+import ThemeButton from "./buttons/Theme.vue";
+import SvgButton from "./buttons/Svg.vue";
 // Image
 import { Image } from "astro:assets";
 // HeaderImage
@@ -13,32 +14,33 @@ const isInHome = (path: string): boolean => {
 ---
 
 <header class:list={{ bgprimary: isInHome(currentPath), loadingfade: isInHome(currentPath) }}>
-	<ul class="app-title">
-		<a href={import.meta.env.APP_URL} class="header-img">
-			<Image src={HeaderImage} alt={import.meta.env.APP_NAME} />
-		</a>
-		<h1 class="title">{import.meta.env.APP_NAME}</h1>
-	</ul>
-	<ul class="buttons">
-		<Theme client:load />
-	</ul>
+	<nav>
+		<ul class="app-title">
+			<a href={import.meta.env.APP_URL} class="header-img">
+				<Image src={HeaderImage} alt={import.meta.env.APP_NAME} />
+			</a>
+			<h1 class="title">{import.meta.env.APP_NAME}</h1>
+		</ul>
+		<ul class="pages"></ul>
+		<ThemeButton client:load />
+	</nav>
 </header>
 
 <style lang="scss">
-	header {
+	header nav {
 		position: relative;
-		width: 100%;
+		width: 100vw;
 		height: 36px;
-		padding: 6px 12px;
+		padding: 0 12px;
 
 		@include resp(sm) {
 			height: 48px;
-			padding: 12px;
+			padding: 0 24px;
 		}
 
 		@include resp(lg) {
 			height: 64px;
-			padding: 32px 44px;
+			padding: 0 48px;
 		}
 
 		display: flex;
@@ -103,8 +105,17 @@ const isInHome = (path: string): boolean => {
 
 		.buttons {
 			display: flex;
+			flex-direction: row-reverse;
 			align-items: baseline;
-			gap: 64px;
+			gap: 1.6rem;
+
+			@include resp(sm) {
+				gap: 2rem;
+			}
+
+			@include resp(lg) {
+				gap: 2.4rem;
+			}
 		}
 	}
 

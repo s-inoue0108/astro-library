@@ -1,6 +1,8 @@
 ---
 import { getCategories } from "../../../lib/newt/client";
 import SvgButton from "../../../components/common/buttons/Svg.vue";
+import SearchButton from "../../common/buttons/Search.vue";
+import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 
 const categories = await getCategories();
 
@@ -9,6 +11,9 @@ const currentPath = Astro.url.pathname;
 
 <nav class="categories">
 	<ul class="categories-list">
+		<li class="category">
+			<SvgButton svgIconPath={svgPaths.globe} svgViewBox={svgViewBoxes.globe} svgFillColor="#f43f5e" isLink={true} linkUrl="/blog/all/1" currentPath={currentPath} testPathRegex={new RegExp("^/blog/all/")} widthScale={0.8} heightScale={0.8} />
+		</li>
 		{
 			categories &&
 				categories.length > 0 &&
@@ -21,6 +26,7 @@ const currentPath = Astro.url.pathname;
 				})
 		}
 	</ul>
+	<SearchButton />
 </nav>
 
 <style lang="scss">
@@ -32,15 +38,22 @@ const currentPath = Astro.url.pathname;
 		background: getColor(--bg-secondary-color, 0.9);
 		margin: 0 -1rem 2rem -1rem;
 		z-index: 10;
+		padding: 0 12px;
+
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 
 		@include resp(sm) {
 			top: 48px;
 			height: 48px;
+			padding: 0 24px;
 		}
 
 		@include resp(lg) {
 			top: 64px;
 			height: 64px;
+			padding: 0 48px;
 		}
 
 		.categories-list {

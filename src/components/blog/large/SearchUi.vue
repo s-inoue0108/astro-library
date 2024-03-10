@@ -4,6 +4,7 @@ import { svgPaths, svgViewBoxes, type SvgMetadata } from "../../../lib/svg/paths
 import type { Article } from "../../../lib/newt/types";
 import { getSegments, fuseClient, type Segment } from "../../../lib/fusejs/instance";
 import type { FuseResult } from "fuse.js";
+import SvgButton from "../../common/buttons/Svg.vue";
 
 const keyword = ref<string>("")
 
@@ -79,11 +80,25 @@ const sliceText = (text: string | undefined, limit: number): string => {
             </a>
         </li>
     </ul>
+    <div class="no-hit" v-else-if="keyword && keyword.length > 0">
+        <svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.circleExclamation">
+            <path :d="svgPaths.circleExclamation" />
+        </svg>
+        <h1>記事がありません</h1>
+        <div class="see-all-posts">
+            <SvgButton title="See all posts" :is-link="true" linkUrl="/blog/all/1" :width-scale="4.4"
+                :svgIconPath="svgPaths.caretRight" :svgViewBox="svgViewBoxes.caretRight" :height-scale="0.8" />
+        </div>
+    </div>
     <div class="no-hit" v-else>
         <svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.magnifyingGlass">
             <path :d="svgPaths.magnifyingGlass" />
         </svg>
         <h1>記事を検索</h1>
+        <div class="see-all-posts">
+            <SvgButton title="See all posts" :is-link="true" linkUrl="/blog/all/1" :width-scale="4.4"
+                :svgIconPath="svgPaths.caretRight" :svgViewBox="svgViewBoxes.caretRight" :height-scale="0.8" />
+        </div>
     </div>
 </template>
 
@@ -199,7 +214,7 @@ const sliceText = (text: string | undefined, limit: number): string => {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 2.4rem;
 
     svg {
         position: absolute;
@@ -220,6 +235,17 @@ const sliceText = (text: string | undefined, limit: number): string => {
         font-size: 2rem;
         font-weight: 700;
         letter-spacing: 1px;
+        white-space: nowrap;
+    }
+
+    .see-all-posts {
+        position: absolute;
+        top: calc(50% + 10rem);
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: getColor(--text-secondary-color);
+
+        fill: getColor(--text-secondary-color);
     }
 }
 </style>

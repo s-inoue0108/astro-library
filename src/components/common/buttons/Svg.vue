@@ -111,7 +111,7 @@ button {
 
 
 .bgborder {
-    background: getColor(--border-color);
+    background: getColor(--border-color, 0.7);
 }
 
 .bgtransparent {
