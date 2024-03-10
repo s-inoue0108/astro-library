@@ -40,7 +40,7 @@ const currentPath = Astro.url.pathname;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 
-		<script>
+		<!-- <script>
 			import { gsap } from "gsap";
 
 		    if (location.pathname !== "/") {
@@ -71,7 +71,7 @@ const currentPath = Astro.url.pathname;
 			        })
 			    }
 		    }
-		</script>
+		</script> -->
 	</head>
 
 	<body class:list={{ "loading-fade": currentPath !== "/" }}>
