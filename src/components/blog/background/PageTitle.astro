@@ -39,6 +39,7 @@ const { title, svgIconPath, svgViewBox, iconImage, bgImage } = Astro.props;
 		.from(bgImg, {
             autoAlpha: 0,
             duration: 1,
+            delay: .5,
             ease: "power4.out",
         })
         .from(titleSection, {
