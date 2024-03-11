@@ -8,6 +8,13 @@ const newtClient = createClient({
 	apiType: "cdn",
 });
 
+// Preview Client
+const newtPreviewClient = createClient({
+	spaceUid: import.meta.env.NEWT_SPACE_UID,
+	token: import.meta.env.NEWT_ARTICLE_PREVIEW_SECRET,
+	apiType: "api",
+});
+
 // Get Articles
 export const getArticles = async (limit: number = 1000, order: "asc" | "desc" = "desc", depth: 0 | 1 | 2 = 2, categoryId?: Category["_id"], tagIds?: Tag["_id"][]): Promise<Article[] | null> => {
 	try {
@@ -100,6 +107,24 @@ export const getTagsBySlugs = async (slugs: Tag["slug"][], depth: 0 | 1 | 2 = 2)
 			},
 		});
 		return tags;
+	} catch (err) {
+		console.error(err);
+		return null;
+	}
+};
+
+// Get Preview Article by Slug
+export const getPreviewBySlug = async (slug: Article["slug"], depth: 0 | 1 | 2 = 2): Promise<Article | null> => {
+	try {
+		const article = await newtPreviewClient.getFirstContent<Article>({
+			appUid: "blog",
+			modelUid: "article",
+			query: {
+				slug: slug,
+				depth: depth,
+			},
+		});
+		return article;
 	} catch (err) {
 		console.error(err);
 		return null;
