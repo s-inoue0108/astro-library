@@ -23,9 +23,10 @@ const currentPath = Astro.url.pathname;
 		<meta property="og:title" content={title} />
 		<meta property="og:image" content={`${import.meta.env.APP_URL}/public/portfolio-favicon.png`} />
 
-		<!--noindex nofollow-->
-		<!-- <meta name="robots" content="noindex" />
-		<meta name="robots" content="nofollow" /> -->
+		<!--noindex nofollow in preview route-->
+		{
+			new RegExp("\^/blog/preview/").test(currentPath) ? <meta name="robots" content="noindex" /><meta name="robots" content="nofollow" /> : <></>
+		}
 
 		<!-- Favicon -->
 		<link rel="icon" type="image/png" href="/portfolio-favicon.png" />
