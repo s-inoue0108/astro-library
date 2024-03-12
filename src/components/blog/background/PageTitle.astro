@@ -8,7 +8,7 @@ import { Image } from "astro:assets";
 interface Props {
 	title: string;
 	svgIconPath?: string;
-    svgViewBox?: string;
+	svgViewBox?: string;
 	iconImage?: NewtImageProps;
 	bgImage?: NewtImageProps;
 }
@@ -18,36 +18,43 @@ const { title, svgIconPath, svgViewBox, iconImage, bgImage } = Astro.props;
 
 <div class="page-title">
 	{bgImage ? <Image src={bgImage.src} width={bgImage.width} height={bgImage.height} alt={bgImage.altText} class="bg-image" /> : <Image src={TokyoNightScape} alt="東京の夜景" class="bg-image" />}
-    <div class="title-section">
-        {
-            iconImage ? <Image src={iconImage.src} width={iconImage.width} height={iconImage.height} alt={iconImage.altText} class="icon-image" /> : <></>
-        }
-        {
-            svgIconPath && !iconImage ? <svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBox ?? "0 0 512 512"}><path d={svgIconPath}/></svg> : <></>
-        }
-        <h1 class="title">{title}</h1>
-    </div>
+	<div class="title-section">
+		{iconImage && <Image src={iconImage.src} width={iconImage.width} height={iconImage.height} alt={iconImage.altText} class="icon-image" />}
+		{
+			svgIconPath && !iconImage && (
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBox ?? "0 0 512 512"}>
+					<path d={svgIconPath} />
+				</svg>
+			)
+		}
+		<h1 class="title">{title}</h1>
+	</div>
 </div>
 
 <script>
-    import { gsap } from "gsap";
+	import { gsap } from "gsap";
 
-    const bgImg = document.querySelector(".bg-image");
-    const titleSection = document.querySelector(".title-section");
+	const bgImg = document.querySelector(".bg-image");
+	const titleSection = document.querySelector(".title-section");
 
-    gsap.timeline()
+	gsap
+		.timeline()
 		.from(bgImg, {
-            autoAlpha: 0,
-            duration: 1,
-            delay: .2,
-            ease: "power4.out",
-        })
-        .from(titleSection, {
-            autoAlpha: 0,
-            yPercent: 20,
-            duration: 1,
-            ease: "power4.out",
-        }, "-=0.8");
+			autoAlpha: 0,
+			duration: 1,
+			delay: 0.2,
+			ease: "power4.out",
+		})
+		.from(
+			titleSection,
+			{
+				autoAlpha: 0,
+				yPercent: 20,
+				duration: 1,
+				ease: "power4.out",
+			},
+			"-=0.8"
+		);
 </script>
 
 <style scoped lang="scss">
@@ -66,33 +73,33 @@ const { title, svgIconPath, svgViewBox, iconImage, bgImage } = Astro.props;
 			opacity: 0.5;
 		}
 
-        .title-section {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+		.title-section {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			display: flex;
+			align-items: center;
+			gap: 1rem;
 
-            .icon-image {
-                width: auto;
-                height: 2rem;
-                object-fit: contain;
-            }
+			.icon-image {
+				width: auto;
+				height: 2rem;
+				object-fit: contain;
+			}
 
-            svg {
-                width: auto;
-                height: 2rem;
-                fill: getColor(--text-primary-color);
-            }
+			svg {
+				width: auto;
+				height: 2rem;
+				fill: getColor(--text-primary-color);
+			}
 
-            .title {
-                font-size: 2rem;
-                font-weight: 700;
-                letter-spacing: 1px;
-                white-space: nowrap;
-            }
-        }
+			.title {
+				font-size: 2rem;
+				font-weight: 700;
+				letter-spacing: 1px;
+				white-space: nowrap;
+			}
+		}
 	}
 </style>

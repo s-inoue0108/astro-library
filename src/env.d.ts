@@ -10,3 +10,7 @@ interface ImportMetaEnv {
 	readonly PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY: string;
 	readonly PUBLIC_NEWT_CONTACT_FORM_ENDPOINT: string;
 }
+
+interface ImportMeta {
+	readonly env: ImportMetaEnv;
+}

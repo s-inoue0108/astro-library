@@ -25,7 +25,7 @@ const currentPath = Astro.url.pathname;
 
 		<!--noindex nofollow in preview route-->
 		{
-			new RegExp("\^/blog/preview/").test(currentPath) ? <meta name="robots" content="noindex" /><meta name="robots" content="nofollow" /> : <></>
+			new RegExp("\^/blog/preview/").test(currentPath) && <meta name="robots" content="noindex" /><meta name="robots" content="nofollow" />
 		}
 
 		<!-- Favicon -->
