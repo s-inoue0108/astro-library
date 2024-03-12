@@ -3,7 +3,7 @@ import Layout from "../../../../layouts/Layout.astro";
 import PageTitle from "../../../../components/blog/background/PageTitle.astro";
 import CategoriesNavBar from "../../../../components/blog/background/CategoriesNavBar.astro";
 import ArticleCard from "../../../../components/blog/card/ArticleCard.astro";
-import TagsListModal from "../../../../components/common/modal/TagsListModal.astro";
+import TagsListModal from "../../../../components/common/modal/TagsListModal.vue";
 import Pager from "../../../../components/blog/background/Pager.vue";
 import NoContent from "../../../../components/blog/background/NoContent.astro";
 import { getArticles } from "../../../../lib/newt/client";
@@ -123,3 +123,4 @@ const { page, year, month } = Astro.props;
 		}
 	}
 </style>
+../../../../components/common/modal/TagsListModal.vue

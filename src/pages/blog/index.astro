@@ -1,7 +1,8 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ArticleCard from "../../components/blog/card/ArticleCard.astro";
-import TagsListModal from "../../components/common/modal/TagsListModal.astro";
+import TagsListModal from "../../components/common/modal/TagsListModal.vue";
+import ArchivesListModal from "../../components/common/modal/ArchivesListModal.vue";
 import PageTitle from "../../components/blog/background/PageTitle.astro";
 import CategoriesNavBar from "../../components/blog/background/CategoriesNavBar.astro";
 import NoContent from "../../components/blog/background/NoContent.astro";
@@ -9,6 +10,8 @@ import NoContent from "../../components/blog/background/NoContent.astro";
 import { getArticles } from "../../lib/newt/client";
 
 const articles = await getArticles(12, "desc", 2);
+const allArticles = await getArticles();
+// Propする用
 ---
 
 <Layout title={`ブログ | ${import.meta.env.APP_NAME}`} description="ブログ">
@@ -30,6 +33,7 @@ const articles = await getArticles(12, "desc", 2);
 		}
 	</ul>
 	<TagsListModal />
+	<ArchivesListModal articles={allArticles} client:visible />
 </Layout>
 
 <script>
