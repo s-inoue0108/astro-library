@@ -7,11 +7,11 @@ import PageTitle from "../../components/blog/background/PageTitle.astro";
 import CategoriesNavBar from "../../components/blog/background/CategoriesNavBar.astro";
 import NoContent from "../../components/blog/background/NoContent.astro";
 // newt
-import { getArticles } from "../../lib/newt/client";
+import { getArticles, getCategories, getTags } from "../../lib/newt/client";
 
-const articles = await getArticles(12, "desc", 2);
-const allArticles = await getArticles();
-// Propする用
+const articles = await getArticles();
+const categories = await getCategories();
+const tags = await getTags();
 ---
 
 <Layout title={`ブログ | ${import.meta.env.APP_NAME}`} description="ブログ">
@@ -20,7 +20,7 @@ const allArticles = await getArticles();
 	<ul class="cards">
 		{
 			articles && articles.length > 0 ? (
-				articles.map((article) => {
+				articles.slice(0, 12).map((article) => {
 					return (
 						<li class="article-card">
 							<ArticleCard article={article} />
@@ -32,8 +32,8 @@ const allArticles = await getArticles();
 			)
 		}
 	</ul>
-	<TagsListModal />
-	<ArchivesListModal articles={allArticles} client:visible />
+	<TagsListModal categories={categories} tags={tags} client:visible />
+	<ArchivesListModal articles={articles} client:visible />
 </Layout>
 
 <script>

@@ -61,8 +61,8 @@ const isCurrent = (currentPath?: string, testPathRegex?: RegExp): boolean => {
 a,
 button {
     font-weight: v-bind(fontWeight);
-    width: 100%;
-    height: 100%;
+    width: max-content;
+    height: max-content;
 
     &:active {
         opacity: .5;

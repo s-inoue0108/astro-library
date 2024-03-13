@@ -9,6 +9,7 @@ const { month, isDisabled } = defineProps<Props>()
 
 const cursor = isDisabled ? "none" : "pointer";
 const pointerEvents = isDisabled ? "none" : "visible";
+const opacity = isDisabled ? 0.5 : 1;
 </script>
 
 <template>
@@ -25,11 +26,17 @@ const pointerEvents = isDisabled ? "none" : "visible";
     display: block;
     width: 100%;
     height: 100%;
-    background: getColor(--bg-primary-color);
+    background: getColor(--bg-primary-color, v-bind(opacity));
     border: solid 1px getColor(--bg-secondary-color);
     pointer-events: v-bind(pointerEvents);
 
+    &:active {
+        background: $rose;
+        transition: .2s ease;
+    }
+
     .month {
+        color: getColor(--text-primary-color, v-bind(opacity));
         width: 100%;
         height: 100%;
         display: flex;

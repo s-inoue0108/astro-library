@@ -1,0 +1,54 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SvgButton from "../components/common/buttons/Svg.vue";
+import { svgPaths, svgViewBoxes } from "../lib/svg/paths";
+---
+
+<Layout title="ページが存在しません | 404 Not Found" description="存在しないページ">
+	<div class="error">
+		<h1 class="status">404</h1>
+		<p class="message">ページが存在しません</p>
+	</div>
+	<div class="return-to-home">
+		<SvgButton title="Return to HOME" is-link={true} linkUrl="/" width-scale={6.2} svgIconPath={svgPaths.caretRight} svgViewBox={svgViewBoxes.caretRight} height-scale={1} />
+	</div>
+</Layout>
+
+<style scoped lang="scss">
+	.error {
+		color: getColor(--text-secondary-color);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 1rem;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 100%;
+
+		.status {
+			font-size: 3rem;
+			font-weight: 700;
+			letter-spacing: 1px;
+		}
+
+		.message {
+			border-top: solid 1px getColor(--text-secondary-color);
+			font-size: 1.2rem;
+			font-weight: 500;
+			letter-spacing: 1px;
+			padding: 2rem;
+		}
+	}
+
+	.return-to-home {
+		position: absolute;
+		top: calc(50% + 8rem);
+		left: 50%;
+		transform: translateX(-50%);
+		color: getColor(--text-secondary-color);
+		fill: getColor(--text-secondary-color);
+	}
+</style>

@@ -61,10 +61,12 @@ const existMonthsAndExistence = computed<{ month: number, exist: boolean }[]>(()
 	<Modal title="アーカイブ" :svgIconPath="svgPaths.boxArchive" :svgViewBox="svgViewBoxes.boxArchive">
 		<template #info>
 			<div class="year-selector">
-				<svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.calendarCheck">
-					<path :d="svgPaths.calendarCheck"></path>
-				</svg>
-				<select v-model="selectedYear">
+				<label for="select-year">
+					<svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.calendar">
+						<path :d="svgPaths.calendar"></path>
+					</svg>
+				</label>
+				<select v-model="selectedYear" id="select-year" name="select-year">
 					<option v-for="year in existYears" :key="year">{{ year }}</option>
 				</select>
 			</div>
@@ -87,26 +89,33 @@ const existMonthsAndExistence = computed<{ month: number, exist: boolean }[]>(()
 }
 
 .year-selector {
-	color: getColor(--text-secondary-color);
-	font-size: 1rem;
+	color: getColor(--text-primary-color);
+	font-size: 0.9rem;
 	font-weight: 500;
 	border-radius: 9999px;
 	background: getColor(--bg-primary-color);
 	padding: 0.2rem 0.5rem;
 	position: relative;
 	display: flex;
-	align-items: baseline;
+	align-items: center;
 	gap: 0.5rem;
 
-	svg {
-		width: auto;
-		height: 0.9rem;
-		fill: getColor(--text-secondary-color);
+	label {
+		height: 100%;
+
+		svg {
+			display: flex;
+			align-items: center;
+			width: auto;
+			height: 0.9rem;
+			fill: getColor(--text-primary-color);
+		}
 	}
 
 	select {
-		background: getColor(--bg-secondary-color);
-		color: getColor(--text-secondary-color);
+		padding: 0 1rem;
+		background: getColor(--bg-primary-color);
+		color: getColor(--text-primary-color);
 	}
 }
 </style>
