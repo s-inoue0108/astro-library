@@ -4,6 +4,7 @@ import PageTitle from "../../../../components/blog/background/PageTitle.astro";
 import CategoriesNavBar from "../../../../components/blog/background/CategoriesNavBar.astro";
 import ArticleCard from "../../../../components/blog/card/ArticleCard.astro";
 import TagsListModal from "../../../../components/common/modal/TagsListModal.vue";
+import ArchivesListModal from "../../../../components/common/modal/ArchivesListModal.vue";
 import NoContent from "../../../../components/blog/background/NoContent.astro";
 import { getArticles, getCategories, getTags } from "../../../../lib/newt/client";
 import type { Article, Tag } from "../../../../lib/newt/types";
@@ -39,6 +40,7 @@ interface Props {
 
 const { page, tag } = Astro.props;
 
+const articles = await getArticles();
 const categories = await getCategories();
 const tags = await getTags();
 ---
@@ -61,7 +63,8 @@ const tags = await getTags();
 			)
 		}
 	</ul>
-	<TagsListModal categories={categories} tags={tags} />
+	<TagsListModal categories={categories} tags={tags} client:visible />
+	<ArchivesListModal articles={articles} client:visible />
 </Layout>
 
 <script>

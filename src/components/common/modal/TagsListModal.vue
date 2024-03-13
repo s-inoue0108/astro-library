@@ -23,11 +23,11 @@ const getCategoryByName = (name: Category["name"]): Category | null => {
 	return category
 }
 
-const bgColor = computed<Category["themeColor"] | "transparent">(() => {
+const bgColor = computed<Category["themeColor"] | "#fb7185">(() => {
 	const category = getCategoryByName(selectedCategory.value)
 
 	if (!category) {
-		return "transparent"
+		return "#fb7185"
 	}
 
 	return category.themeColor
@@ -39,7 +39,7 @@ const viewTags = computed<Tag[]>(() => {
 	} else if (selectedCategory.value === "すべて") {
 		return tags;
 	}
-	const filteredTags = tags.filter((tag) => tag.parentCategory.name === selectedCategory.value);
+	const filteredTags = tags.filter((tag) => { return tag.parentCategory.name === selectedCategory.value });
 	return filteredTags;
 })
 </script>
