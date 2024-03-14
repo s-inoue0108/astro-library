@@ -37,15 +37,6 @@ const { article } = Astro.props;
 // Load Cheerio
 const $ = load(article.content.data);
 
-// Set Code and button
-const codes: string[] = [];
-const copyBtns: (HTMLElement | null)[] = [];
-
-// Copy as code
-const copyToClipboard = async (idx: number): Promise<void> => {
-	await navigator.clipboard.writeText(codes[idx]);
-};
-
 $("pre code").each((idx, elm) => {
 	const className = $(elm).attr("class");
 	const classList = className ? className.split(":") : [];
@@ -55,7 +46,6 @@ $("pre code").each((idx, elm) => {
 	let result;
 
 	const code = $(elm).text();
-	codes.push(code);
 
 	if (language) {
 		try {
@@ -69,10 +59,8 @@ $("pre code").each((idx, elm) => {
 
 	const codeTitle = $(elm)
 		.parent()
-		.before(`<div class="code-title"><label class="title">${fileName ?? ""}</label><button type="button" id="copy-btn-${idx}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="${svgViewBoxes.copy}"><path d="${svgPaths.copy}" /></svg></button></div>`);
+		.before(`<div class="code-title"><label class="title">${fileName ?? ""}</label><button type="button" id="copy-btn-${idx}" class="copy-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="${svgViewBoxes.copy}"><path d="${svgPaths.copy}" /></svg></button></div>`);
 
-	// const copyBtn = document.getElementById(`copy-btn-${idx}`);
-	// copyBtns.push(copyBtn);
 	$(elm).html(result.value);
 });
 
@@ -94,36 +82,53 @@ article.content.data = $.html();
 	<article set:html={article.content.data} />
 </Layout>
 
-<!-- <script>
-// Set Code and button
-const copyBtns: (HTMLElement | null)[] = [];
+<script>
+	import { load } from "cheerio";
 
-// Copy as code
-const copyToClipboard = async (idx: number): Promise<void> => {
-	await navigator.clipboard.writeText(codes[idx]);
-};
+	// Load Cheerio
+	const $ = load(document.body.innerHTML);
 
-$("pre code").each((idx, elm) => {
+	// Copy as code
+	const copyToClipboard = async (code: string): Promise<void> => {
+		await navigator.clipboard.writeText(code);
+	};
 
-	let result;
+	$("pre code").each((idx, elm) => {
+		const code = $(elm).text();
+		const copyBtn = document.getElementById(`copy-btn-${idx}`);
 
-	const code = $(elm).text();
-	codes.push(code);
-	const copyBtn = document.getElementById(`copy-btn-${idx}`);
-	copyBtns.push(copyBtn);
-});
-</script> -->
+		copyBtn!.addEventListener("click", async () => {
+			await copyToClipboard(code);
+		});
+	});
+</script>
 
 <style lang="scss">
-	.code-title {
-		display: inline-flex;
-		justify-content: space-between;
-		align-items: center;
+	.copy-btn {
+		&:active {
+			animation: shake 1s ease;
+		}
 
-		svg {
-			height: 16px;
-			width: auto;
-			fill: getColor(--text-secondary-color);
+		@keyframes shake {
+			0% {
+				transform: translateX(0);
+			}
+
+			25% {
+				transform: translateX(4px);
+			}
+
+			50% {
+				transform: translateX(0);
+			}
+
+			75% {
+				transform: translateX(-4px);
+			}
+
+			100% {
+				transform: translateX(0);
+			}
 		}
 	}
 </style>

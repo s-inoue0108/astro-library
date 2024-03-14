@@ -1,5 +1,4 @@
 ---
-// Server Side Rendering
 export const prerender = false;
 
 import Layout from "../../../layouts/Layout.astro";
@@ -11,9 +10,11 @@ import type { Article } from "../../../lib/newt/types";
 import "katex/dist/katex.min.css";
 // Highlight.js
 import hljs from "highlight.js";
-import "highlight.js/styles/tokyo-night-dark.css";
+import "../../../styles/syntax-highlight.scss";
 // Cheerio
 import { load } from "cheerio";
+// SVG
+import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 
 // prerender config
 export const getStaticPaths = async () => {
@@ -38,27 +39,31 @@ const { article } = Astro.props;
 // Load Cheerio
 const $ = load(article.content.data);
 
-$("pre code").each((_, elm) => {
+$("pre code").each((idx, elm) => {
 	const className = $(elm).attr("class");
 	const classList = className ? className.split(":") : [];
 	const language = classList[0]?.replace("language-", "");
 	const fileName = classList[1];
 
 	let result;
+
+	const code = $(elm).text();
+
 	if (language) {
 		try {
-			result = hljs.highlight($(elm).text(), { language });
+			result = hljs.highlight(code, { language });
 		} catch {
-			result = hljs.highlightAuto($(elm).text());
+			result = hljs.highlightAuto(code);
 		}
 	} else {
-		result = hljs.highlightAuto($(elm).text());
+		result = hljs.highlightAuto(code);
 	}
-	$(elm).html(result.value);
 
-	if (fileName) {
-		$(elm).parent().before(`<div><span>${fileName}</span></div>`);
-	}
+	const codeTitle = $(elm)
+		.parent()
+		.before(`<div class="code-title"><label class="title">${fileName ?? ""}</label><button type="button" id="copy-btn-${idx}" class="copy-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="${svgViewBoxes.copy}"><path d="${svgPaths.copy}" /></svg></button></div>`);
+
+	$(elm).html(result.value);
 });
 
 // Table of contents
@@ -74,7 +79,58 @@ $("h1,h2,h3").each((_, elm) => {
 article.content.data = $.html();
 ---
 
-<Layout title={`${article!.title} | ブログ | ${import.meta.env.APP_NAME}`} description={`${article.description}`}>
+<Layout title={`${article.title} | ブログ | ${import.meta.env.APP_NAME}`} description={`${article.description}`}>
 	<Toc headings={headings} />
-	<article set:html={article!.content.data} />
+	<article set:html={article.content.data} />
 </Layout>
+
+<script>
+	import { load } from "cheerio";
+
+	// Load Cheerio
+	const $ = load(document.body.innerHTML);
+
+	// Copy as code
+	const copyToClipboard = async (code: string): Promise<void> => {
+		await navigator.clipboard.writeText(code);
+	};
+
+	$("pre code").each((idx, elm) => {
+		const code = $(elm).text();
+		const copyBtn = document.getElementById(`copy-btn-${idx}`);
+
+		copyBtn!.addEventListener("click", async () => {
+			await copyToClipboard(code);
+		});
+	});
+</script>
+
+<style lang="scss">
+	.copy-btn {
+		&:active {
+			animation: shake 1s ease;
+		}
+
+		@keyframes shake {
+			0% {
+				transform: translateX(0);
+			}
+
+			25% {
+				transform: translateX(4px);
+			}
+
+			50% {
+				transform: translateX(0);
+			}
+
+			75% {
+				transform: translateX(-4px);
+			}
+
+			100% {
+				transform: translateX(0);
+			}
+		}
+	}
+</style>

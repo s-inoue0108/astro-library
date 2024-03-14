@@ -193,6 +193,38 @@ const currentPath = Astro.url.pathname;
 			            fill: getColor(--text-secondary-color);
 		            }
 				}
+
+				.copy-btn {
+		            &:active {
+			            animation: shake .2s ease;
+						opacity: .5;
+						transition: .2s ease;
+		            }
+
+		            svg {
+			            height: 16px;
+			            width: auto;
+			            fill: getColor(--text-secondary-color);
+		            }
+
+		            @keyframes shake {
+			           0% {
+				            transform: translateX(0);
+			            }
+
+			            25% {
+				            transform: translateX(16px);
+			            }
+
+			            75% {
+				            transform: translateX(-16px);
+			            }
+
+			            100% {
+				            transform: translateX(0);
+			            }
+		            }
+	            }
 	        }
 	    }	
 	}
