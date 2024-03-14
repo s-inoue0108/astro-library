@@ -6,33 +6,9 @@ import { getArticles } from "../../../lib/newt/client";
 import type { Article } from "../../../lib/newt/types";
 // KaTeX
 import "katex/dist/katex.min.css";
-// Prism
-// import Prism from "prismjs";
-// // Prism Language
-// import "prismjs/components/prism-typescript";
-// import "prismjs/components/prism-bash";
-// import "prismjs/components/prism-css";
-// import "prismjs/components/prism-css-extras";
-// import "prismjs/components/prism-javascript";
-// import "prismjs/components/prism-json";
-// import "prismjs/components/prism-markup";
-// import "prismjs/components/prism-markup-templating";
-// import "prismjs/components/prism-php";
-// import "prismjs/components/prism-pug";
-// import "prismjs/components/prism-scss";
-// import "prismjs/components/prism-csv";
-// import "prismjs/components/prism-django";
-// import "prismjs/components/prism-docker";
-// import "prismjs/components/prism-yaml";
-// import "prismjs/components/prism-wolfram";
-// import "prismjs/components/prism-vim";
-// import "prismjs/components/prism-excel-formula";
-// import "prismjs/components/prism-latex";
-// import "prismjs/components/prism-sql";
-// import "prismjs/components/prism-regex";
-// import "prismjs/components/prism-markdown";
-// // Prism Theme
-// import "prismjs/themes/prism-okaidia.min.css";
+// Highlight.js
+import hljs from "highlight.js";
+import "highlight.js/styles/tokyo-night-dark.css";
 // Cheerio
 import { load } from "cheerio";
 
@@ -56,14 +32,37 @@ interface Props {
 
 const { article } = Astro.props;
 
+// Load Cheerio
+const $ = load(article.content.data);
+
+$("pre code").each((_, elm) => {
+	const className = $(elm).attr("class");
+	const language = className?.replace("language-", "");
+
+	let result;
+	if (language) {
+		try {
+			result = hljs.highlight($(elm).text(), { language });
+		} catch {
+			result = hljs.highlightAuto($(elm).text());
+		}
+	} else {
+		result = hljs.highlightAuto($(elm).text());
+	}
+	$(elm).html(result.value);
+	$(elm).addClass("hljs");
+});
+
 // Table of contents
 const headings: string[] = [];
-const $ = load(article.content.data);
+
 $("h1,h2,h3").each((_, elm) => {
 	const heading = $(elm).text();
 	headings.push(heading);
 	$(elm).contents().wrap(`<a id="${heading}" href="#${heading}"></a>`);
 });
+
+// Set HTML
 article.content.data = $.html();
 ---
 
