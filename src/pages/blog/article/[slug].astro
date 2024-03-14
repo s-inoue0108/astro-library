@@ -8,9 +8,11 @@ import type { Article } from "../../../lib/newt/types";
 import "katex/dist/katex.min.css";
 // Highlight.js
 import hljs from "highlight.js";
-import "highlight.js/styles/tokyo-night-dark.css";
+import "../../../styles/syntax-highlight.scss";
 // Cheerio
 import { load } from "cheerio";
+// SVG
+import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 
 // prerender config
 export const getStaticPaths = async () => {
@@ -35,22 +37,43 @@ const { article } = Astro.props;
 // Load Cheerio
 const $ = load(article.content.data);
 
-$("pre code").each((_, elm) => {
+// Set Code and button
+const codes: string[] = [];
+const copyBtns: (HTMLElement | null)[] = [];
+
+// Copy as code
+const copyToClipboard = async (idx: number): Promise<void> => {
+	await navigator.clipboard.writeText(codes[idx]);
+};
+
+$("pre code").each((idx, elm) => {
 	const className = $(elm).attr("class");
-	const language = className?.replace("language-", "");
+	const classList = className ? className.split(":") : [];
+	const language = classList[0]?.replace("language-", "");
+	const fileName = classList[1];
 
 	let result;
+
+	const code = $(elm).text();
+	codes.push(code);
+
 	if (language) {
 		try {
-			result = hljs.highlight($(elm).text(), { language });
+			result = hljs.highlight(code, { language });
 		} catch {
-			result = hljs.highlightAuto($(elm).text());
+			result = hljs.highlightAuto(code);
 		}
 	} else {
-		result = hljs.highlightAuto($(elm).text());
+		result = hljs.highlightAuto(code);
 	}
+
+	const codeTitle = $(elm)
+		.parent()
+		.before(`<div class="code-title"><label class="title">${fileName ?? ""}</label><button type="button" id="copy-btn-${idx}"><svg xmlns="http://www.w3.org/2000/svg" viewBox="${svgViewBoxes.copy}"><path d="${svgPaths.copy}" /></svg></button></div>`);
+
+	// const copyBtn = document.getElementById(`copy-btn-${idx}`);
+	// copyBtns.push(copyBtn);
 	$(elm).html(result.value);
-	$(elm).addClass("hljs");
 });
 
 // Table of contents
@@ -70,3 +93,37 @@ article.content.data = $.html();
 	<Toc headings={headings} />
 	<article set:html={article.content.data} />
 </Layout>
+
+<!-- <script>
+// Set Code and button
+const copyBtns: (HTMLElement | null)[] = [];
+
+// Copy as code
+const copyToClipboard = async (idx: number): Promise<void> => {
+	await navigator.clipboard.writeText(codes[idx]);
+};
+
+$("pre code").each((idx, elm) => {
+
+	let result;
+
+	const code = $(elm).text();
+	codes.push(code);
+	const copyBtn = document.getElementById(`copy-btn-${idx}`);
+	copyBtns.push(copyBtn);
+});
+</script> -->
+
+<style lang="scss">
+	.code-title {
+		display: inline-flex;
+		justify-content: space-between;
+		align-items: center;
+
+		svg {
+			height: 16px;
+			width: auto;
+			fill: getColor(--text-secondary-color);
+		}
+	}
+</style>
