@@ -10,6 +10,10 @@ interface Props {
 const { title, description } = Astro.props;
 
 const currentPath = Astro.url.pathname;
+
+// OGP URL
+const canonicalURL = new URL(currentPath, import.meta.env.APP_URL);
+const ogpImageURL = new URL('portfolio-favicon.png', canonicalURL);
 ---
 
 <!doctype html>
@@ -21,7 +25,7 @@ const currentPath = Astro.url.pathname;
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={Astro.url} />
 		<meta property="og:title" content={title} />
-		<meta property="og:image" content={`${import.meta.env.APP_URL}/public/portfolio-favicon.png`} />
+		<meta property="og:image" content={ogpImageURL} />
 
 		<!--noindex nofollow in preview route-->
 		{
@@ -153,79 +157,6 @@ const currentPath = Astro.url.pathname;
 		@include resp(lg) {
 			padding-top: calc(64px + 1rem);
 			min-height: calc(100vh - 44px);
-		}
-
-		article {
-			pre {
-			    display: block;
-			    width: 100%;
-			    height: max-content;
-				background: getColor(--bg-secondary-color);
-				padding: 1rem;
-				overflow-x: auto;
-				border-radius: 0 0 8px 8px;
-
-				code {
-					font-family: Consolas, monospace;
-					font-size: 0.9rem;
-				}
-		    }
-
-			.code-title {
-		        display: flex;
-		        justify-content: space-between;
-		        align-items: center;
-				padding: 0.5rem 1rem;
-				margin-bottom: 4px;
-				background: getColor(--bg-secondary-color);
-				border-radius: 8px 8px 0 0;
-
-				.title {
-					width: 80%;
-					font-weight: 600;
-					overflow-x: auto;
-				}
-
-				button {
-					svg {
-			            height: 16px;
-			            width: auto;
-			            fill: getColor(--text-secondary-color);
-		            }
-				}
-
-				.copy-btn {
-		            &:active {
-			            animation: shake .2s ease;
-						opacity: .5;
-						transition: .2s ease;
-		            }
-
-		            svg {
-			            height: 16px;
-			            width: auto;
-			            fill: getColor(--text-secondary-color);
-		            }
-
-		            @keyframes shake {
-			           0% {
-				            transform: translateX(0);
-			            }
-
-			            25% {
-				            transform: translateX(16px);
-			            }
-
-			            75% {
-				            transform: translateX(-16px);
-			            }
-
-			            100% {
-				            transform: translateX(0);
-			            }
-		            }
-	            }
-	        }
 	    }	
 	}
 </style>
