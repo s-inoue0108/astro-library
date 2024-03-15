@@ -176,6 +176,11 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 				}
 			}
 
+			h3 {
+				font-weight: 700;
+				letter-spacing: 1px;
+			}
+
 			a {
 				font-weight: 500;
 				color: $sky;
@@ -192,7 +197,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 					width: 0.9rem;
 					height: 0.9rem;
 					vertical-align: middle;
-					margin-bottom: 0.2rem;
+					margin: 0 0.3rem;
 
 					@include resp(lg) {
 						width: 1.1rem;
@@ -226,11 +231,20 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 				}
 			}
 
+			hr {
+				border-color: getColor(--border-color);
+			}
+
 			img {
 				width: 100%;
 				max-height: 256px;
 				object-fit: contain;
 				border-radius: 4px;
+			}
+
+			.katex-display {
+				width: 100%;
+				overflow-x: auto;
 			}
 
 			.code-title {

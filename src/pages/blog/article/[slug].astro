@@ -39,6 +39,13 @@ const { article } = Astro.props;
 // Load Cheerio
 const $ = load(article.content.data);
 
+// anchor link
+$("a").each((_, elm) => {
+	$(elm).attr("target", "_blank").attr("rel", "noopener noreferrer");
+	$(elm).append(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${svgViewBoxes.arrowUpRightFromSquare}"><path d="${svgPaths.arrowUpRightFromSquare}"></path></svg>`);
+});
+
+// code block
 $("pre code").each((idx, elm) => {
 	const className = $(elm).attr("class");
 	const classList = className ? className.split(":") : [];
