@@ -1,9 +1,107 @@
 ---
 import type { Article } from "../../../lib/newt/types";
+import TagCard from "../card/TagCard.vue";
+// Image
+import { Image } from "astro:assets";
 
 interface Props {
-	metadata: Pick<Article, "title" | "slug" | "description" | "thambnail" | "category" | "tags">;
+	metadata: Pick<Article, "title" | "description" | "thambnail" | "category" | "tags">;
 }
 
 const { metadata } = Astro.props;
+const { title, description, thambnail, category, tags } = metadata;
 ---
+
+<div class="metadata">
+	<h1 class="title">{title}</h1>
+	<p class="description">{description}</p>
+	<div class="image">
+		<Image src={thambnail.src} width={thambnail.width} height={thambnail.height} alt={thambnail.altText} class="thambnail" />
+		<a href={`/blog/category/${category.slug}/1`} class="category">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox={category.svgViewBox} fill={category.themeColor}>
+				<path d={category.svgIconPath}></path>
+			</svg>
+			<h2>{category.name}</h2>
+		</a>
+		<ul class="tags">
+			{
+				tags &&
+					tags.length > 0 &&
+					tags.map((tag) => {
+						return (
+							<li class="tag">
+								<TagCard tag={tag} />
+							</li>
+						);
+					})
+			}
+		</ul>
+	</div>
+</div>
+
+<style lang="scss">
+	.metadata {
+		width: 100%;
+
+		.title {
+			font-size: 1.6rem;
+			font-weight: 600;
+			letter-spacing: 0.8px;
+		}
+
+		.description {
+			color: getColor(--text-secondary-color);
+			margin-top: 1rem;
+		}
+
+		.image {
+			margin-top: 1rem;
+			width: 100%;
+			height: 192px;
+			position: relative;
+			border: solid 2px getColor(--border-color);
+			border-radius: 4px;
+
+			.thambnail {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				border-radius: 2px;
+			}
+
+			.tags {
+				position: absolute;
+				bottom: 4px;
+				right: 4px;
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 0.3rem;
+			}
+
+			.category {
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				padding: 0.5rem;
+				background: getColor(--bg-primary-color, 0.5);
+				border-bottom-right-radius: 4px;
+
+				h2 {
+					font-size: 1.2rem;
+					font-weight: 600;
+					letter-spacing: 0.8px;
+				}
+
+				svg {
+					width: auto;
+					height: 1.2rem;
+				}
+			}
+		}
+	}
+</style>

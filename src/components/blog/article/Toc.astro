@@ -31,6 +31,13 @@ const { headings } = Astro.props;
 
 		.heading {
 			font-weight: 600;
+
+			a {
+				&:active {
+					text-decoration: underline;
+					transition: 0.2s ease;
+				}
+			}
 		}
 	}
 </style>

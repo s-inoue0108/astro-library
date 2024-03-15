@@ -41,7 +41,7 @@ const themeColor = computed<string>(() => {
     background: v-bind(themeColor);
     border-radius: 4px;
     padding: 0.2rem;
-    height: 100%;
+    height: 1.1rem;
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;

@@ -4,6 +4,7 @@ export const prerender = false;
 import ArticleLayout from "../../../layouts/ArticleLayout.astro";
 import Toc from "../../../components/blog/article/Toc.astro";
 import Metadata from "../../../components/blog/article/Metadata.astro";
+import BreadCrumb from "../../../components/blog/article/BreadCrumb.astro";
 // Newt
 import { getPreviewBySlug } from "../../../lib/newt/client";
 // KaTeX
@@ -71,6 +72,7 @@ article.content.data = $.html();
 
 <ArticleLayout title={`${article.title} | プレビュー | ${import.meta.env.APP_NAME}`} description={`${article.description}`} imageUrl={article.thambnail ? new URL(article.thambnail.src) : undefined}>
 	<aside>
+		<BreadCrumb metadata={article} />
 		<Metadata metadata={article} />
 		<Toc headings={headings} />
 	</aside>

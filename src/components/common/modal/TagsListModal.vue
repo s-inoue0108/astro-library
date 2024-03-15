@@ -4,7 +4,6 @@ import Modal from "./NormalModal.vue";
 import TagCard from "../../blog/card/TagCard.vue";
 import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 import type { Category, Tag } from "../../../lib/newt/types";
-// import NoContent from "../../blog/background/NoContent.astro";
 
 interface Props {
 	categories: Category[] | null;
@@ -55,7 +54,7 @@ const viewTags = computed<Tag[]>(() => {
 				</label>
 				<select v-model="selectedCategory" id="select-category" name="select-category">
 					<option>すべて</option>
-					<option v-for="category in categories!.map((category) => category.name)" :key="category">
+					<option v-for="category in categories!.map((category: Category) => category.name)" :key="category">
 						{{ category }}
 					</option>
 				</select>
