@@ -45,8 +45,10 @@ const $ = load(mathRenderedHtml);
 
 // anchor link
 $("a").each((_, elm) => {
-	$(elm).attr("target", "_blank").attr("rel", "noopener noreferrer");
-	$(elm).append(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${svgViewBoxes.arrowUpRightFromSquare}"><path d="${svgPaths.arrowUpRightFromSquare}"></path></svg>`);
+	if (!$(elm).attr("href") || !/^#fn/.test($(elm).attr("href")!)) {
+		$(elm).attr("target", "_blank").attr("rel", "noopener noreferrer");
+		$(elm).append(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${svgViewBoxes.arrowUpRightFromSquare}"><path d="${svgPaths.arrowUpRightFromSquare}"></path></svg>`);
+	}
 });
 
 // code block

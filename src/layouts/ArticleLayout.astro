@@ -139,8 +139,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 				font-size: 1.2rem;
 				font-weight: 700;
 				letter-spacing: 1px;
-				margin-top: 6rem;
-				margin-bottom: 2rem;
+				margin: 2.5rem 0;
 
 				@include resp(sm) {
 					font-size: 1.5rem;
@@ -151,8 +150,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 					padding-left: 0.8rem;
 					padding-bottom: 0.3rem;
 					border-bottom: solid 6px;
-					margin-top: 10rem;
-					margin-bottom: 4rem;
+					margin: 5rem 0;
 				}
 			}
 
@@ -181,28 +179,49 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 				letter-spacing: 1px;
 			}
 
-			a {
+			p {
+				font-weight: 400;
+				line-height: 1.7rem;
+			}
+
+			a:not([href*="#fn"]) {
 				font-weight: 500;
 				color: $sky;
 				align-items: center;
 
-				&:hover,
 				&:active {
 					opacity: 0.5;
-					transition: 0.1s ease;
+					transition: 0.2s ease;
+				}
+
+				&:visited {
+					color: $violet;
+
+					svg {
+						fill: $violet;
+					}
 				}
 
 				svg {
 					fill: $sky;
-					width: 0.9rem;
+					width: auto;
 					height: 0.9rem;
 					vertical-align: middle;
-					margin: 0 0.3rem;
+					margin: 0 0.3rem 0.3rem 0.3rem;
 
 					@include resp(lg) {
 						width: 1.1rem;
 						height: 1.1rem;
 					}
+				}
+			}
+
+			a[href*="#fn"] {
+				color: getColor(--text-secondary-color);
+
+				&:active {
+					opacity: 0.5;
+					transition: 0.2s ease;
 				}
 			}
 
@@ -216,18 +235,65 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 				border-left: solid 2px var(--text-sub-color);
 			}
 
+			ul {
+				width: 100%;
+				display: block;
+				padding: 1rem 0 1rem 1rem;
+
+				@include resp(lg) {
+					padding: 1.5rem 0 1.5rem 1.5rem;
+				}
+
+				li {
+					list-style: disc;
+					padding: 0.3rem 0;
+				}
+			}
+
+			ol {
+				width: 100%;
+				display: block;
+				padding: 1rem 0 1rem 1rem;
+
+				@include resp(lg) {
+					padding: 1.5rem 0 1.5rem 1.5rem;
+				}
+
+				li {
+					list-style: decimal;
+					padding: 0.3rem 0;
+
+					&::marker {
+						font-weight: 600;
+					}
+				}
+			}
+
+			.footnote-item::marker {
+				color: getColor(--text-secondary-color);
+			}
+
+			code {
+				color: getColor(--text-secondary-color);
+				font-family: Consolas, monospace;
+				font-size: 0.9rem;
+				background: getColor(--bg-secondary-color);
+				padding: 0.2rem 0.5rem;
+				border-radius: 4px;
+			}
+
 			pre {
 				display: block;
 				width: 100%;
 				height: max-content;
 				background: getColor(--bg-secondary-color);
+				margin-bottom: 1rem;
 				padding: 1rem;
 				overflow-x: auto;
-				border-radius: 0 0 8px 8px;
+				border-radius: 0 0 4px 4px;
 
 				code {
-					font-family: Consolas, monospace;
-					font-size: 0.9rem;
+					color: getColor(--text-primary-color);
 				}
 			}
 
@@ -242,8 +308,13 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 				border-radius: 4px;
 			}
 
+			.iframely-embed {
+				margin: 1rem 0;
+			}
+
 			.katex-display {
 				width: 100%;
+				height: max-content;
 				overflow-x: auto;
 				overflow-y: hidden;
 			}
@@ -253,9 +324,10 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 				justify-content: space-between;
 				align-items: center;
 				padding: 0.5rem 1rem;
+				margin-top: 1rem;
 				margin-bottom: 4px;
 				background: getColor(--bg-secondary-color);
-				border-radius: 8px 8px 0 0;
+				border-radius: 4px 4px 0 0;
 
 				.title {
 					width: 80%;
