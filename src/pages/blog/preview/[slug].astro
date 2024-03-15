@@ -24,10 +24,9 @@ const { slug } = Astro.params;
 const article = await getPreviewBySlug(slug);
 
 if (!article) {
-	return null;
+	return Astro.redirect("/");
 }
 
-// Load Cheerio
 const $ = load(article.content.data);
 
 $("pre code").each((idx, elm) => {
