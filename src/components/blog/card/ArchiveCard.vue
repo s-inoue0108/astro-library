@@ -10,13 +10,6 @@ const { month, isDisabled } = defineProps<Props>()
 const cursor = isDisabled ? "none" : "pointer";
 const pointerEvents = isDisabled ? "none" : "visible";
 const opacity = isDisabled ? 0.5 : 1;
-
-const getBgColor = (month: number): string => {
-    const colorList = ["#0ea5e9", "#fb7185", "#22c55e", "#fbbf24"];
-    return colorList[Math.ceil(month / 3) - 1];
-}
-
-const bgColor = getBgColor(month);
 </script>
 
 <template>
@@ -36,7 +29,7 @@ const bgColor = getBgColor(month);
     width: 100%;
     height: 100%;
     color: getColor(--text-primary-color);
-    background: v-bind(bgColor);
+    background: getColor(--bg-primary-color);
     border: solid 1px getColor(--bg-secondary-color);
     pointer-events: v-bind(pointerEvents);
     opacity: v-bind(opacity);

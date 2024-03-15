@@ -1,0 +1,36 @@
+---
+import Modal from "../../common/modal/ToggleableModal.vue";
+import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
+
+interface Props {
+	headings: string[];
+}
+
+const { headings } = Astro.props;
+---
+
+<Modal title="Contents" svgIconPath={svgPaths.listUl} svgViewBox={svgViewBoxes.listUl} client:visible>
+	<ul class="headings">
+		{
+			headings.map((heading) => {
+				return (
+					<li class="heading">
+						<a href={`#${heading}`}>{heading}</a>
+					</li>
+				);
+			})
+		}
+	</ul>
+</Modal>
+
+<style lang="scss">
+	.headings {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+
+		.heading {
+			font-weight: 600;
+		}
+	}
+</style>

@@ -1,6 +1,7 @@
 ---
 import ArticleLayout from "../../../layouts/ArticleLayout.astro";
-import Toc from "../../../components/blog/article/Toc.vue";
+import Toc from "../../../components/blog/article/Toc.astro";
+import Metadata from "../../../components/blog/article/Metadata.astro";
 // Newt
 import { getArticles } from "../../../lib/newt/client";
 import type { Article } from "../../../lib/newt/types";
@@ -78,8 +79,13 @@ article.content.data = $.html();
 ---
 
 <ArticleLayout title={`${article.title} | ブログ | ${import.meta.env.APP_NAME}`} description={`${article.description}`} imageUrl={article.thambnail ? new URL(article.thambnail.src) : undefined}>
-	<Toc headings={headings} />
-	<article set:html={article.content.data} />
+	<aside>
+		<Metadata metadata={article} />
+		<Toc headings={headings} />
+	</aside>
+	<article>
+		<div set:html={article.content.data} class="article-content" />
+	</article>
 </ArticleLayout>
 
 <script>

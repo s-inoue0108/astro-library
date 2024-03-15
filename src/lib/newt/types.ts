@@ -48,7 +48,7 @@ export interface Article extends CommonProps {
 	title: string;
 	slug: string;
 	description?: string;
-	thambnail?: NewtImageProps;
+	thambnail: NewtImageProps;
 	category: Category;
 	tags?: Tag[];
 	content: {
@@ -56,4 +56,5 @@ export interface Article extends CommonProps {
 		type: string;
 		data: string;
 	};
+	relatedArticles?: Article[];
 }
