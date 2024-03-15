@@ -82,6 +82,7 @@ article.content.data = $.html();
 
 <script>
 	import { load } from "cheerio";
+	import renderMathInElement from "katex/contrib/auto-render";
 
 	// Load Cheerio
 	const $ = load(document.body.innerHTML);
@@ -97,6 +98,22 @@ article.content.data = $.html();
 
 		copyBtn!.addEventListener("click", async () => {
 			await copyToClipboard(code);
+		});
+	});
+
+	document.addEventListener("DOMContentLoaded", () => {
+		renderMathInElement(document.body, {
+			// customised options
+			// • auto-render specific keys, e.g.:
+			delimiters: [
+				{ left: "$$", right: "$$", display: true },
+				{ left: "$", right: "$", display: false },
+				{ left: "\\(", right: "\\)", display: false },
+				{ left: "\\[", right: "\\]", display: true },
+			],
+			ignoredTags: ["pre", "code"],
+			// • rendering keys, e.g.:
+			throwOnError: false,
 		});
 	});
 </script>
