@@ -8,6 +8,7 @@ import { getArticles } from "../../../lib/newt/client";
 import type { Article } from "../../../lib/newt/types";
 // KaTeX
 import "katex/dist/katex.min.css";
+import { mathRenderer } from "../../../lib/katex/render";
 // Highlight.js
 import hljs from "highlight.js";
 import "../../../styles/syntax-highlight.scss";
@@ -36,8 +37,11 @@ interface Props {
 
 const { article } = Astro.props;
 
+// KaTeX SSR
+const mathRenderedHtml = mathRenderer(article.content.data);
+
 // Load Cheerio
-const $ = load(article.content.data);
+const $ = load(mathRenderedHtml);
 
 // anchor link
 $("a").each((_, elm) => {
@@ -99,7 +103,6 @@ article.content.data = $.html();
 
 <script>
 	import { load } from "cheerio";
-	import renderMathInElement from "katex/contrib/auto-render";
 
 	// Load Cheerio
 	const $ = load(document.body.innerHTML);
@@ -115,22 +118,6 @@ article.content.data = $.html();
 
 		copyBtn!.addEventListener("click", async () => {
 			await copyToClipboard(code);
-		});
-	});
-
-	document.addEventListener("DOMContentLoaded", () => {
-		renderMathInElement(document.body, {
-			// customised options
-			// • auto-render specific keys, e.g.:
-			delimiters: [
-				{ left: "$$", right: "$$", display: true },
-				{ left: "$", right: "$", display: false },
-				{ left: "\\(", right: "\\)", display: false },
-				{ left: "\\[", right: "\\]", display: true },
-			],
-			ignoredTags: ["pre", "code"],
-			// • rendering keys, e.g.:
-			throwOnError: false,
 		});
 	});
 </script>

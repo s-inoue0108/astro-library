@@ -9,6 +9,8 @@ import BreadCrumb from "../../../components/blog/article/BreadCrumb.astro";
 import { getPreviewBySlug } from "../../../lib/newt/client";
 // KaTeX
 import "katex/dist/katex.min.css";
+import katex from "katex";
+import { mathRenderer } from "../../../lib/katex/render";
 // Highlight.js
 import hljs from "highlight.js";
 import "../../../styles/syntax-highlight.scss";
@@ -27,7 +29,11 @@ if (!article) {
 	return Astro.redirect("/");
 }
 
-const $ = load(article.content.data);
+// KaTeX SSR
+const mathRenderedHtml = mathRenderer(article.content.data);
+
+// Load Cheerio
+const $ = load(mathRenderedHtml);
 
 // anchor link
 $("a").each((_, elm) => {
@@ -108,21 +114,21 @@ article.content.data = $.html();
 		});
 	});
 
-	document.addEventListener("DOMContentLoaded", async () => {
-		renderMathInElement(document.body, {
-			// customised options
-			// • auto-render specific keys, e.g.:
-			delimiters: [
-				{ left: "$$", right: "$$", display: true },
-				{ left: "$", right: "$", display: false },
-				{ left: "\\(", right: "\\)", display: false },
-				{ left: "\\[", right: "\\]", display: true },
-			],
-			ignoredTags: ["pre", "code"],
-			// • rendering keys, e.g.:
-			throwOnError: false,
-		});
-	});
+	// document.addEventListener("DOMContentLoaded", async () => {
+	// 	renderMathInElement(document.body, {
+	// 		// customised options
+	// 		// • auto-render specific keys, e.g.:
+	// 		delimiters: [
+	// 			{ left: "$$", right: "$$", display: true },
+	// 			{ left: "$", right: "$", display: false },
+	// 			{ left: "\\(", right: "\\)", display: false },
+	// 			{ left: "\\[", right: "\\]", display: true },
+	// 		],
+	// 		ignoredTags: ["pre", "code"],
+	// 		// • rendering keys, e.g.:
+	// 		throwOnError: false,
+	// 	});
+	// });
 </script>
 
 <style lang="scss">
