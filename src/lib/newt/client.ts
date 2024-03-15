@@ -114,7 +114,7 @@ export const getTagsBySlugs = async (slugs: Tag["slug"][], depth: 0 | 1 | 2 = 2)
 };
 
 // Get Preview Article by Slug
-export const getPreviewBySlug = async (slug: Article["slug"], depth: 0 | 1 | 2 = 2): Promise<Article | null> => {
+export const getPreviewBySlug = async (slug?: Article["slug"], depth: 0 | 1 | 2 = 2): Promise<Article | null> => {
 	try {
 		const article = await newtPreviewClient.getFirstContent<Article>({
 			appUid: "blog",

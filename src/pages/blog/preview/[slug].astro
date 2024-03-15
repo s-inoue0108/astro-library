@@ -4,7 +4,7 @@ export const prerender = false;
 import ArticleLayout from "../../../layouts/ArticleLayout.astro";
 import Toc from "../../../components/blog/article/Toc.vue";
 // Newt
-import { getArticles } from "../../../lib/newt/client";
+import { getPreviewBySlug } from "../../../lib/newt/client";
 import type { Article } from "../../../lib/newt/types";
 // KaTeX
 import "katex/dist/katex.min.css";
@@ -16,25 +16,15 @@ import { load } from "cheerio";
 // SVG
 import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 
-// prerender config
-export const getStaticPaths = async () => {
-	const articles = await getArticles();
+// params
+const { slug } = Astro.params;
 
-	if (!articles || articles.length <= 0) {
-		return null;
-	}
+// get preview
+const article = await getPreviewBySlug(slug);
 
-	return articles.map((article) => ({
-		params: { slug: article.slug },
-		props: { article },
-	}));
-};
-
-interface Props {
-	article: Article;
+if (!article) {
+	return null;
 }
-
-const { article } = Astro.props;
 
 // Load Cheerio
 const $ = load(article.content.data);
