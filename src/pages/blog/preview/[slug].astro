@@ -1,7 +1,7 @@
 ---
 export const prerender = false;
 
-import Layout from "../../../layouts/Layout.astro";
+import ArticleLayout from "../../../layouts/ArticleLayout.astro";
 import Toc from "../../../components/blog/article/Toc.vue";
 // Newt
 import { getArticles } from "../../../lib/newt/client";
@@ -59,7 +59,7 @@ $("pre code").each((idx, elm) => {
 		result = hljs.highlightAuto(code);
 	}
 
-	const codeTitle = $(elm)
+	$(elm)
 		.parent()
 		.before(`<div class="code-title"><label class="title">${fileName ?? ""}</label><button type="button" id="copy-btn-${idx}" class="copy-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="${svgViewBoxes.copy}"><path d="${svgPaths.copy}" /></svg></button></div>`);
 
@@ -71,18 +71,18 @@ const headings: string[] = [];
 
 $("h1,h2,h3").each((_, elm) => {
 	const heading = $(elm).text();
+	$(elm).attr("id", heading);
 	headings.push(heading);
-	$(elm).contents().wrap(`<a id="${heading}" href="#${heading}"></a>`);
 });
 
 // Set HTML
 article.content.data = $.html();
 ---
 
-<Layout title={`${article.title} | ブログ | ${import.meta.env.APP_NAME}`} description={`${article.description}`}>
+<ArticleLayout title={`${article.title} | プレビュー | ${import.meta.env.APP_NAME}`} description={`${article.description}`} imageUrl={article.thambnail ? new URL(article.thambnail.src) : undefined}>
 	<Toc headings={headings} />
 	<article set:html={article.content.data} />
-</Layout>
+</ArticleLayout>
 
 <script>
 	import { load } from "cheerio";

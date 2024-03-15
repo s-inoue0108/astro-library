@@ -5,7 +5,7 @@ import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 // Image
 import { Image } from "astro:assets";
 // Header Image
-import HeaderImage from "../../../images/common/portfolio-favicon.png";
+import NoImage from "../../../images/common/no-image.png";
 
 interface Props {
 	article: Pick<Article, "title" | "slug" | "description" | "thambnail" | "category" | "tags" | "_sys">;
@@ -27,7 +27,7 @@ const sliceText = (text: string | undefined, limit: number): string => {
 
 <a href={`/blog/article/${slug}`} class="card">
 	<div class="thambnail">
-		{thambnail ? <Image src={thambnail.src} width={thambnail.width} height={thambnail.height} alt={thambnail?.altText ?? ""} /> : <Image src={HeaderImage} alt="" />}
+		{thambnail ? <Image src={thambnail.src} width={thambnail.width} height={thambnail.height} alt={thambnail?.altText ?? ""} /> : <Image src={NoImage} alt="No Image" />}
 	</div>
 	<ul class="info">
 		<li class="title">
