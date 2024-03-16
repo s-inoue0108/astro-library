@@ -1,5 +1,5 @@
 import { createClient } from "newt-client-js";
-import type { Article, Category, Tag } from "../newt/types";
+import type { Article, Category, RawArticle, Tag } from "../newt/types";
 
 // Newt Client
 const newtClient = createClient({
@@ -114,9 +114,9 @@ export const getTagsBySlugs = async (slugs: Tag["slug"][], depth: 0 | 1 | 2 = 2)
 };
 
 // Get Preview Article by Slug
-export const getPreviewBySlug = async (slug?: Article["slug"], depth: 0 | 1 | 2 = 2): Promise<Article | null> => {
+export const getPreviewBySlug = async (slug?: Article["slug"], depth: 0 | 1 | 2 = 2): Promise<RawArticle | null> => {
 	try {
-		const article = await newtPreviewClient.getFirstContent<Article>({
+		const article = await newtPreviewClient.getFirstContent<RawArticle>({
 			appUid: "blog",
 			modelUid: "article",
 			query: {

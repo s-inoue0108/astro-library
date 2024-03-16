@@ -53,8 +53,26 @@ export interface Article extends CommonProps {
 	tags?: Tag[];
 	content: {
 		_id: string;
-		type: string;
+		type: "RICH_TEXT" | "MARKDOWN";
 		data: string;
+	};
+	relatedArticles?: Article[];
+}
+
+// プレビュー用
+export interface RawArticle extends CommonProps {
+	title: string;
+	slug: string;
+	description?: string;
+	thambnail: NewtImageProps;
+	category: Category;
+	tags?: Tag[];
+	content: {
+		_id: string;
+		type: "RICH_TEXT" | "MARKDOWN";
+		raw: {
+			htmlText: string;
+		};
 	};
 	relatedArticles?: Article[];
 }

@@ -33,7 +33,7 @@ if (!article || !slug) {
 }
 
 // KaTeX SSR
-const mathRenderedHtml = mathRenderer(article.content.data);
+const mathRenderedHtml = mathRenderer(article.content.raw.htmlText);
 
 // Load Cheerio
 const $ = load(mathRenderedHtml);
@@ -98,7 +98,7 @@ $("h1,h2,h3").each((_, elm) => {
 });
 
 // Set HTML
-article.content.data = $.html();
+article.content.raw.htmlText = $.html();
 
 // Side articles
 const sideArticles = await getSideArticlesBySlug(articles, slug);
@@ -110,7 +110,7 @@ const sideArticles = await getSideArticlesBySlug(articles, slug);
 		<Toc headings={headings} />
 	</aside>
 	<article class="article-content">
-		<div set:html={article.content.data} />
+		<div set:html={article.content.raw.htmlText} />
 	</article>
 	<h1 class="rel-articles" id="rel-articles">関連記事</h1>
 	<ul class="hit-articles">
