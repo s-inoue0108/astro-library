@@ -1,4 +1,7 @@
 ---
+// speed insights
+import SpeedInsights from "@vercel/speed-insights/astro";
+
 import Header from "../components/common/Header.astro";
 import Footer from "../components/common/Footer.astro";
 
@@ -70,6 +73,8 @@ const ogpImageURL = new URL('portfolio-favicon.png', canonicalURL);
 				}
 			}
 		</script>
+
+		<SpeedInsights />
 	</body>
 </html>
 
