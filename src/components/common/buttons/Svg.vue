@@ -5,7 +5,6 @@ interface Props {
     svgFillColor?: string;
     isLink?: boolean;
     linkUrl?: string;
-    event?: () => void;
     currentPath?: string;
     testPathRegex?: RegExp;
     title?: string;
@@ -14,9 +13,11 @@ interface Props {
     fontScale?: number;
     fontWeight?: number;
     radius?: string;
+    isBlank?: boolean;
+    btnId?: string;
 }
 
-const { svgIconPath, svgViewBox, isLink, linkUrl, event, currentPath, testPathRegex, title, widthScale, heightScale, fontScale, fontWeight, radius } = withDefaults(defineProps<Props>(), {
+const { svgIconPath, svgViewBox, isLink, linkUrl, currentPath, testPathRegex, title, widthScale, heightScale, fontScale, fontWeight, radius, isBlank, btnId } = withDefaults(defineProps<Props>(), {
     svgViewBox: "0 0 512 512",
     isLink: false,
     widthScale: 1,
@@ -24,6 +25,8 @@ const { svgIconPath, svgViewBox, isLink, linkUrl, event, currentPath, testPathRe
     fontScale: 1.2,
     fontWeight: 300,
     radius: "9999px",
+    isBlank: false,
+    btnId: "",
 })
 
 const isCurrent = (currentPath?: string, testPathRegex?: RegExp): boolean => {
@@ -32,10 +35,12 @@ const isCurrent = (currentPath?: string, testPathRegex?: RegExp): boolean => {
     }
     return testPathRegex.test(currentPath)
 };
+
+const linkTarget = isBlank ? { target: "_blank", rel: "noopener noreferrer" } : { target: "", rel: "" };
 </script>
 
 <template>
-    <a :href="linkUrl" v-if="isLink">
+    <a :href="linkUrl" :target="linkTarget.target" :rel="linkTarget.rel" v-if="isLink">
         <div class="ring" :class="[isCurrent(currentPath, testPathRegex) ? 'bgborder bold' : 'bgtransparent']">
             <svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBox" v-if="svgIconPath">
                 <path :d="svgIconPath" />
@@ -45,7 +50,7 @@ const isCurrent = (currentPath?: string, testPathRegex?: RegExp): boolean => {
             </label>
         </div>
     </a>
-    <button type="button" @click="event" v-else>
+    <button type="button" :id="btnId" v-else>
         <div class="ring">
             <svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBox" v-if="svgIconPath">
                 <path :d="svgIconPath" />

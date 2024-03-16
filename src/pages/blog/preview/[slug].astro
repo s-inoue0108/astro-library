@@ -8,6 +8,7 @@ import ArticleCardCompact from "../../../components/blog/card/ArticleCardCompact
 import SideArticle from "../../../components/blog/article/SideArticle.astro";
 import NoContent from "../../../components/blog/background/NoContent.astro";
 import PreviewModeTab from "../../../components/blog/article/PreviewModeTab.vue";
+import KatexEditor from "../../../components/blog/article/KatexEditor.vue";
 // Newt
 import { articles } from "../../../lib/newt/instance";
 import { getPreviewBySlug } from "../../../lib/newt/client";
@@ -22,7 +23,6 @@ import "../../../styles/syntax-highlight.scss";
 import { load } from "cheerio";
 // SVG
 import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
-import type { Article, RawArticle } from "../../../lib/newt/types";
 
 // params
 const { slug } = Astro.params;
@@ -115,34 +115,38 @@ const sideArticles = await getSideArticlesBySlug(articles, slug);
 ---
 
 <ArticleLayout title={`${article.title} | プレビュー | ${import.meta.env.APP_NAME}`} description={`${article.description}`} imageUrl={article.thambnail ? new URL(article.thambnail.src) : undefined}>
-	<aside class="aside-content">
+	<aside>
 		<Metadata metadata={article} />
 		<Toc headings={headings} />
 	</aside>
-	<article class="article-content">
-		<div set:html={htmlStr} />
+	<article>
+		<div set:html={htmlStr} class="article-content" />
+		<h1 class="rel-articles" id="rel-articles">関連記事</h1>
+		<ul class="hit-articles">
+			{
+				article.relatedArticles && article.relatedArticles.length > 0 ? (
+					article.relatedArticles.map((article) => {
+						return (
+							<li>
+								<ArticleCardCompact article={article} />
+							</li>
+						);
+					})
+				) : (
+					<NoContent message="記事がありません" />
+				)
+			}
+		</ul>
+		<SideArticle article={sideArticles.prev} direction="prev" />
+		<SideArticle article={sideArticles.next} direction="next" />
 	</article>
-	<h1 class="rel-articles" id="rel-articles">関連記事</h1>
-	<ul class="hit-articles">
-		{
-			article.relatedArticles && article.relatedArticles.length > 0 ? (
-				article.relatedArticles.map((article) => {
-					return (
-						<li>
-							<ArticleCardCompact article={article} />
-						</li>
-					);
-				})
-			) : (
-				<NoContent message="記事がありません" />
-			)
-		}
-	</ul>
-	<SideArticle article={sideArticles.prev} direction="prev" />
-	<SideArticle article={sideArticles.next} direction="next" />
+	<div id="preview-tab">
+		<PreviewModeTab article={article} />
+	</div>
 </ArticleLayout>
 
 <script>
+	import { gsap } from "gsap";
 	import { load } from "cheerio";
 
 	// Load Cheerio
@@ -160,6 +164,82 @@ const sideArticles = await getSideArticlesBySlug(articles, slug);
 		copyBtn!.addEventListener("click", async () => {
 			await copyToClipboard(code);
 		});
+	});
+
+	// preview tab
+	const previewTab = document.getElementById("preview-tab");
+	const closeBtn = document.getElementById("preview-tab-close-btn");
+
+	gsap.from(previewTab, {
+		y: 100,
+		duration: 1.5,
+		ease: "power1.inOut",
+	});
+
+	const openAnim = gsap.to(previewTab, {
+		y: 0,
+		duration: 0.5,
+		ease: "power1.inOut",
+		paused: true,
+	});
+
+	const closeAnim = gsap.to(previewTab, {
+		y: 100,
+		duration: 0.5,
+		ease: "power1.inOut",
+		paused: true,
+	});
+
+	let isOpen = true;
+	closeBtn!.addEventListener("click", async () => {
+		if (isOpen) {
+			await closeAnim.restart();
+		} else {
+			await openAnim.restart();
+		}
+		isOpen = !isOpen;
+	});
+
+	// katex editor
+	const katexEditor = document.getElementById("katex-editor");
+	const katexEditorOpenBtn = document.getElementById("katex-editor-open-btn");
+	const katexEditorCloseBtn = document.getElementById("katex-editor-close-btn");
+
+	gsap.set(katexEditor, {
+		autoAlpha: 0,
+	});
+
+	const openEditor = gsap.to(katexEditor, {
+		y: -50,
+		autoAlpha: 1,
+		duration: 0.5,
+		ease: "expo.inOut",
+		paused: true,
+	});
+
+	const closeEditor = gsap.to(katexEditor, {
+		y: 0,
+		autoAlpha: 0,
+		duration: 0.5,
+		ease: "expo.inOut",
+		paused: true,
+	});
+
+	let isOpenEditor = false;
+	katexEditorOpenBtn!.addEventListener("click", async () => {
+		document.querySelector("header")!.classList.add("blind");
+		document.querySelector("footer")!.classList.add("blind");
+		document.querySelector("main")!.classList.add("blind");
+		await openEditor.restart();
+		isOpenEditor = !isOpenEditor;
+	});
+
+	katexEditorCloseBtn!.addEventListener("click", async () => {
+		document.querySelector("header")!.classList.remove("blind");
+		document.querySelector("footer")!.classList.remove("blind");
+		document.querySelector("main")!.classList.remove("blind");
+		await closeEditor.restart();
+		isOpenEditor = !isOpenEditor;
 	});
 </script>
 
@@ -225,6 +305,21 @@ const sideArticles = await getSideArticlesBySlug(articles, slug);
 
 		li {
 			width: 100%;
+		}
+	}
+
+	#preview-tab {
+		width: 100%;
+		height: 100px;
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		z-index: 100;
+
+		display: none;
+
+		@include resp(lg) {
+			display: block;
 		}
 	}
 </style>

@@ -33,6 +33,7 @@ $gray-600: rgb(75, 85, 99);
 $light-themes: (
 	bg-primary: $slate,
 	bg-secondary: $sten-white,
+	bg-inversion: $deep-gray,
 	text-primary: $black,
 	text-secondary: $gray-600,
 	text-inversion: $white,
@@ -43,6 +44,7 @@ $light-themes: (
 $dark-themes: (
 	bg-primary: $deep-gray,
 	bg-secondary: $dark-gray,
+	bg-inversion: $slate,
 	text-primary: $white,
 	text-secondary: $slate-400,
 	text-inversion: $black,

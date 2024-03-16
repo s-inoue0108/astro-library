@@ -114,31 +114,31 @@ const sideArticles = await getSideArticlesBySlug(articles, article.slug);
 ---
 
 <ArticleLayout title={`${article.title} | ブログ | ${import.meta.env.APP_NAME}`} description={`${article.description}`} imageUrl={article.thambnail ? new URL(article.thambnail.src) : undefined}>
-	<aside class="aside-content">
+	<aside>
 		<Metadata metadata={article} />
 		<Toc headings={headings} />
 	</aside>
-	<article class="article-content">
-		<div set:html={article.content.data} />
+	<article>
+		<div set:html={article.content.data} class="article-content" />
+		<h1 class="rel-articles" id="rel-articles">関連記事</h1>
+		<ul class="hit-articles">
+			{
+				article.relatedArticles && article.relatedArticles.length > 0 ? (
+					article.relatedArticles.map((article) => {
+						return (
+							<li>
+								<ArticleCardCompact article={article} />
+							</li>
+						);
+					})
+				) : (
+					<NoContent message="記事がありません" />
+				)
+			}
+		</ul>
+		<SideArticle article={sideArticles.prev} direction="prev" />
+		<SideArticle article={sideArticles.next} direction="next" />
 	</article>
-	<h1 class="rel-articles" id="rel-articles">関連記事</h1>
-	<ul class="hit-articles">
-		{
-			article.relatedArticles && article.relatedArticles.length > 0 ? (
-				article.relatedArticles.map((article) => {
-					return (
-						<li>
-							<ArticleCardCompact article={article} />
-						</li>
-					);
-				})
-			) : (
-				<NoContent message="記事がありません" />
-			)
-		}
-	</ul>
-	<SideArticle article={sideArticles.prev} direction="prev" />
-	<SideArticle article={sideArticles.next} direction="next" />
 </ArticleLayout>
 
 <script>
