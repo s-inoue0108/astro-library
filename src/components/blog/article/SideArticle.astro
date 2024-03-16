@@ -18,21 +18,21 @@ const { direction, article } = Astro.props;
 			if (article && direction === "prev") {
 				return (
 					<a href={`/blog/article/${article.slug}`} class="prev">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.chevronLeft}>
-							<path d={svgPaths.chevronLeft} />
-						</svg>
-						<h2>{article.title}</h2>
-						<Image src={article.thambnail.src} width={article.thambnail.width} height={article.thambnail.height} alt={article.thambnail.altText} />
-					</a>
-				);
-			} else if (article && direction === "next") {
-				return (
-					<a href={`/blog/article/${article.slug}`} class="next">
 						<Image src={article.thambnail.src} width={article.thambnail.width} height={article.thambnail.height} alt={article.thambnail.altText} />
 						<h2>{article.title}</h2>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.chevronRight}>
 							<path d={svgPaths.chevronRight} />
 						</svg>
+					</a>
+				);
+			} else if (article && direction === "next") {
+				return (
+					<a href={`/blog/article/${article.slug}`} class="next">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.chevronLeft}>
+							<path d={svgPaths.chevronLeft} />
+						</svg>
+						<h2>{article.title}</h2>
+						<Image src={article.thambnail.src} width={article.thambnail.width} height={article.thambnail.height} alt={article.thambnail.altText} />
 					</a>
 				);
 			} else {
