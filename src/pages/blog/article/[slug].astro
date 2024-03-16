@@ -84,12 +84,20 @@ $("pre code").each((idx, elm) => {
 });
 
 // Table of contents
-const headings: string[] = [];
+const headings: { text: string; lev: string; h1id?: number }[] = [];
+let h1id = 0;
 
 $("h1,h2,h3").each((_, elm) => {
-	const heading = $(elm).text();
-	$(elm).attr("id", heading);
-	headings.push(heading);
+	const text = $(elm).text();
+	const lev = $(elm).toString().match(/h\d/)![0];
+	$(elm).attr("id", text);
+
+	if (lev === "h1") {
+		h1id += 1;
+		headings.push({ text, lev, h1id });
+	} else {
+		headings.push({ text, lev });
+	}
 });
 
 // Set HTML

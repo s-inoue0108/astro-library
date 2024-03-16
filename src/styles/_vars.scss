@@ -35,6 +35,7 @@ $light-themes: (
 	bg-secondary: $sten-white,
 	text-primary: $black,
 	text-secondary: $gray-600,
+	text-inversion: $white,
 	border: $slate-300,
 	shadow: $shadow-gray,
 );
@@ -44,6 +45,7 @@ $dark-themes: (
 	bg-secondary: $dark-gray,
 	text-primary: $white,
 	text-secondary: $slate-400,
+	text-inversion: $black,
 	border: $gray-600,
 	shadow: $black,
 );

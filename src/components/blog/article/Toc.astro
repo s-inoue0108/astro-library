@@ -3,19 +3,46 @@ import Modal from "../../common/modal/ToggleableModal.vue";
 import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 
 interface Props {
-	headings: string[];
+	headings: {
+		text: string;
+		lev: string;
+		h1id?: number;
+	}[];
 }
 
 const { headings } = Astro.props;
+console.log(headings);
 ---
 
 <Modal title="Contents" svgIconPath={svgPaths.listUl} svgViewBox={svgViewBoxes.listUl} client:visible>
 	<ul class="headings">
 		{
-			headings.map((heading) => {
+			headings.map((h) => {
 				return (
 					<li class="heading">
-						<a href={`#${heading}`}>{heading}</a>
+						{() => {
+							if (h.lev === "h1") {
+								return (
+									<a id={`toc-${h.lev}-${h.text}`} href={`#${h.text}`} class="toc-h1">
+										<span class="before">{h.h1id}</span>
+										{h.text}
+									</a>
+								);
+							} else if (h.lev === "h2") {
+								return (
+									<a id={`toc-${h.lev}-${h.text}`} href={`#${h.text}`} class="toc-h2">
+										<span class="before" />
+										{h.text}
+									</a>
+								);
+							} else {
+								return (
+									<a id={`toc-${h.lev}-${h.text}`} href={`#${h.text}`} class="toc-h-else">
+										{h.text}
+									</a>
+								);
+							}
+						}}
 					</li>
 				);
 			})
@@ -27,10 +54,53 @@ const { headings } = Astro.props;
 	.headings {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: 1rem;
+		max-height: 256px;
+		overflow-y: auto;
 
 		.heading {
-			font-weight: 600;
+			.toc-h1 {
+				max-width: 100%;
+				font-size: 1.2rem;
+				font-weight: 600;
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5rem;
+
+				.before {
+					display: inline-block;
+					width: 1.4rem;
+					height: 1.4rem;
+					background: $tropic-gradient;
+					font-size: 1rem;
+					border-radius: 9999px;
+					text-align: center;
+					padding: 0.15rem;
+				}
+			}
+
+			.toc-h2 {
+				max-width: 100%;
+				margin-left: 1.4rem;
+				font-weight: 400;
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5rem;
+
+				.before {
+					display: inline-block;
+					width: 0.5rem;
+					height: 0.5rem;
+					background: getColor(--text-primary-color);
+					border-radius: 9999px;
+				}
+			}
+
+			.toc-h-else {
+				max-width: 100%;
+				margin-left: 2.4rem;
+				font-size: 0.8rem;
+			}
 
 			a {
 				&:active {

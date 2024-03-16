@@ -45,7 +45,7 @@ const { title, svgIconPath, svgViewBox } = defineProps<Props>()
             width: calc(100% - 1.2rem);
             display: flex;
             align-items: center;
-            gap: 0.3rem;
+            gap: 0.5rem;
 
             svg {
                 height: 1.2rem;

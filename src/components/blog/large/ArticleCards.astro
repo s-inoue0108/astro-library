@@ -1,0 +1,56 @@
+---
+import type { Article } from "../../../lib/newt/types";
+import ArticleCard from "../card/ArticleCard.astro";
+import NoContent from "../background/NoContent.astro";
+
+interface Props {
+	articles?: Article[] | null;
+}
+
+const { articles } = Astro.props;
+---
+
+<ul class="cards">
+	{
+		articles && articles.length > 0 ? (
+			articles.map((article) => {
+				return (
+					<li class="article-card">
+						<ArticleCard article={article} />
+					</li>
+				);
+			})
+		) : (
+			<NoContent message="記事がありません" />
+		)
+	}
+</ul>
+
+<style lang="scss">
+	.cards {
+		overflow-x: hidden;
+		width: 100%;
+		margin: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+
+		@include resp(lg) {
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+
+		.article-card {
+			width: 100%;
+			height: 256px;
+
+			@include resp(lg) {
+				width: calc(50% - 0.5rem);
+			}
+
+			@include resp(xl) {
+				width: calc(25% - 0.25rem - 8px);
+			}
+		}
+	}
+</style>

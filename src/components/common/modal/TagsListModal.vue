@@ -44,7 +44,7 @@ const viewTags = computed<Tag[]>(() => {
 </script>
 
 <template>
-	<Modal title="タグ" :svgIconPath="svgPaths.tags" :svgViewBox="svgViewBoxes.tags">
+	<Modal title="Tags" :svgIconPath="svgPaths.tags" :svgViewBox="svgViewBoxes.tags">
 		<template #info>
 			<div class="category-selector">
 				<label for="select-category">

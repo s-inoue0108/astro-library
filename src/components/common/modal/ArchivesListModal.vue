@@ -57,7 +57,7 @@ const existMonthsAndExistence = computed<{ month: number, exist: boolean }[]>(()
 </script>
 
 <template>
-	<Modal title="アーカイブ" :svgIconPath="svgPaths.boxArchive" :svgViewBox="svgViewBoxes.boxArchive">
+	<Modal title="Archives" :svgIconPath="svgPaths.boxArchive" :svgViewBox="svgViewBoxes.boxArchive">
 		<template #info>
 			<div class="year-selector">
 				<label for="select-year">

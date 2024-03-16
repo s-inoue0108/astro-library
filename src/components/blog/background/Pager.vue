@@ -5,50 +5,50 @@ import SvgButton from "../../common/buttons/Svg.vue";
 import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 
 interface Props {
-    page: Page<Article>
+    page: Page<Article>;
 }
 
 const { page } = defineProps<Props>()
+const { currentPage, lastPage, url } = page;
 </script>
 
 <template>
-    <template v-if="page.lastPage > 1">
+    <template v-if="lastPage > 1">
         <ul class="buttons">
             <li class="start">
                 <SvgButton :svg-icon-path="svgPaths.anglesLeft" :svg-view-box="svgViewBoxes.anglesLeft" :is-link="true"
-                    :link-url="page.url.current.replace(/\/\d{1,}$/, '/1')" />
+                    :link-url="url.current.replace(/\/\d{1,}$/, '/1')" />
             </li>
             <!--minus 2-->
-            <li v-if="page.currentPage - 2 > 0">
-                <SvgButton :title="`${page.currentPage - 2}`" :is-link="true"
-                    :link-url="page.url.current.replace(/\/\d{1,}$/, `/${page.currentPage - 2}`)" :width-scale="0.8"
+            <li v-if="currentPage - 2 > 0">
+                <SvgButton :title="`${currentPage - 2}`" :is-link="true"
+                    :link-url="url.current.replace(/\/\d{1,}$/, `/${currentPage - 2}`)" :width-scale="0.8"
                     :height-scale="0.8" />
             </li>
             <!--minus 1-->
-            <li v-if="page.currentPage - 1 > 0">
-                <SvgButton :title="`${page.currentPage - 1}`" :is-link="true" :link-url="page.url.prev"
-                    :width-scale="0.8" :height-scale="0.8" />
+            <li v-if="currentPage - 1 > 0">
+                <SvgButton :title="`${currentPage - 1}`" :is-link="true" :link-url="url.prev" :width-scale="0.8"
+                    :height-scale="0.8" />
             </li>
             <!--current-->
             <li>
-                <SvgButton :title="`${page.currentPage}`" :is-link="true" :link-url="page.url.current"
-                    :current-path="page.url.current" :test-path-regex="new RegExp(`\^${page.url.current}\$`)"
-                    :width-scale="0.8" :height-scale="0.8" />
+                <SvgButton :title="`${currentPage}`" :is-link="true" :link-url="url.current" :current-path="url.current"
+                    :test-path-regex="new RegExp(`\^${url.current}\$`)" :width-scale="0.8" :height-scale="0.8" />
             </li>
             <!--plus 1-->
-            <li v-if="page.currentPage + 1 <= page.lastPage">
-                <SvgButton :title="`${page.currentPage + 1}`" :is-link="true" :link-url="page.url.next"
-                    :width-scale="0.8" :height-scale="0.8" />
+            <li v-if="currentPage + 1 <= lastPage">
+                <SvgButton :title="`${currentPage + 1}`" :is-link="true" :link-url="url.next" :width-scale="0.8"
+                    :height-scale="0.8" />
             </li>
             <!--plus 2-->
-            <li v-if="page.currentPage + 2 <= page.lastPage">
-                <SvgButton :title="`${page.currentPage + 2}`" :is-link="true"
-                    :link-url="page.url.current.replace(/\/\d{1,}$/, `/${page.currentPage + 2}`)" :width-scale="0.8"
+            <li v-if="currentPage + 2 <= lastPage">
+                <SvgButton :title="`${currentPage + 2}`" :is-link="true"
+                    :link-url="url.current.replace(/\/\d{1,}$/, `/${currentPage + 2}`)" :width-scale="0.8"
                     :height-scale="0.8" />
             </li>
             <li class="end">
                 <SvgButton :svg-icon-path="svgPaths.anglesRight" :svg-view-box="svgViewBoxes.anglesRight"
-                    :is-link="true" :link-url="page.url.current.replace(/\/\d{1,}$/, `/${page.lastPage}`)" />
+                    :is-link="true" :link-url="url.current.replace(/\/\d{1,}$/, `/${lastPage}`)" />
             </li>
         </ul>
     </template>
