@@ -2,13 +2,27 @@ import { defineConfig } from "astro/config";
 import vue from "@astrojs/vue";
 import react from "@astrojs/react";
 import vercel from "@astrojs/vercel/serverless";
+import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
 	server: {
 		port: 3000,
 	},
-	integrations: [vue(), react()],
+	site: "https://si-library.net",
+	integrations: [
+		vue(),
+		react(),
+		sitemap({
+			filter: (page) => page !== "https://si-library.net/blog/preview/",
+			i18n: {
+				defaultLocale: "ja",
+				locales: {
+					ja: "ja-JP",
+				},
+			},
+		}),
+	],
 	vite: {
 		css: {
 			preprocessorOptions: {
@@ -20,6 +34,8 @@ export default defineConfig({
 	},
 	output: "hybrid",
 	adapter: vercel({
-		webAnalytics: { enabled: true },
+		webAnalytics: {
+			enabled: true,
+		},
 	}),
 });

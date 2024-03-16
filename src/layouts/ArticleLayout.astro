@@ -30,6 +30,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 		<meta property="og:url" content={Astro.url} />
 		<meta property="og:title" content={title} />
 		<meta property="og:image" content={imageUrl ?? ogpImageURL} />
+		<meta name="generator" content={Astro.generator} />
 
 		<!--noindex nofollow in preview route-->
 		{
@@ -51,7 +52,11 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;900&family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&&family=Zen+Dots&display=swap" rel="stylesheet" />
-		<meta name="generator" content={Astro.generator} />
+
+		<!--Sitemap -->
+		<link rel="sitemap" href="/sitemap-index.xml" />
+
+		<!--title -->
 		<title>{title}</title>
 	</head>
 
