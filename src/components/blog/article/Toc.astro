@@ -24,7 +24,15 @@ console.log(headings);
 							if (h.lev === "h1") {
 								return (
 									<a id={`toc-${h.lev}-${h.text}`} href={`#${h.text}`} class="toc-h1">
-										<span class="before">{h.h1id}</span>
+										{h.text !== "脚注" ? (
+											<span class="before">{h.h1id}</span>
+										) : (
+											<span class="before">
+												<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.lightbulb}>
+													<path d={svgPaths.lightbulb} />
+												</svg>
+											</span>
+										)}
 										{h.text}
 									</a>
 								);
@@ -47,6 +55,16 @@ console.log(headings);
 				);
 			})
 		}
+		<li class="heading">
+			<a id="toc-h1-rel-articles" href="#rel-articles" class="toc-h1">
+				<span class="before">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.penNib}>
+						<path d={svgPaths.penNib}></path>
+					</svg>
+				</span>
+				関連記事
+			</a>
+		</li>
 	</ul>
 </Modal>
 
@@ -76,6 +94,17 @@ console.log(headings);
 					border-radius: 9999px;
 					text-align: center;
 					padding: 0.15rem;
+					position: relative;
+
+					svg {
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%);
+						width: 60%;
+						height: 60%;
+						fill: getColor(--text-primary-color);
+					}
 				}
 			}
 

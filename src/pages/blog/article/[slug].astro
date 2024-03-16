@@ -83,6 +83,12 @@ $("pre code").each((idx, elm) => {
 	$(elm).html(result.value);
 });
 
+// exchange footnotes-sep to h1
+if ($(".footnotes-sep") && $(".footnotes")) {
+	$(".footnotes-sep").remove();
+	$(".footnotes").before("<h1>脚注</h1>");
+}
+
 // Table of contents
 const headings: { text: string; lev: string; h1id?: number }[] = [];
 let h1id = 0;
@@ -115,7 +121,7 @@ const sideArticles = await getSideArticlesBySlug(articles, article.slug);
 	<article class="article-content">
 		<div set:html={article.content.data} />
 	</article>
-	<h1 class="rel-articles">関連記事</h1>
+	<h1 class="rel-articles" id="rel-articles">関連記事</h1>
 	<ul class="hit-articles">
 		{
 			article.relatedArticles && article.relatedArticles.length > 0 ? (
