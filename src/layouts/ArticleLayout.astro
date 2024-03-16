@@ -130,7 +130,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 			min-height: calc(100vh - 44px);
 		}
 
-		article .article-content {
+		.article-content {
 			h1 {
 				border-image: $tropic-gradient 1;
 				border-bottom: solid 4px;
@@ -226,13 +226,11 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 			}
 
 			blockquote {
-				font-style: italic;
-				font-weight: 300;
-				margin-top: 1rem;
-				margin-bottom: 1rem;
+				margin: 1rem 0;
 				width: 100%;
 				padding: 0.5rem;
-				border-left: solid 2px var(--text-sub-color);
+				border-left: solid 8px getColor(--border-color);
+				background: getColor(--bg-secondary-color);
 			}
 
 			ul {
@@ -273,6 +271,32 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 				color: getColor(--text-secondary-color);
 			}
 
+			table {
+				margin: auto;
+				display: block;
+				max-width: 100%;
+				overflow-x: auto;
+				white-space: nowrap;
+				border-collapse: collapse;
+				padding-bottom: 1rem;
+
+				th,
+				td {
+					width: 1px;
+					min-width: 4rem;
+					border: solid 1px getColor(--border-color);
+					padding: 0.5rem;
+				}
+
+				th {
+					text-align: center;
+				}
+
+				td {
+					background: getColor(--bg-secondary-color);
+				}
+			}
+
 			code {
 				color: getColor(--text-secondary-color);
 				font-family: Consolas, monospace;
@@ -293,6 +317,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 				border-radius: 0 0 4px 4px;
 
 				code {
+					padding: 0;
 					color: getColor(--text-primary-color);
 				}
 			}

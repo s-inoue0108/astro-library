@@ -2,9 +2,13 @@
 import ArticleLayout from "../../../layouts/ArticleLayout.astro";
 import Toc from "../../../components/blog/article/Toc.astro";
 import Metadata from "../../../components/blog/article/Metadata.astro";
-import BreadCrumb from "../../../components/blog/article/BreadCrumb.astro";
+import ArticleCardCompact from "../../../components/blog/card/ArticleCardCompact.vue";
+import SideArticle from "../../../components/blog/article/SideArticle.astro";
+import NoContent from "../../../components/blog/background/NoContent.astro";
 // Newt
+import { articles } from "../../../lib/newt/instance";
 import { getArticles } from "../../../lib/newt/client";
+import { getSideArticlesBySlug } from "../../../lib/newt/func";
 import type { Article } from "../../../lib/newt/types";
 // KaTeX
 import "katex/dist/katex.min.css";
@@ -27,7 +31,7 @@ export const getStaticPaths = async () => {
 
 	return articles.map((article) => ({
 		params: { slug: article.slug },
-		props: { article },
+		props: { article: article },
 	}));
 };
 
@@ -90,17 +94,37 @@ $("h1,h2,h3").each((_, elm) => {
 
 // Set HTML
 article.content.data = $.html();
+
+// Side articles
+const sideArticles = await getSideArticlesBySlug(articles, article.slug);
 ---
 
 <ArticleLayout title={`${article.title} | ブログ | ${import.meta.env.APP_NAME}`} description={`${article.description}`} imageUrl={article.thambnail ? new URL(article.thambnail.src) : undefined}>
-	<aside>
-		<BreadCrumb metadata={article} />
+	<aside class="aside-content">
 		<Metadata metadata={article} />
 		<Toc headings={headings} />
 	</aside>
-	<article>
-		<div set:html={article.content.data} class="article-content" />
+	<article class="article-content">
+		<div set:html={article.content.data} />
 	</article>
+	<h1 class="rel-articles">関連記事</h1>
+	<ul class="hit-articles">
+		{
+			article.relatedArticles && article.relatedArticles.length > 0 ? (
+				article.relatedArticles.map((article) => {
+					return (
+						<li>
+							<ArticleCardCompact article={article} />
+						</li>
+					);
+				})
+			) : (
+				<NoContent message="記事がありません" />
+			)
+		}
+	</ul>
+	<SideArticle article={sideArticles.prev} direction="prev" />
+	<SideArticle article={sideArticles.next} direction="next" />
 </ArticleLayout>
 
 <script>
@@ -150,6 +174,42 @@ article.content.data = $.html();
 			100% {
 				transform: translateX(0);
 			}
+		}
+	}
+
+	.rel-articles {
+		border-image: $tropic-gradient 1;
+		border-bottom: solid 4px;
+		padding-left: 0.4rem;
+		padding-bottom: 0.2rem;
+		font-size: 1.2rem;
+		font-weight: 700;
+		letter-spacing: 1px;
+		margin: 2.5rem 0;
+
+		@include resp(sm) {
+			font-size: 1.5rem;
+		}
+
+		@include resp(lg) {
+			font-size: 2.2rem;
+			padding-left: 0.8rem;
+			padding-bottom: 0.3rem;
+			border-bottom: solid 6px;
+			margin: 5rem 0;
+		}
+	}
+
+	.hit-articles {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.7rem;
+		width: 100%;
+		margin-top: 2rem;
+
+		li {
+			width: 100%;
 		}
 	}
 </style>

@@ -5,7 +5,6 @@ import type { Article } from '../../../lib/newt/types';
 import Modal from "./NormalModal.vue";
 import ArchiveCard from "../../blog/card/ArchiveCard.vue";
 import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
-// import NoContent from "../../blog/background/NoContent.astro";
 
 interface Props {
 	articles?: Article[] | null;
