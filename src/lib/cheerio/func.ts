@@ -18,7 +18,7 @@ export const mathRenderer = async (rawText: string): Promise<string> => {
 
 	try {
 		// Rendering DISPLAY KaTeX
-		const renderedDisplayText = rawText.replaceAll(/\$\$[^\$]*\$\$/g, (text: string) => {
+		const renderedDisplayText = $.html().replaceAll(/\$\$[^\$]*\$\$/g, (text: string) => {
 			return katex.renderToString(text.replaceAll("$", "").replaceAll(/(<br>|<\\br>|<br \/>|&nbsp;|amp;)/g, ""), { output: "html", displayMode: true });
 		});
 
