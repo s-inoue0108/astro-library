@@ -45,6 +45,8 @@ const ogpImageURL = new URL('portfolio-favicon.png', canonicalURL);
 		<meta property="og:title" content={title} />
 		<meta property="og:image" content={ogpImageURL} />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" media="(prefers-color-scheme: light)" content="#CBD5E1" />
+		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#4B5563" />
 
 		<!-- Favicon -->
 		<link rel="icon" type="image/png" href="/portfolio-favicon.png" />
@@ -59,7 +61,7 @@ const ogpImageURL = new URL('portfolio-favicon.png', canonicalURL);
 		<title>{title}</title>
 	</head>
 
-	<body class="loading-fade">
+	<body class="loading-fade scroll-bar">
 		{
 			currentPath !== "/" ? <Header /> : <></>
 		}
@@ -107,6 +109,14 @@ const ogpImageURL = new URL('portfolio-favicon.png', canonicalURL);
 		overflow-wrap: break-word;
 		word-wrap: break-word;
 	}
+
+    .scroll-bar::-webkit-scrollbar {
+        background: getColor(--bg-secondary-color);
+    }
+	
+    .scroll-bar::-webkit-scrollbar-thumb {
+        background: getColor(--border-color);
+    }
 
 	.loading-fade {
 		background: getColor(--bg-secondary-color);
