@@ -32,6 +32,16 @@ const bgColor = computed<Category["themeColor"] | "#fb7185">(() => {
 	return category.themeColor
 })
 
+const svg = computed<{ path: Category["svgIconPath"]; viewBox: Category["svgViewBox"] }>(() => {
+	const category = getCategoryByName(selectedCategory.value)
+
+	if (!category) {
+		return { path: svgPaths.penNib, viewBox: svgViewBoxes.penNib }
+	}
+
+	return { path: category.svgIconPath, viewBox: category.svgViewBox }
+})
+
 const viewTags = computed<Tag[]>(() => {
 	if (!tags) {
 		return [];
@@ -48,8 +58,8 @@ const viewTags = computed<Tag[]>(() => {
 		<template #info>
 			<div class="category-selector">
 				<label for="select-category">
-					<svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.caretRight">
-						<path :d="svgPaths.caretRight"></path>
+					<svg xmlns="http://www.w3.org/2000/svg" :viewBox="svg.viewBox">
+						<path :d="svg.path"></path>
 					</svg>
 				</label>
 				<select v-model="selectedCategory" id="select-category" name="select-category">
@@ -74,16 +84,17 @@ const viewTags = computed<Tag[]>(() => {
 .tags {
 	display: flex;
 	flex-wrap: wrap;
-	align-items: center;
-	gap: 0.3rem;
+	gap: 0.5rem;
 }
 
 .category-selector {
-	font-size: 0.9rem;
+	width: max-content;
+	font-size: 0.8rem;
 	font-weight: 500;
 	border-radius: 9999px;
 	background: v-bind(bgColor);
 	padding: 0.2rem 0.5rem;
+	margin-right: 5rem;
 	position: relative;
 	display: flex;
 	align-items: center;
@@ -96,7 +107,7 @@ const viewTags = computed<Tag[]>(() => {
 			display: flex;
 			align-items: center;
 			width: auto;
-			height: 0.9rem;
+			height: 0.8rem;
 			fill: getColor(--text-primary-color);
 		}
 	}

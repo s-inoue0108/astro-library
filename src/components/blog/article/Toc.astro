@@ -138,4 +138,13 @@ const { headings } = Astro.props;
 			}
 		}
 	}
+
+	.headings::-webkit-scrollbar {
+		background: getColor(--bg-secondary-color);
+	}
+
+	.headings::-webkit-scrollbar-thumb {
+		background: getColor(--border-color);
+		border-radius: 9999px;
+	}
 </style>

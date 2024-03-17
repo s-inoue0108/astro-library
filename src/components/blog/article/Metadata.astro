@@ -71,17 +71,36 @@ const { title, description, thambnail, category, tags, _sys } = metadata;
 	.metadata {
 		width: 100%;
 
+		@include resp(lg) {
+			width: 70%;
+			margin: 96px 1rem 0 0;
+			padding: 0 1.5rem;
+		}
+
 		.title {
 			font-size: 1.6rem;
 			font-weight: 600;
 			letter-spacing: 0.8px;
 			margin-top: 2rem;
+
+			@include resp(lg) {
+				font-size: 2.8rem;
+				letter-spacing: 1px;
+				margin-top: 3rem;
+				margin-left: -1rem;
+			}
 		}
 
 		.description {
 			color: getColor(--text-secondary-color);
 			margin-top: 1.5rem;
 			margin-bottom: 2rem;
+
+			@include resp(lg) {
+				font-size: 1.6rem;
+				letter-spacing: 0.8px;
+				margin-left: -1rem;
+			}
 		}
 
 		.info {
@@ -90,6 +109,11 @@ const { title, description, thambnail, category, tags, _sys } = metadata;
 			justify-content: space-between;
 			align-items: center;
 
+			@include resp(lg) {
+				margin-left: -1rem;
+				margin-right: 1rem;
+			}
+
 			.all {
 				color: getColor(--text-secondary-color);
 				font-size: 0.8rem;
@@ -97,6 +121,11 @@ const { title, description, thambnail, category, tags, _sys } = metadata;
 				align-items: center;
 				gap: 0.3rem;
 				letter-spacing: 0.5px;
+
+				@include resp(lg) {
+					font-size: 1.2rem;
+					letter-spacing: 1px;
+				}
 
 				&:active {
 					color: $rose;
@@ -111,6 +140,10 @@ const { title, description, thambnail, category, tags, _sys } = metadata;
 					width: auto;
 					height: 0.8rem;
 					fill: getColor(--text-secondary-color);
+
+					@include resp(lg) {
+						height: 1.2rem;
+					}
 				}
 			}
 
@@ -126,10 +159,19 @@ const { title, description, thambnail, category, tags, _sys } = metadata;
 					gap: 0.3rem;
 					letter-spacing: 0.5px;
 
+					@include resp(lg) {
+						font-size: 1.2rem;
+						letter-spacing: 1px;
+					}
+
 					svg {
 						width: auto;
 						height: 0.7rem;
 						fill: getColor(--text-primary-color);
+
+						@include resp(lg) {
+							height: 1.1rem;
+						}
 					}
 				}
 			}
@@ -142,11 +184,20 @@ const { title, description, thambnail, category, tags, _sys } = metadata;
 			height: 192px;
 			position: relative;
 
+			@include resp(lg) {
+				width: 100%;
+				height: 384px;
+			}
+
 			.thambnail {
 				position: absolute;
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
+
+				@include resp(lg) {
+					border-radius: 4px;
+				}
 			}
 
 			.tags {

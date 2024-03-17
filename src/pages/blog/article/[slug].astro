@@ -70,31 +70,38 @@ const sideArticles = await getSideArticlesBySlug(articles, article.slug);
 ---
 
 <ArticleLayout title={`${article.title} | ブログ | ${import.meta.env.APP_NAME}`} description={`${article.description}`} imageUrl={article.thambnail ? new URL(article.thambnail.src) : undefined}>
-	<aside>
-		<Metadata metadata={article} />
-		<Toc headings={headings} />
-	</aside>
-	<article>
-		<div set:html={mathRenderedHtml} class="article-content" />
-		<h1 class="rel-articles" id="rel-articles">関連記事</h1>
-		<ul class="hit-articles">
-			{
-				article.relatedArticles && article.relatedArticles.length > 0 ? (
-					article.relatedArticles.map((article) => {
-						return (
-							<li>
-								<ArticleCardCompact article={article} />
-							</li>
-						);
-					})
-				) : (
-					<NoContent message="記事がありません" />
-				)
-			}
-		</ul>
-		<SideArticle article={sideArticles.prev} direction="prev" />
-		<SideArticle article={sideArticles.next} direction="next" />
-	</article>
+	<Metadata metadata={article} />
+	<div class="content">
+		<aside>
+			<div class="toc-side">
+				<Toc headings={headings} />
+			</div>
+		</aside>
+		<article>
+			<div class="toc-main">
+				<Toc headings={headings} />
+			</div>
+			<div set:html={mathRenderedHtml} class="article-content" />
+			<h1 class="rel-articles" id="rel-articles">関連記事</h1>
+			<ul class="hit-articles">
+				{
+					article.relatedArticles && article.relatedArticles.length > 0 ? (
+						article.relatedArticles.map((article) => {
+							return (
+								<li>
+									<ArticleCardCompact article={article} />
+								</li>
+							);
+						})
+					) : (
+						<NoContent message="記事がありません" />
+					)
+				}
+			</ul>
+			<SideArticle article={sideArticles.prev} direction="prev" />
+			<SideArticle article={sideArticles.next} direction="next" />
+		</article>
+	</div>
 </ArticleLayout>
 
 <script>
@@ -119,6 +126,38 @@ const sideArticles = await getSideArticlesBySlug(articles, article.slug);
 </script>
 
 <style lang="scss">
+	.content {
+		@include resp(lg) {
+			display: flex;
+			flex-direction: row-reverse;
+
+			article {
+				width: 70%;
+				padding-right: 3rem;
+			}
+
+			aside {
+				position: relative;
+				width: 30%;
+
+				.toc-side {
+					width: 100%;
+					height: max-content;
+					position: sticky;
+					top: 96px;
+				}
+			}
+		}
+	}
+
+	.toc-main {
+		display: none;
+
+		@include resp(lg) {
+			display: block;
+		}
+	}
+
 	.copy-btn {
 		&:active {
 			animation: shake 1s ease;

@@ -88,12 +88,14 @@ const existMonthsAndExistence = computed<{ month: number, exist: boolean }[]>(()
 }
 
 .year-selector {
+	width: max-content;
 	color: getColor(--text-primary-color);
 	font-size: 0.9rem;
 	font-weight: 500;
 	border-radius: 9999px;
 	background: getColor(--bg-primary-color);
 	padding: 0.2rem 0.5rem;
+	margin-right: 4rem;
 	position: relative;
 	display: flex;
 	align-items: center;
