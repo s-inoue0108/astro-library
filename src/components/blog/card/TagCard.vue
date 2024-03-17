@@ -63,7 +63,7 @@ const themeColor = computed<string>(() => {
 
     label {
         font-size: 0.8rem;
-        font-weight: 700;
+        font-weight: 600;
         cursor: pointer;
     }
 }

@@ -3,18 +3,18 @@ import type { Article } from "../../../lib/newt/types";
 import TagCard from "../card/TagCard.vue";
 // Image
 import { Image } from "astro:assets";
+// SVG
+import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 
 interface Props {
-	metadata: Pick<Article, "title" | "description" | "thambnail" | "category" | "tags">;
+	metadata: Pick<Article, "title" | "description" | "thambnail" | "category" | "tags" | "_sys">;
 }
 
 const { metadata } = Astro.props;
-const { title, description, thambnail, category, tags } = metadata;
+const { title, description, thambnail, category, tags, _sys } = metadata;
 ---
 
 <div class="metadata">
-	<h1 class="title">{title}</h1>
-	<p class="description">{description}</p>
 	<div class="image">
 		<Image src={thambnail.src} width={thambnail.width} height={thambnail.height} alt={thambnail.altText} class="thambnail" />
 		<a href={`/blog/category/${category.slug}/1`} class="category">
@@ -37,6 +37,34 @@ const { title, description, thambnail, category, tags } = metadata;
 			}
 		</ul>
 	</div>
+	<div class="info">
+		<a href="/blog/all/1" class="all">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.chevronLeft}>
+				<path d={svgPaths.chevronLeft}></path>
+			</svg>
+			<span>記事一覧</span>
+		</a>
+		<ul class="dates">
+			<li class="date">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.clock}>
+					<path d={svgPaths.clock}></path>
+				</svg>
+				<span>{new Intl.DateTimeFormat("ja").format(new Date(_sys.raw.firstPublishedAt))}</span>
+			</li>
+			{
+				_sys.raw.publishedAt && (
+					<li class="date">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.clockRotateLeft}>
+							<path d={svgPaths.clockRotateLeft} />
+						</svg>
+						<span>{new Intl.DateTimeFormat("ja").format(new Date(_sys.raw.publishedAt))}</span>
+					</li>
+				)
+			}
+		</ul>
+	</div>
+	<h1 class="title">{title}</h1>
+	<p class="description">{description}</p>
 </div>
 
 <style lang="scss">
@@ -47,33 +75,84 @@ const { title, description, thambnail, category, tags } = metadata;
 			font-size: 1.6rem;
 			font-weight: 600;
 			letter-spacing: 0.8px;
+			margin-top: 2rem;
 		}
 
 		.description {
 			color: getColor(--text-secondary-color);
-			margin-top: 1rem;
+			margin-top: 1.5rem;
+			margin-bottom: 2rem;
+		}
+
+		.info {
+			margin-top: 0.5rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			.all {
+				color: getColor(--text-secondary-color);
+				font-size: 0.8rem;
+				display: flex;
+				align-items: center;
+				gap: 0.3rem;
+				letter-spacing: 0.5px;
+
+				&:active {
+					color: $rose;
+					transition: 0.2s ease;
+
+					svg {
+						fill: $rose;
+					}
+				}
+
+				svg {
+					width: auto;
+					height: 0.8rem;
+					fill: getColor(--text-secondary-color);
+				}
+			}
+
+			.dates {
+				display: flex;
+				gap: 1rem;
+
+				.date {
+					color: getColor(--text-primary-color);
+					font-size: 0.8rem;
+					display: flex;
+					align-items: center;
+					gap: 0.3rem;
+					letter-spacing: 0.5px;
+
+					svg {
+						width: auto;
+						height: 0.7rem;
+						fill: getColor(--text-primary-color);
+					}
+				}
+			}
 		}
 
 		.image {
-			margin-top: 1rem;
-			width: 100%;
+			margin: 0 -1rem;
+			margin-top: -16px;
+			width: 100vw;
 			height: 192px;
 			position: relative;
-			border: solid 2px getColor(--border-color);
-			border-radius: 4px;
 
 			.thambnail {
 				position: absolute;
 				width: 100%;
 				height: 100%;
 				object-fit: cover;
-				border-radius: 2px;
 			}
 
 			.tags {
 				position: absolute;
 				bottom: 4px;
-				right: 4px;
+				left: 4px;
 				display: flex;
 				flex-wrap: wrap;
 				align-items: center;
