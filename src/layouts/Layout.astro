@@ -1,9 +1,24 @@
 ---
-// speed insights
+// Reset CSS
+import "destyle.css/destyle.css";
+
+// Speed insights
 import SpeedInsights from "@vercel/speed-insights/astro";
 
 import Header from "../components/common/Header.astro";
 import Footer from "../components/common/Footer.astro";
+
+// Fonts
+import "@fontsource/noto-sans-jp/300.css";
+import "@fontsource/noto-sans-jp/400.css";
+import "@fontsource/noto-sans-jp/500.css";
+import "@fontsource/noto-sans-jp/600.css";
+import "@fontsource/noto-sans-jp/700.css";
+import "@fontsource/montserrat/300.css";
+import "@fontsource/montserrat/400.css";
+import "@fontsource/montserrat/500.css";
+import "@fontsource/montserrat/600.css";
+import "@fontsource/montserrat/700.css";
 
 interface Props {
 	title: string;
@@ -35,12 +50,7 @@ const ogpImageURL = new URL('portfolio-favicon.png', canonicalURL);
 		<link rel="icon" type="image/png" href="/portfolio-favicon.png" />
 
 		<!--Reset CSS -->
-		<link rel="stylesheet" href="https://unpkg.com/destyle.css@3.0.2/destyle.min.css" />
-
-		<!--Fonts -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;900&family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@100;200;300;400;500;600;700;800;900&&family=Zen+Dots&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="node_modules/destyle.css/destyle.css">
 
 		<!--Sitemap -->
 		<link rel="sitemap" href="/sitemap-index.xml" />
