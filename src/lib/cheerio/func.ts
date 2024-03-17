@@ -13,6 +13,7 @@ export const mathRenderer = async (rawText: string): Promise<string> => {
 	const rawTextsInnerCodeTag: string[] = [];
 	$("code").each((_, elm) => {
 		rawTextsInnerCodeTag.push($(elm).text());
+		$(elm).text("");
 	});
 
 	try {
