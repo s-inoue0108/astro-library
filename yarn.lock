@@ -761,6 +761,11 @@
   dependencies:
     "@types/unist" "*"
 
+"@types/highlightjs@^9.12.6":
+  version "9.12.6"
+  resolved "https://registry.yarnpkg.com/@types/highlightjs/-/highlightjs-9.12.6.tgz#6fcb846e3e05d336e60b3b22dc931533a40d2cbb"
+  integrity sha512-Qfd1DUrwE851Hc3tExADJY4qY8yeZMt06Xw9AJm/UtpneepJS3MZY29c33BY0wP899veaaHD4gZzYiSuQm84Fg==
+
 "@types/katex@^0.16.7":
   version "0.16.7"
   resolved "https://registry.yarnpkg.com/@types/katex/-/katex-0.16.7.tgz#03ab680ab4fa4fbc6cb46ecf987ecad5d8019868"

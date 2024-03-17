@@ -149,14 +149,14 @@ const reset = async (): Promise<void> => {
             color: getColor(--text-primary-color);
             font-weight: 600;
             font-size: .9em;
-            content: 'IN';
+            content: 'INL';
             transition: left .4s;
             white-space: nowrap;
         }
 
         .toggle-button-4:has(:checked)::after {
             left: 71px;
-            content: 'OUT';
+            content: 'DSP';
             white-space: nowrap;
         }
 
