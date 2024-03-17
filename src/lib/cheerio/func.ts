@@ -15,25 +15,29 @@ export const mathRenderer = async (rawText: string): Promise<string> => {
 		rawTextsInnerCodeTag.push($(elm).text());
 	});
 
-	// Rendering DISPLAY KaTeX
-	const renderedDisplayText = rawText.replaceAll(/\$\$[^\$]*\$\$/g, (text: string) => {
-		return katex.renderToString(text.replaceAll("$", "").replaceAll(/(<br>|<\\br>|<br \/>|&nbsp;|amp;)/g, ""), { output: "html", displayMode: true });
-	});
+	try {
+		// Rendering DISPLAY KaTeX
+		const renderedDisplayText = rawText.replaceAll(/\$\$[^\$]*\$\$/g, (text: string) => {
+			return katex.renderToString(text.replaceAll("$", "").replaceAll(/(<br>|<\\br>|<br \/>|&nbsp;|amp;)/g, ""), { output: "html", displayMode: true });
+		});
 
-	// Rendering INLINE KaTeX
-	const renderedText = renderedDisplayText.replaceAll(/\$[^\$]*\$/g, (text: string) => {
-		return katex.renderToString(text.replaceAll("$", "").replaceAll(/(<br>|<\\br>|<br \/>|&nbsp;|amp;)/g, ""), { output: "html", displayMode: false });
-	});
+		// Rendering INLINE KaTeX
+		const renderedText = renderedDisplayText.replaceAll(/\$[^\$]*\$/g, (text: string) => {
+			return katex.renderToString(text.replaceAll("$", "").replaceAll(/(<br>|<\\br>|<br \/>|&nbsp;|amp;)/g, ""), { output: "html", displayMode: false });
+		});
 
-	// reinitialized Cheerio API
-	$ = load(renderedText);
+		// reinitialized Cheerio API
+		$ = load(renderedText);
 
-	// replace <code> text
-	$("code").each((idx, elm) => {
-		$(elm).text(rawTextsInnerCodeTag[idx]);
-	});
+		// replace <code> text
+		$("code").each((idx, elm) => {
+			$(elm).text(rawTextsInnerCodeTag[idx]);
+		});
 
-	return $.html();
+		return $.html();
+	} catch {
+		return "";
+	}
 };
 
 // Syntax Highlight
