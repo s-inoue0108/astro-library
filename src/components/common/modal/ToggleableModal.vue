@@ -75,22 +75,39 @@ const toggleOpen = (): void => {
             align-items: center;
             gap: 0.5rem;
 
+            @include resp(lg) {
+                width: calc(100% - 1.6rem);
+                gap: 1rem;
+            }
+
             svg {
                 height: 1.2rem;
                 fill: getColor(--text-primary-color);
+
+                @include resp(lg) {
+                    height: 1.6rem;
+                }
             }
 
             .title {
                 font-size: 1.2rem;
                 font-weight: 700;
                 white-space: nowrap;
+
+                @include resp(lg) {
+                    font-size: 1.6rem;
+                }
             }
 
         }
 
         .toggle-button {
             width: 1.2rem;
-            height: 1.2rem;
+            height: auto;
+
+            @include resp(lg) {
+                width: 1.6rem;
+            }
 
             svg {
                 width: 100%;

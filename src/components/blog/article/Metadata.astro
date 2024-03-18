@@ -123,8 +123,8 @@ const { title, description, thambnail, category, tags, _sys } = metadata;
 				letter-spacing: 0.5px;
 
 				@include resp(lg) {
-					font-size: 1.2rem;
-					letter-spacing: 1px;
+					font-size: 1.1rem;
+					letter-spacing: 0.8px;
 				}
 
 				&:active {
@@ -149,7 +149,12 @@ const { title, description, thambnail, category, tags, _sys } = metadata;
 
 			.dates {
 				display: flex;
+				align-items: center;
 				gap: 1rem;
+
+				@include resp(lg) {
+					gap: 1.5rem;
+				}
 
 				.date {
 					color: getColor(--text-primary-color);
@@ -160,8 +165,8 @@ const { title, description, thambnail, category, tags, _sys } = metadata;
 					letter-spacing: 0.5px;
 
 					@include resp(lg) {
-						font-size: 1.2rem;
-						letter-spacing: 1px;
+						font-size: 1.1rem;
+						letter-spacing: 0.8px;
 					}
 
 					svg {
@@ -170,7 +175,7 @@ const { title, description, thambnail, category, tags, _sys } = metadata;
 						fill: getColor(--text-primary-color);
 
 						@include resp(lg) {
-							height: 1.1rem;
+							height: 1rem;
 						}
 					}
 				}

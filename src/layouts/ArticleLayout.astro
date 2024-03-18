@@ -25,6 +25,8 @@ import "@fontsource/montserrat/400-italic.css";
 import "@fontsource/montserrat/500-italic.css";
 import "@fontsource/montserrat/600-italic.css";
 import "@fontsource/montserrat/700-italic.css";
+import "@fontsource/source-code-pro/400.css";
+import "@fontsource/source-code-pro/400-italic.css";
 
 interface Props {
 	title: string;
@@ -356,7 +358,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 
 			code {
 				color: getColor(--text-secondary-color);
-				font-family: Consolas, monospace;
+				font-family: "Source Code Pro", Consolas, monospace;
 				font-size: 0.9rem;
 				background: getColor(--bg-secondary-color);
 				padding: 0.2rem 0.5rem;
@@ -368,6 +370,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 			}
 
 			pre {
+				font-size: 0.9rem;
 				display: block;
 				width: 100%;
 				height: max-content;
@@ -383,6 +386,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 				}
 
 				@include resp(lg) {
+					font-size: 1.1rem;
 					margin-bottom: 2rem;
 				}
 			}

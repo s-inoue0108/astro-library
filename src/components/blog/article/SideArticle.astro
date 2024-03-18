@@ -10,6 +10,16 @@ interface Props {
 }
 
 const { direction, article } = Astro.props;
+
+const currentPath = Astro.url.pathname;
+const regex = /^\/blog\/preview\//
+
+const transitionPath = (slug: Article["slug"]): string => {
+	if (regex.test(currentPath)) {
+		return `/blog/preview/${slug}?secret=${import.meta.env.NEWT_ARTICLE_PREVIEW_SECRET}`
+	}
+	return `/blog/article/${slug}`
+}
 ---
 
 <>
@@ -17,9 +27,9 @@ const { direction, article } = Astro.props;
 		() => {
 			if (article && direction === "prev") {
 				return (
-					<a href={`/blog/article/${article.slug}`} class="prev">
+					<a href={transitionPath(article.slug)} class="prev">
 						<Image src={article.thambnail.src} width={article.thambnail.width} height={article.thambnail.height} alt={article.thambnail.altText} class="img-prev" />
-						<h2>{article.title}</h2>
+						<div class="title">{article.title}</div>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.chevronRight}>
 							<path d={svgPaths.chevronRight} />
 						</svg>
@@ -27,11 +37,11 @@ const { direction, article } = Astro.props;
 				);
 			} else if (article && direction === "next") {
 				return (
-					<a href={`/blog/article/${article.slug}`} class="next">
+					<a href={transitionPath(article.slug)} class="next">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.chevronLeft}>
 							<path d={svgPaths.chevronLeft} />
 						</svg>
-						<h2>{article.title}</h2>
+						<div class="title">{article.title}</div>
 						<Image src={article.thambnail.src} width={article.thambnail.width} height={article.thambnail.height} alt={article.thambnail.altText} class="img-next" />
 					</a>
 				);
@@ -52,20 +62,35 @@ const { direction, article } = Astro.props;
 		border-radius: 4px;
 		display: flex;
 
+		@include resp(lg) {
+			height: 92px;
+			border-radius: 8px;
+			width: calc(50% - 1rem);
+		}
+
 		&:active {
 			opacity: .5;
 			transition: .2s ease;
 		}
 
-		h2 {
+		.title {
 			padding: 4px;
 			width: calc(100% - 64px - 32px);
+
+			@include resp(lg) {
+				padding: 8px;
+			    width: calc(100% - 92px - 48px - 16px);
+			}
 		}
 
 		img {
 			width: 64px;
 			height: 100%;
 			object-fit: cover;
+
+			@include resp(lg) {
+				width: 92px;
+			}
 		}
 
 		svg {
@@ -73,15 +98,27 @@ const { direction, article } = Astro.props;
 			width: 32px;
 			height: auto;
 			fill: getColor(--text-primary-color);
-			
+
+			@include resp(lg) {
+				margin: 16px 8px;
+			    width: 48px;
+			}
+		}
+	}
+
+	.img-prev {
+		border-radius: 4px 0 0 4px;
+
+		@include resp(lg) {
+			border-radius: 8px 0 0 8px;
 		}
 	}
 
 	.img-next {
-		border-radius: 0 2px 2px 0;
-	}
+		border-radius: 0 4px 4px 0;
 
-	.img-prev {
-		border-radius: 2px 0 0 2px;
+		@include resp(lg) {
+			border-radius: 0 8px 8px 0;
+		}
 	}
 </style>

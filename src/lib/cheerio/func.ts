@@ -97,6 +97,7 @@ export const getHeadings = async ($: CheerioAPI): Promise<{ text: string; lev: s
 	$("h1,h2,h3").each((_, elm) => {
 		const text = $(elm).text();
 		const lev = $(elm).toString().match(/h\d/)![0];
+
 		$(elm).attr("id", text);
 
 		if (lev === "h1") {
@@ -109,3 +110,6 @@ export const getHeadings = async ($: CheerioAPI): Promise<{ text: string; lev: s
 
 	return headings;
 };
+
+// get element height
+// export const getHeadElmHeight = async ()

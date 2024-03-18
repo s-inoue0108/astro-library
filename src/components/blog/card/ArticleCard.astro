@@ -52,7 +52,7 @@ const sliceText = (text: string | undefined, limit: number): string => {
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.clock}>
 					<path d={svgPaths.clock}></path>
 				</svg>
-				<label>{new Intl.DateTimeFormat("ja").format(new Date(_sys.raw.firstPublishedAt))}</label>
+				<span>{new Intl.DateTimeFormat("ja").format(new Date(_sys.raw.firstPublishedAt))}</span>
 			</div>
 		</li>
 	</ul>
@@ -130,21 +130,16 @@ const sliceText = (text: string | undefined, limit: number): string => {
 				}
 
 				.published-at {
-					width: max-content;
+					font-size: 0.9rem;
 					display: flex;
 					align-items: center;
 					gap: 0.3rem;
+					letter-spacing: 0.5px;
 
 					svg {
-						width: 0.8rem;
+						width: auto;
 						height: 0.8rem;
 						fill: getColor(--text-primary-color);
-					}
-
-					label {
-						font-size: 0.8rem;
-						font-weight: 700;
-						letter-spacing: 0.7px;
 					}
 				}
 			}

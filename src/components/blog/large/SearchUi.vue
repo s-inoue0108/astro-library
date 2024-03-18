@@ -68,8 +68,8 @@ const showedArticles = computed<Article[]>(() => {
                 <path :d="svgPaths.circleExclamation" />
             </svg>
             <h1>記事がありません</h1>
-            <div class="see-all-posts">
-                <SvgButton title="See all entries" :is-link="true" linkUrl="/blog/all/1" :width-scale="4.8"
+            <div class="view-all-entries">
+                <SvgButton title="View all entries" :is-link="true" linkUrl="/blog/all/1" :width-scale="5"
                     :svgIconPath="svgPaths.caretRight" :svgViewBox="svgViewBoxes.caretRight" :height-scale="0.8" />
             </div>
         </div>
@@ -78,8 +78,8 @@ const showedArticles = computed<Article[]>(() => {
                 <path :d="svgPaths.magnifyingGlass" />
             </svg>
             <h1>記事を検索</h1>
-            <div class="see-all-posts">
-                <SvgButton title="See all entries" :is-link="true" linkUrl="/blog/all/1" :width-scale="4.8"
+            <div class="view-all-entries">
+                <SvgButton title="View all entries" :is-link="true" linkUrl="/blog/all/1" :width-scale="5"
                     :svgIconPath="svgPaths.caretRight" :svgViewBox="svgViewBoxes.caretRight" :height-scale="0.8" />
             </div>
         </div>
@@ -193,7 +193,7 @@ const showedArticles = computed<Article[]>(() => {
         white-space: nowrap;
     }
 
-    .see-all-posts {
+    .view-all-entries {
         position: absolute;
         top: calc(50% + 10rem);
         left: 50%;
