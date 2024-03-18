@@ -18,13 +18,40 @@ const currentPath = Astro.url.pathname;
 	</ul>
 	<ul class="page-links">
 		<li class="link">
-			<SvgButton title="Profile" isLink={true} linkUrl="/profile" currentPath={currentPath} testPathRegex={new RegExp("^/profile")} widthScale={1.7} heightScale={0.6} fontScale={0.75} />
+			<SvgButton
+				title="Profile"
+				isLink={true}
+				linkUrl="/profile"
+				currentPath={currentPath}
+				testPathRegex={new RegExp("^/profile")}
+				widthScale={1.7}
+				heightScale={0.6}
+				fontScale={0.75}
+			/>
 		</li>
 		<li class="link">
-			<SvgButton title="Contact" isLink={true} linkUrl="/contact" currentPath={currentPath} testPathRegex={new RegExp("^/contact")} widthScale={1.7} heightScale={0.6} fontScale={0.75} />
+			<SvgButton
+				title="Contact"
+				isLink={true}
+				linkUrl="/contact"
+				currentPath={currentPath}
+				testPathRegex={new RegExp("^/contact")}
+				widthScale={1.7}
+				heightScale={0.6}
+				fontScale={0.75}
+			/>
 		</li>
 		<li class="link">
-			<SvgButton title="Blog" isLink={true} linkUrl="/blog" currentPath={currentPath} testPathRegex={new RegExp("^/blog")} widthScale={1.7} heightScale={0.6} fontScale={0.75} />
+			<SvgButton
+				title="Blog"
+				isLink={true}
+				linkUrl="/blog"
+				currentPath={currentPath}
+				testPathRegex={new RegExp("^/blog")}
+				widthScale={1.7}
+				heightScale={0.6}
+				fontScale={0.75}
+			/>
 		</li>
 	</ul>
 	<ThemeButton client:load />
@@ -118,6 +145,8 @@ const currentPath = Astro.url.pathname;
 
 			@include resp(lg) {
 				gap: 2rem;
+				position: absolute;
+				right: 12rem;
 			}
 
 			.link {
@@ -125,27 +154,4 @@ const currentPath = Astro.url.pathname;
 			}
 		}
 	}
-
-	// .bgprimary {
-	// 	background: getColor(--bg-primary-color);
-	// }
-
-	// .loadingfade {
-	// 	animation: 3s fade-in-header forwards;
-	// }
-
-	// @keyframes fade-in-header {
-	// 	0% {
-	// 		opacity: 0;
-	// 	}
-
-	// 	80% {
-	// 		opacity: 0;
-	// 		transform: translateY(-36px);
-	// 	}
-
-	// 	100% {
-	// 		opacity: 1;
-	// 	}
-	// }
 </style>

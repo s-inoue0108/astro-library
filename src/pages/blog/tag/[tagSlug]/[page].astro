@@ -5,13 +5,19 @@ import CategoriesNavBar from "../../../../components/blog/background/CategoriesN
 import ArticleCards from "../../../../components/blog/large/ArticleCards.astro";
 import TagsListModal from "../../../../components/common/modal/TagsListModal.vue";
 import ArchivesListModal from "../../../../components/common/modal/ArchivesListModal.vue";
+import Pager from "../../../../components/blog/background/Pager.vue";
 import { articles, categories, tags } from "../../../../lib/newt/instance";
 import { getArticles, getTags } from "../../../../lib/newt/client";
 import type { Article, Tag } from "../../../../lib/newt/types";
 import type { Page, GetStaticPathsOptions } from "astro";
 import { svgPaths, svgViewBoxes } from "../../../../lib/svg/paths";
+import PageTitleForPc from "../../../../components/blog/background/PageTitleForPc.astro";
 
-export const getStaticPaths = async ({ paginate }: { paginate: GetStaticPathsOptions["paginate"] }) => {
+export const getStaticPaths = async ({
+	paginate,
+}: {
+	paginate: GetStaticPathsOptions["paginate"];
+}) => {
 	const tags = await getTags();
 	const articles = await getArticles();
 
@@ -21,7 +27,11 @@ export const getStaticPaths = async ({ paginate }: { paginate: GetStaticPathsOpt
 
 	const routes = tags.flatMap((tag) => {
 		const filteredArticles = articles.filter((article) => {
-			return article.tags && article.tags.length > 0 && article.tags.map((tag) => tag.slug).includes(tag.slug);
+			return (
+				article.tags &&
+				article.tags.length > 0 &&
+				article.tags.map((tag) => tag.slug).includes(tag.slug)
+			);
 		});
 		return paginate(filteredArticles, {
 			params: { tagSlug: tag.slug },
@@ -41,16 +51,35 @@ interface Props {
 const { page, tag } = Astro.props;
 ---
 
-<Layout title={`${tag.name}の記事一覧 | ページ${page.currentPage} | ブログ | ${import.meta.env.APP_NAME}`} description={`タグ "${tag.name}" の記事一覧です`}>
-	<section class="articles">
-		<PageTitle title={tag.name} bgImage={tag.parentCategory.image} iconImage={tag.icon} svgIconPath={svgPaths.tag} svgViewBox={svgViewBoxes.tag} />
-		<CategoriesNavBar />
-		<ArticleCards articles={page.data} />
-	</section>
-	<section class="ui">
-		<TagsListModal categories={categories} tags={tags} client:visible />
-		<ArchivesListModal articles={articles} client:visible />
-	</section>
+<Layout
+	title={`${tag.name}の記事一覧 | ページ${page.currentPage} | ブログ | ${import.meta.env.APP_NAME}`}
+	description={`タグ "${tag.name}" の記事一覧です`}
+>
+	<div id="contents">
+		<section id="articles">
+			<PageTitleForPc
+				title={tag.name}
+				bgImage={tag.parentCategory.image}
+				iconImage={tag.icon}
+				svgIconPath={svgPaths.tag}
+				svgViewBox={svgViewBoxes.tag}
+			/>
+			<PageTitle
+				title={tag.name}
+				bgImage={tag.parentCategory.image}
+				iconImage={tag.icon}
+				svgIconPath={svgPaths.tag}
+				svgViewBox={svgViewBoxes.tag}
+			/>
+			<CategoriesNavBar />
+			<ArticleCards articles={page.data} />
+			<Pager page={page} />
+		</section>
+		<section id="sidebar">
+			<TagsListModal categories={categories} tags={tags} client:visible />
+			<ArchivesListModal articles={articles} client:visible />
+		</section>
+	</div>
 </Layout>
 
 <script>
@@ -75,9 +104,22 @@ const { page, tag } = Astro.props;
 </script>
 
 <style lang="scss">
-	.articles {
-	}
+	#contents {
+		@include resp(lg) {
+			display: flex;
+		}
 
-	.ui {
+		#articles {
+			@include resp(lg) {
+				width: 75%;
+			}
+		}
+
+		#sidebar {
+			@include resp(lg) {
+				width: 25%;
+				margin-top: -2rem;
+			}
+		}
 	}
 </style>

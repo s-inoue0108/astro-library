@@ -10,8 +10,13 @@ import { articles, categories, tags } from "../../../../lib/newt/instance";
 import { getArticles, getCategories } from "../../../../lib/newt/client";
 import type { Article, Category } from "../../../../lib/newt/types";
 import type { Page, GetStaticPathsOptions } from "astro";
+import PageTitleForPc from "../../../../components/blog/background/PageTitleForPc.astro";
 
-export const getStaticPaths = async ({ paginate }: { paginate: GetStaticPathsOptions["paginate"] }) => {
+export const getStaticPaths = async ({
+	paginate,
+}: {
+	paginate: GetStaticPathsOptions["paginate"];
+}) => {
 	const categories = await getCategories();
 	const articles = await getArticles();
 
@@ -41,17 +46,23 @@ interface Props {
 const { page, category } = Astro.props;
 ---
 
-<Layout title={`${category.name}の記事一覧 | ページ${page.currentPage} | ブログ | ${import.meta.env.APP_NAME}`} description={category.description ?? ""}>
-	<section class="articles">
-		<PageTitle title={category.name} bgImage={category.image} />
-		<CategoriesNavBar />
-		<ArticleCards articles={page.data} />
-		<Pager page={page} />
-	</section>
-	<section class="ui">
-		<TagsListModal categories={categories} tags={tags} client:visible />
-		<ArchivesListModal articles={articles} client:visible />
-	</section>
+<Layout
+	title={`${category.name}の記事一覧 | ページ${page.currentPage} | ブログ | ${import.meta.env.APP_NAME}`}
+	description={category.description ?? ""}
+>
+	<div id="contents">
+		<section id="articles">
+			<PageTitleForPc title={category.name} bgImage={category.image} />
+			<PageTitle title={category.name} bgImage={category.image} />
+			<CategoriesNavBar />
+			<ArticleCards articles={page.data} />
+			<Pager page={page} />
+		</section>
+		<section id="sidebar">
+			<TagsListModal categories={categories} tags={tags} client:visible />
+			<ArchivesListModal articles={articles} client:visible />
+		</section>
+	</div>
 </Layout>
 
 <script>
@@ -76,9 +87,22 @@ const { page, category } = Astro.props;
 </script>
 
 <style lang="scss">
-	.articles {
-	}
+	#contents {
+		@include resp(lg) {
+			display: flex;
+		}
 
-	.ui {
+		#articles {
+			@include resp(lg) {
+				width: 75%;
+			}
+		}
+
+		#sidebar {
+			@include resp(lg) {
+				width: 25%;
+				margin-top: -2rem;
+			}
+		}
 	}
 </style>

@@ -10,37 +10,37 @@ interface Props {
 	tags: Tag[] | null;
 }
 
-const { categories, tags } = defineProps<Props>()
+const { categories, tags } = defineProps<Props>();
 
 const selectedCategory = ref<Category["name"] | "すべて">("すべて");
 
 const getCategoryByName = (name: Category["name"]): Category | null => {
 	if (!categories) {
-		return null
+		return null;
 	}
 	const category = categories.filter((category) => category.name === name)[0];
-	return category
-}
+	return category;
+};
 
 const bgColor = computed<Category["themeColor"] | "#fb7185">(() => {
-	const category = getCategoryByName(selectedCategory.value)
+	const category = getCategoryByName(selectedCategory.value);
 
 	if (!category) {
-		return "#fb7185"
+		return "#fb7185";
 	}
 
-	return category.themeColor
-})
+	return category.themeColor;
+});
 
 const svg = computed<{ path: Category["svgIconPath"]; viewBox: Category["svgViewBox"] }>(() => {
-	const category = getCategoryByName(selectedCategory.value)
+	const category = getCategoryByName(selectedCategory.value);
 
 	if (!category) {
-		return { path: svgPaths.penNib, viewBox: svgViewBoxes.penNib }
+		return { path: svgPaths.penNib, viewBox: svgViewBoxes.penNib };
 	}
 
-	return { path: category.svgIconPath, viewBox: category.svgViewBox }
-})
+	return { path: category.svgIconPath, viewBox: category.svgViewBox };
+});
 
 const viewTags = computed<Tag[]>(() => {
 	if (!tags) {
@@ -48,9 +48,11 @@ const viewTags = computed<Tag[]>(() => {
 	} else if (selectedCategory.value === "すべて") {
 		return tags;
 	}
-	const filteredTags = tags.filter((tag) => { return tag.parentCategory.name === selectedCategory.value });
+	const filteredTags = tags.filter((tag) => {
+		return tag.parentCategory.name === selectedCategory.value;
+	});
 	return filteredTags;
-})
+});
 </script>
 
 <template>
@@ -64,7 +66,10 @@ const viewTags = computed<Tag[]>(() => {
 				</label>
 				<select v-model="selectedCategory" id="select-category" name="select-category">
 					<option>すべて</option>
-					<option v-for="category in categories!.map((category: Category) => category.name)" :key="category">
+					<option
+						v-for="category in categories!.map((category: Category) => category.name)"
+						:key="category"
+					>
 						{{ category }}
 					</option>
 				</select>

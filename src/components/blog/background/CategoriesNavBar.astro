@@ -10,7 +10,17 @@ const currentPath = Astro.url.pathname;
 <nav class="categories">
 	<ul class="categories-list">
 		<li class="category">
-			<SvgButton svgIconPath={svgPaths.penNib} svgViewBox={svgViewBoxes.penNib} svgFillColor="#fb7185" isLink={true} linkUrl="/blog/all/1" currentPath={currentPath} testPathRegex={new RegExp("^/blog/all/")} widthScale={0.8} heightScale={0.8} />
+			<SvgButton
+				svgIconPath={svgPaths.penNib}
+				svgViewBox={svgViewBoxes.penNib}
+				svgFillColor="#fb7185"
+				isLink={true}
+				linkUrl="/blog/all/1"
+				currentPath={currentPath}
+				testPathRegex={new RegExp("^/blog/all/")}
+				widthScale={0.8}
+				heightScale={0.8}
+			/>
 		</li>
 		{
 			categories &&
@@ -18,7 +28,17 @@ const currentPath = Astro.url.pathname;
 				categories.map((category) => {
 					return (
 						<li class="category">
-							<SvgButton svgIconPath={category.svgIconPath} svgViewBox={category.svgViewBox} svgFillColor={category.themeColor} isLink={true} linkUrl={`/blog/category/${category.slug}/1`} currentPath={currentPath} testPathRegex={new RegExp(`\^/blog/category/${category.slug}/`)} widthScale={0.8} heightScale={0.8} />
+							<SvgButton
+								svgIconPath={category.svgIconPath}
+								svgViewBox={category.svgViewBox}
+								svgFillColor={category.themeColor}
+								isLink={true}
+								linkUrl={`/blog/category/${category.slug}/1`}
+								currentPath={currentPath}
+								testPathRegex={new RegExp(`\^/blog/category/${category.slug}/`)}
+								widthScale={0.8}
+								heightScale={0.8}
+							/>
 						</li>
 					);
 				})
@@ -52,6 +72,7 @@ const currentPath = Astro.url.pathname;
 			top: 64px;
 			height: 64px;
 			padding: 0 48px;
+			display: none;
 		}
 
 		.categories-list {

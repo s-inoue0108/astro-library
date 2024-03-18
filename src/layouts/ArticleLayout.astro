@@ -370,7 +370,6 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 			}
 
 			pre {
-				font-size: 0.9rem;
 				display: block;
 				width: 100%;
 				height: max-content;
@@ -381,12 +380,18 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 				border-radius: 0 0 4px 4px;
 
 				code {
+					font-size: 0.9rem;
+					line-height: 1.2rem;
 					padding: 0;
 					color: getColor(--text-primary-color);
+
+					@include resp(lg) {
+						font-size: 1.1rem;
+						line-height: 1.4rem;
+					}
 				}
 
 				@include resp(lg) {
-					font-size: 1.1rem;
 					margin-bottom: 2rem;
 				}
 			}

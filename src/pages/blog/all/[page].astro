@@ -10,8 +10,13 @@ import { articles, categories, tags } from "../../../lib/newt/instance";
 import { getArticles } from "../../../lib/newt/client";
 import type { Article } from "../../../lib/newt/types";
 import type { Page, GetStaticPathsOptions } from "astro";
+import PageTitleForPc from "../../../components/blog/background/PageTitleForPc.astro";
 
-export const getStaticPaths = async ({ paginate }: { paginate: GetStaticPathsOptions["paginate"] }) => {
+export const getStaticPaths = async ({
+	paginate,
+}: {
+	paginate: GetStaticPathsOptions["paginate"];
+}) => {
 	const articles = await getArticles();
 
 	if (!articles || articles.length <= 0) {
@@ -35,17 +40,23 @@ interface Props {
 const { page } = Astro.props;
 ---
 
-<Layout title={`記事一覧 | ページ${page.currentPage} | ブログ | ${import.meta.env.APP_NAME}`} description={`記事一覧（ページ${page.currentPage}）`}>
-	<section class="articles">
-		<PageTitle title="記事一覧" />
-		<CategoriesNavBar />
-		<ArticleCards articles={articles} />
-		<Pager page={page} />
-	</section>
-	<section class="ui">
-		<TagsListModal categories={categories} tags={tags} client:visible />
-		<ArchivesListModal articles={articles} client:visible />
-	</section>
+<Layout
+	title={`記事一覧 | ページ${page.currentPage} | ブログ | ${import.meta.env.APP_NAME}`}
+	description={`記事一覧（ページ${page.currentPage}）`}
+>
+	<div id="contents">
+		<section id="articles">
+			<PageTitleForPc title="記事一覧" />
+			<PageTitle title="記事一覧" />
+			<CategoriesNavBar />
+			<ArticleCards articles={articles} />
+			<Pager page={page} />
+		</section>
+		<section id="sidebar">
+			<TagsListModal categories={categories} tags={tags} client:visible />
+			<ArchivesListModal articles={articles} client:visible />
+		</section>
+	</div>
 </Layout>
 
 <script>
@@ -70,9 +81,22 @@ const { page } = Astro.props;
 </script>
 
 <style lang="scss">
-	.articles {
-	}
+	#contents {
+		@include resp(lg) {
+			display: flex;
+		}
 
-	.ui {
+		#articles {
+			@include resp(lg) {
+				width: 75%;
+			}
+		}
+
+		#sidebar {
+			@include resp(lg) {
+				width: 25%;
+				margin-top: -2rem;
+			}
+		}
 	}
 </style>

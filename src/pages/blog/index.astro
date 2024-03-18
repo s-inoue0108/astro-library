@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import TagsListModal from "../../components/common/modal/TagsListModal.vue";
 import ArchivesListModal from "../../components/common/modal/ArchivesListModal.vue";
+import PageTitleForPc from "../../components/blog/background/PageTitleForPc.astro";
 import PageTitle from "../../components/blog/background/PageTitle.astro";
 import CategoriesNavBar from "../../components/blog/background/CategoriesNavBar.astro";
 import ArticleCards from "../../components/blog/large/ArticleCards.astro";
@@ -10,15 +11,18 @@ import { articles, categories, tags } from "../../lib/newt/instance";
 ---
 
 <Layout title={`ブログ | ${import.meta.env.APP_NAME}`} description="ブログ">
-	<section class="articles">
-		<PageTitle title="Blog" />
-		<CategoriesNavBar />
-		<ArticleCards articles={articles?.slice(0, 12)} />
-	</section>
-	<section class="ui">
-		<TagsListModal categories={categories} tags={tags} client:visible />
-		<ArchivesListModal articles={articles} client:visible />
-	</section>
+	<div id="contents">
+		<section id="articles">
+			<PageTitleForPc title="Blog" />
+			<PageTitle title="Blog" />
+			<CategoriesNavBar />
+			<ArticleCards articles={articles?.slice(0, 12)} />
+		</section>
+		<section id="sidebar">
+			<TagsListModal categories={categories} tags={tags} client:visible />
+			<ArchivesListModal articles={articles} client:visible />
+		</section>
+	</div>
 </Layout>
 
 <script>
@@ -43,9 +47,22 @@ import { articles, categories, tags } from "../../lib/newt/instance";
 </script>
 
 <style lang="scss">
-	.articles {
-	}
+	#contents {
+		@include resp(lg) {
+			display: flex;
+		}
 
-	.ui {
+		#articles {
+			@include resp(lg) {
+				width: 75%;
+			}
+		}
+
+		#sidebar {
+			@include resp(lg) {
+				width: 25%;
+				margin-top: -2rem;
+			}
+		}
 	}
 </style>

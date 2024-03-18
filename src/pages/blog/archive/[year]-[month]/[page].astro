@@ -10,8 +10,13 @@ import { articles, categories, tags } from "../../../../lib/newt/instance";
 import { getArticles } from "../../../../lib/newt/client";
 import type { Article } from "../../../../lib/newt/types";
 import type { Page, GetStaticPathsOptions } from "astro";
+import PageTitleForPc from "../../../../components/blog/background/PageTitleForPc.astro";
 
-export const getStaticPaths = async ({ paginate }: { paginate: GetStaticPathsOptions["paginate"] }) => {
+export const getStaticPaths = async ({
+	paginate,
+}: {
+	paginate: GetStaticPathsOptions["paginate"];
+}) => {
 	const articles = await getArticles();
 
 	if (!articles || articles.length <= 0) {
@@ -28,11 +33,16 @@ export const getStaticPaths = async ({ paginate }: { paginate: GetStaticPathsOpt
 	});
 
 	// uniqueな配列に成形
-	const uniquePubDates = Array.from(new Map(pubDates.map((date) => [JSON.stringify(date), date])).values());
+	const uniquePubDates = Array.from(
+		new Map(pubDates.map((date) => [JSON.stringify(date), date])).values()
+	);
 
 	const routes = uniquePubDates.flatMap((date) => {
 		const filteredArticles = articles.filter((article) => {
-			return new Date(article._sys.raw.publishedAt).getFullYear() === date.year && new Date(article._sys.raw.publishedAt).getMonth() + 1 === date.month;
+			return (
+				new Date(article._sys.raw.publishedAt).getFullYear() === date.year &&
+				new Date(article._sys.raw.publishedAt).getMonth() + 1 === date.month
+			);
 		});
 		return paginate(filteredArticles, {
 			params: { year: date.year.toString(), month: date.month.toString() },
@@ -53,17 +63,23 @@ interface Props {
 const { page, year, month } = Astro.props;
 ---
 
-<Layout title={`${year}年${month}月の記事一覧 | ページ${page.currentPage} | ブログ | ${import.meta.env.APP_NAME}`} description={`${year}年${month}月の記事一覧（ページ${page.currentPage}）`}>
-	<section class="articles">
-		<PageTitle title={`${year}年${month}月`} />
-		<CategoriesNavBar />
-		<ArticleCards articles={page.data} />
-		<Pager page={page} />
-	</section>
-	<section class="ui">
-		<TagsListModal categories={categories} tags={tags} client:visible />
-		<ArchivesListModal articles={articles} client:visible />
-	</section>
+<Layout
+	title={`${year}年${month}月の記事一覧 | ページ${page.currentPage} | ブログ | ${import.meta.env.APP_NAME}`}
+	description={`${year}年${month}月の記事一覧（ページ${page.currentPage}）`}
+>
+	<div id="contents">
+		<section id="articles">
+			<PageTitleForPc title={`${year}年${month}月`} />
+			<PageTitle title={`${year}年${month}月`} />
+			<CategoriesNavBar />
+			<ArticleCards articles={page.data} />
+			<Pager page={page} />
+		</section>
+		<section id="sidebar">
+			<TagsListModal categories={categories} tags={tags} client:visible />
+			<ArchivesListModal articles={articles} client:visible />
+		</section>
+	</div>
 </Layout>
 
 <script>
@@ -88,9 +104,22 @@ const { page, year, month } = Astro.props;
 </script>
 
 <style lang="scss">
-	.articles {
-	}
+	#contents {
+		@include resp(lg) {
+			display: flex;
+		}
 
-	.ui {
+		#articles {
+			@include resp(lg) {
+				width: 75%;
+			}
+		}
+
+		#sidebar {
+			@include resp(lg) {
+				width: 25%;
+				margin-top: -2rem;
+			}
+		}
 	}
 </style>
