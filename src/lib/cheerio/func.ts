@@ -89,9 +89,16 @@ export const footnotesAdjuster = async ($: CheerioAPI): Promise<void> => {
 	}
 };
 
+export interface Heading {
+	text: string;
+	lev: string;
+	h1id?: number;
+	offsets?: number[];
+}
+
 // get headings
-export const getHeadings = async ($: CheerioAPI): Promise<{ text: string; lev: string; h1id?: number }[]> => {
-	const headings: { text: string; lev: string; h1id?: number }[] = [];
+export const getHeadings = async ($: CheerioAPI): Promise<Heading[]> => {
+	const headings: Heading[] = [];
 	let h1id = 0;
 
 	$("h1,h2,h3").each((_, elm) => {
@@ -111,5 +118,25 @@ export const getHeadings = async ($: CheerioAPI): Promise<{ text: string; lev: s
 	return headings;
 };
 
-// get element height
-// export const getHeadElmHeight = async ()
+export const getDiffOffsets = async ($: CheerioAPI): Promise<number[]> => {
+	const headingOffsets: number[] = [];
+	$("h1,h2,h3").each((_, elm) => {
+		const id = $(elm).attr("id");
+		const idName = $(elm).text();
+
+		if (id && id === idName) {
+			headingOffsets.push(document.getElementById(idName)!.offsetTop);
+		}
+	});
+
+	return [...headingOffsets, document.documentElement.scrollHeight];
+};
+
+export const offsetsMapper = async (headings: Heading[], offsets: number[]): Promise<Heading[]> => {
+	const headingsWithOffsets: Heading[] = [];
+	headings.forEach((h, idx) => {
+		headingsWithOffsets.push({ text: h.text, lev: h.lev, h1id: h.h1id, offsets: [offsets[idx], offsets[idx + 1]] });
+	});
+
+	return headingsWithOffsets;
+};

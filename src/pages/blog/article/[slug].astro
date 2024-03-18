@@ -1,6 +1,6 @@
 ---
 import ArticleLayout from "../../../layouts/ArticleLayout.astro";
-import Toc from "../../../components/blog/article/Toc.astro";
+import Toc from "../../../components/blog/article/Toc.vue";
 import Metadata from "../../../components/blog/article/Metadata.astro";
 import ArticleCardCompact from "../../../components/blog/card/ArticleCardCompact.vue";
 import SideArticle from "../../../components/blog/article/SideArticle.astro";
@@ -74,7 +74,7 @@ const sideArticles = await getSideArticlesBySlug(articles, article.slug);
 	<div id="content">
 		<aside id="aside-content">
 			<div class="toc-side">
-				<Toc headings={headings} />
+				<Toc headings={headings} client:load />
 			</div>
 		</aside>
 		<article id="article-content">

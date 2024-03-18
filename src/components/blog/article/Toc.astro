@@ -69,13 +69,17 @@ const { headings } = Astro.props;
 
 <script>
 	import { load } from "cheerio";
+	import { getDiffOffsets } from "../../../lib/cheerio/func";
 
 	const $ = load(document.getElementById("article-content")!.innerHTML);
 
-	const headingHeights: number[] = [];
-	$("h1,h2,h3").each((idx, elm) => {
-		if ($(elm).attr("id") && $(elm).attr("id") === $(elm).text()) {
-			headingHeights.push(document.getElementById($(elm).text())!.offsetTop);
+	let diffOffsets = await getDiffOffsets($);
+
+	let windowWidth = window.innerWidth;
+	window.addEventListener("resize", async () => {
+		if (windowWidth !== window.innerWidth) {
+			windowWidth = window.innerWidth;
+			diffOffsets = await getDiffOffsets($);
 		}
 	});
 </script>
