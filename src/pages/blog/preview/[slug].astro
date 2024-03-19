@@ -18,7 +18,13 @@ import { getSideArticlesBySlug } from "../../../lib/newt/func";
 import "katex/dist/katex.min.css";
 
 // funcs
-import { mathRenderer, anchorStylist, syntaxHighlighter, footnotesAdjuster, getHeadings } from "../../../lib/cheerio/func";
+import {
+	mathRenderer,
+	anchorStylist,
+	syntaxHighlighter,
+	footnotesAdjuster,
+	getHeadings,
+} from "../../../lib/cheerio/func";
 
 // Highlight.js
 import "../../../styles/syntax-highlight.scss";
@@ -33,7 +39,12 @@ const { slug } = Astro.params;
 const article = await getPreviewBySlug(slug);
 
 // validate secret and params existance
-if (!article || !slug || !Astro.url.searchParams.get("secret") || Astro.url.searchParams.get("secret") !== import.meta.env.NEWT_ARTICLE_PREVIEW_SECRET) {
+if (
+	!article ||
+	!slug ||
+	!Astro.url.searchParams.get("secret") ||
+	Astro.url.searchParams.get("secret") !== import.meta.env.NEWT_ARTICLE_PREVIEW_SECRET
+) {
 	return Astro.redirect("/");
 }
 
@@ -70,7 +81,11 @@ mathRenderedHtml = $.html();
 const sideArticles = await getSideArticlesBySlug(articles, slug);
 ---
 
-<ArticleLayout title={`${article.title} | プレビュー | ${import.meta.env.APP_NAME}`} description={`${article.description}`} imageUrl={article.thambnail ? new URL(article.thambnail.src) : undefined}>
+<ArticleLayout
+	title={`${article.title} | プレビュー | ${import.meta.env.APP_NAME}`}
+	description={`${article.description}`}
+	imageUrl={article.thambnail ? new URL(article.thambnail.src) : undefined}
+>
 	<Metadata metadata={article} />
 	<div id="content">
 		<aside id="aside-content">
@@ -316,10 +331,10 @@ const sideArticles = await getSideArticlesBySlug(articles, slug);
 		bottom: 0;
 		z-index: 100;
 
-		display: none;
+		// display: none;
 
-		@include resp(lg) {
-			display: block;
-		}
+		// @include resp(lg) {
+		// 	display: block;
+		// }
 	}
 </style>
