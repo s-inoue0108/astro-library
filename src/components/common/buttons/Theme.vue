@@ -53,7 +53,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<button type="button" @click="toggleTheme" :class="[theme === 'dark' ? 'moon' : 'sun']">
+	<button type="button" @click="toggleTheme">
 		<svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgMetadata.viewBox">
 			<path :d="svgMetadata.path" />
 		</svg>
@@ -92,6 +92,7 @@ button {
 		top: 0;
 		left: 50%;
 		transform: translateX(-50%);
+		fill: getColor(--theme-color);
 
 		@include resp(lg) {
 			width: 60%;
@@ -114,13 +115,5 @@ button {
 			display: block;
 		}
 	}
-}
-
-.sun {
-	fill: $orange;
-}
-
-.moon {
-	fill: $amber;
 }
 </style>

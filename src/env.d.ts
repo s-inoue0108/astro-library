@@ -9,6 +9,9 @@ interface ImportMetaEnv {
 	readonly NEWT_ARTICLE_PREVIEW_SECRET: string;
 	readonly PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY: string;
 	readonly PUBLIC_NEWT_CONTACT_FORM_ENDPOINT: string;
+	readonly GITHUB_URL: string;
+	readonly X_URL: string;
+	readonly ZENN_URL: string;
 }
 
 interface ImportMeta {

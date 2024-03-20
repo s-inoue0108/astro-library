@@ -14,7 +14,12 @@ const isInHome = (path: string): boolean => {
 	<h6 class:list={["copyright", { loadingfade: isInHome(currentPath) }]}>
 		&copy; {year} Shota Inoue
 	</h6>
-	<a href="https://github.com/s-inoue0108" target="_blank" rel="noopener noreferrer" class:list={["github-link", { loadingfade: isInHome(currentPath) }]}>
+	<a
+		href="https://github.com/s-inoue0108"
+		target="_blank"
+		rel="noopener noreferrer"
+		class:list={["github-link", { loadingfade: isInHome(currentPath) }]}
+	>
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.gitHub}>
 			<path d={svgPaths.gitHub}> </path>
 		</svg>

@@ -31,7 +31,7 @@ const currentPath = Astro.url.pathname;
 
 // OGP URL
 const canonicalURL = new URL(currentPath, import.meta.env.APP_URL);
-const ogpImageURL = new URL('portfolio-favicon.png', canonicalURL);
+const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 ---
 
 <!doctype html>
@@ -52,7 +52,7 @@ const ogpImageURL = new URL('portfolio-favicon.png', canonicalURL);
 		<link rel="icon" type="image/png" href="/portfolio-favicon.png" />
 
 		<!--Reset CSS -->
-		<link rel="stylesheet" href="node_modules/destyle.css/destyle.css">
+		<link rel="stylesheet" href="node_modules/destyle.css/destyle.css" />
 
 		<!--Sitemap -->
 		<link rel="sitemap" href="/sitemap-index.xml" />
@@ -61,10 +61,8 @@ const ogpImageURL = new URL('portfolio-favicon.png', canonicalURL);
 		<title>{title}</title>
 	</head>
 
-	<body class:list={[ "loading-fade", "scroll-bar", { "loading-fade-home": currentPath === "/" } ]}>
-		{
-			currentPath !== "/" ? <Header /> : <></>
-		}
+	<body class="loading-fade scroll-bar">
+		<Header />
 		<main>
 			<slot />
 		</main>
@@ -110,22 +108,17 @@ const ogpImageURL = new URL('portfolio-favicon.png', canonicalURL);
 		word-wrap: break-word;
 	}
 
-    .scroll-bar::-webkit-scrollbar {
-        background: getColor(--bg-secondary-color);
-    }
-	
-    .scroll-bar::-webkit-scrollbar-thumb {
-        background: getColor(--border-color);
-    }
+	.scroll-bar::-webkit-scrollbar {
+		background: getColor(--bg-secondary-color);
+	}
+
+	.scroll-bar::-webkit-scrollbar-thumb {
+		background: getColor(--border-color);
+	}
 
 	.loading-fade {
 		background: getColor(--bg-secondary-color);
-		animation: loading-fade .2s ease-in;
-	}
-
-	.loading-fade-home {
-		background: $tropic-gradient;
-		animation: loading-fade .2s ease-in;
+		animation: loading-fade 0.2s ease-in;
 	}
 
 	@keyframes loading-fade {
@@ -154,6 +147,6 @@ const ogpImageURL = new URL('portfolio-favicon.png', canonicalURL);
 		@include resp(lg) {
 			padding-top: calc(64px + 1rem);
 			min-height: calc(100vh - 44px);
-	    }	
+		}
 	}
 </style>

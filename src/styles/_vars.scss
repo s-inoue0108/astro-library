@@ -6,6 +6,7 @@ $violet: #a78bfa;
 $tropic-gradient: linear-gradient(90deg, $amber, $orange 50%, $rose);
 $tropic-gradient-to-above: linear-gradient(0deg, $amber, $orange 50%, $rose);
 $tropic-gradient-to-left: linear-gradient(-90deg, $amber, $orange 50%, $rose);
+$tropic-gradient-to-below: linear-gradient(180deg, $amber, $orange 50%, $rose);
 
 $black: rgb(0, 0, 0);
 $white: rgb(255, 255, 255);
@@ -39,6 +40,7 @@ $light-themes: (
 	text-inversion: $white,
 	border: $slate-300,
 	shadow: $shadow-gray,
+	theme: $orange,
 );
 
 $dark-themes: (
@@ -50,6 +52,7 @@ $dark-themes: (
 	text-inversion: $black,
 	border: $gray-600,
 	shadow: $black,
+	theme: $amber,
 );
 
 // ライトテーマ
