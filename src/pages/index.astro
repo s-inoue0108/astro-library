@@ -1,5 +1,6 @@
 ---
 import IndexLayout from "../layouts/IndexLayout.astro";
+import { svgPaths, svgViewBoxes } from "../lib/svg/paths";
 // Image
 import { Image } from "astro:assets";
 // HeaderImage
@@ -47,13 +48,17 @@ import ThemeButton from "../components/common/buttons/Theme.vue";
 			</svg>
 			<ul class="external-links">
 				<li class="external-link">
-					<a href={import.meta.env.X_URL} target="_blank" rel="noopener noreferrer"
-						><Image src={XLogo} alt="X" />
+					<a href={import.meta.env.X_URL} target="_blank" rel="noopener noreferrer">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.xTwitter}>
+							<path d={svgPaths.xTwitter}></path>
+						</svg>
 					</a>
 				</li>
 				<li class="external-link">
-					<a href={import.meta.env.GITHUB_URL} target="_blank" rel="noopener noreferrer"
-						><Image src={GitHubLogo} alt="GitHub" />
+					<a href={import.meta.env.GITHUB_URL} target="_blank" rel="noopener noreferrer">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.github}>
+							<path d={svgPaths.github}></path>
+						</svg>
 					</a>
 				</li>
 				<li class="external-link">
@@ -277,6 +282,12 @@ import ThemeButton from "../components/common/buttons/Theme.vue";
 				width: 100%;
 				height: 100%;
 				object-fit: contain;
+			}
+
+			svg {
+				width: 100%;
+				height: 100%;
+				fill: getColor(--bg-primary-color);
 			}
 		}
 	}
