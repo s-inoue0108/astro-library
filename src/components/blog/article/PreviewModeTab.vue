@@ -14,7 +14,6 @@ const { _id, slug } = article;
 <template>
 	<div class="preview-tab">
 		<div class="current-preview">
-			<h1>Current Preview :</h1>
 			<a :href="`/blog/article/${slug}`" target="_blank" rel="noopener noreferrer" class="slug">
 				{{ slug }}
 			</a>
@@ -70,18 +69,6 @@ const { _id, slug } = article;
 	.current-preview {
 		display: flex;
 		align-items: center;
-		gap: 1rem;
-
-		h1 {
-			font-size: 2.5rem;
-			letter-spacing: 1px;
-			font-weight: 700;
-			display: none;
-
-			@include resp(lg) {
-				display: block;
-			}
-		}
 
 		.slug {
 			font-family: "Source Code Pro", Consolas, monospace;

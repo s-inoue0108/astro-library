@@ -61,7 +61,7 @@ const ogpImageURL = new URL('portfolio-favicon.png', canonicalURL);
 		<title>{title}</title>
 	</head>
 
-	<body class="loading-fade scroll-bar">
+	<body class:list={[ "loading-fade", "scroll-bar", { "loading-fade-home": currentPath === "/" } ]}>
 		{
 			currentPath !== "/" ? <Header /> : <></>
 		}
@@ -120,6 +120,11 @@ const ogpImageURL = new URL('portfolio-favicon.png', canonicalURL);
 
 	.loading-fade {
 		background: getColor(--bg-secondary-color);
+		animation: loading-fade .2s ease-in;
+	}
+
+	.loading-fade-home {
+		background: $tropic-gradient;
 		animation: loading-fade .2s ease-in;
 	}
 

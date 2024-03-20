@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import "@fontsource/source-code-pro/600.css";
 import { computed, ref } from "vue";
 import katex from "katex";
 import "katex/dist/katex.min.css";
@@ -75,19 +76,30 @@ const reset = async (): Promise<void> => {
 	.config {
 		display: flex;
 		align-items: center;
-		gap: 4rem;
+		gap: 0.5rem;
 		margin: 1rem;
 
+		@include resp(lg) {
+			gap: 4rem;
+		}
+
 		.title {
-			font-size: 2.8rem;
 			font-weight: 700;
-			letter-spacing: 1.2px;
+
+			@include resp(lg) {
+				font-size: 2.8rem;
+
+				letter-spacing: 1.2px;
+			}
 		}
 
 		.copy-btn,
 		.reset-btn {
-			width: 2.4rem;
-			height: auto;
+			width: 1rem;
+
+			@include resp(lg) {
+				width: 2.4rem;
+			}
 
 			&:active {
 				opacity: 0.5;
@@ -184,7 +196,7 @@ const reset = async (): Promise<void> => {
 		border-radius: 10px;
 		resize: none;
 
-		font-family: Consolas, monospace;
+		font-family: "Source Code Pro", Consolas, monospace;
 		font-size: 2rem;
 		font-weight: 600;
 		padding: 1rem;
