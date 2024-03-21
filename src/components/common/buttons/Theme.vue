@@ -2,6 +2,15 @@
 import { ref, computed, onMounted } from "vue";
 import { svgPaths, svgViewBoxes, type SvgMetadata } from "../../../lib/svg/paths";
 
+// Props
+interface Props {
+	scale?: number;
+}
+
+const { scale } = withDefaults(defineProps<Props>(), {
+	scale: 1,
+});
+
 type Theme = "light" | "dark";
 
 const theme = ref<Theme | null>(null);
@@ -18,11 +27,11 @@ const svgMetadata = computed<SvgMetadata>(() => {
 		  };
 });
 
-const switchTheme = (theme: Theme): void => {
+const switchClass = async (theme: Theme): Promise<void> => {
 	if (theme === "dark") {
 		document.documentElement.classList.remove("light");
 		document.documentElement.classList.add("dark");
-	} else if (theme === "light") {
+	} else {
 		document.documentElement.classList.remove("dark");
 		document.documentElement.classList.add("light");
 	}
@@ -34,10 +43,11 @@ const toggleTheme = async (): Promise<void> => {
 	} else {
 		theme.value = "dark";
 	}
+	await switchClass(theme.value);
 	localStorage.setItem("theme", theme.value);
-	await switchTheme(theme.value);
 };
 
+// initialization theme
 onMounted(() => {
 	if (
 		(typeof localStorage.getItem("theme") === "string" &&
@@ -63,8 +73,8 @@ onMounted(() => {
 
 <style scoped lang="scss">
 button {
-	width: 20px;
-	height: 20px;
+	width: calc(20px * v-bind(scale));
+	height: calc(20px * v-bind(scale));
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -76,13 +86,13 @@ button {
 	}
 
 	@include resp(sm) {
-		width: 30px;
-		height: 30px;
+		width: calc(30px * v-bind(scale));
+		height: calc(30px * v-bind(scale));
 	}
 
 	@include resp(lg) {
-		width: 40px;
-		height: 40px;
+		width: calc(40px * v-bind(scale));
+		height: calc(40px * v-bind(scale));
 	}
 
 	svg {
@@ -103,7 +113,7 @@ button {
 	label {
 		cursor: pointer;
 		display: none;
-		font-size: 0.8rem;
+		font-size: calc(0.8rem * v-bind(scale));
 		white-space: nowrap;
 		position: absolute;
 		bottom: -4px;

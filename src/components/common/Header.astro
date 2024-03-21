@@ -45,9 +45,9 @@ const currentPath = Astro.url.pathname;
 			<SvgButton
 				title="Blog"
 				isLink={true}
-				linkUrl="/blog"
+				linkUrl="/blog/all/1"
 				currentPath={currentPath}
-				testPathRegex={new RegExp("^/blog")}
+				testPathRegex={new RegExp("^/blog/")}
 				widthScale={1.7}
 				heightScale={0.6}
 				fontScale={0.75}
@@ -82,7 +82,6 @@ const currentPath = Astro.url.pathname;
 		z-index: 9999;
 
 		background: getColor(--bg-secondary-color, 0.9);
-		// box-shadow: 0 0 7px getColor(--shadow-color);
 
 		.app-title {
 			display: flex;
