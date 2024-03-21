@@ -120,7 +120,7 @@ button {
 		gap: 0.5rem;
 
 		svg {
-			width: 100%;
+			width: auto;
 			max-height: 60%;
 			fill: v-bind(svgFillColor);
 		}

@@ -24,7 +24,6 @@
     "@vercel/speed-insights": "^1.0.10",
     "astro": "^4.4.11",
     "cheerio": "^1.0.0-rc.12",
-    "destyle.css": "^4.0.1",
     "fuse.js": "^7.0.0",
     "gsap": "^3.12.5",
     "highlight.js": "^11.9.0",
@@ -41,6 +40,7 @@
     "@types/grecaptcha": "^3.0.8",
     "@types/highlightjs": "^9.12.6",
     "@types/katex": "^0.16.7",
+    "destyle.css": "^4.0.1",
     "sass": "^1.71.1"
   }
 }
