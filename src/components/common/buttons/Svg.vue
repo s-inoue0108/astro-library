@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import "destyle.css/destyle.min.css";
-
 interface Props {
 	svgIconPath?: string;
 	svgViewBox?: string;
@@ -123,7 +121,7 @@ button {
 
 		svg {
 			width: auto;
-			max-height: 60%;
+			height: 60%;
 			fill: v-bind(svgFillColor);
 		}
 
