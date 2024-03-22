@@ -11,8 +11,6 @@ import ZennLogo from "../images/common/zenn-logo.svg";
 import ThemeButton from "../components/common/buttons/Theme.vue";
 // MenuButton
 import MenuButton from "../components/common/buttons/Menu.vue";
-// Categories
-import { categories } from "../lib/newt/instance";
 
 const date = new Date();
 const year = date.getFullYear();
@@ -88,25 +86,6 @@ const year = date.getFullYear();
 						</svg>
 						ブログ
 					</a>
-				</li>
-				<li class="menu-link">
-					<ul class="category-links">
-						{
-							categories &&
-								categories.map((category) => {
-									return (
-										<li class="category-link">
-											<a href={`/blog/category/${category.slug}/1`}>
-												<svg xmlns="http://www.w3.org/2000/svg" viewBox={category.svgViewBox}>
-													<path d={category.svgIconPath} />
-												</svg>
-												{category.name}
-											</a>
-										</li>
-									);
-								})
-						}
-					</ul>
 				</li>
 				<li class="menu-link">
 					<a href="/profile">
@@ -428,10 +407,10 @@ const year = date.getFullYear();
 	.menu-flex {
 		background: getColor(--bg-primary-color);
 		height: 100svh;
-		padding: calc(150px + 1.5rem) 1.5rem;
+		padding: calc(150px + 2.5rem) 1.5rem;
 
 		@include resp(lg) {
-			padding: calc(230px + 1.5rem) 1.5rem;
+			padding: calc(230px + 2.5rem) 1.5rem;
 		}
 
 		.menu-links {
@@ -454,34 +433,6 @@ const year = date.getFullYear();
 
 					svg {
 						height: 100%;
-						fill: getColor(--text-primary-color);
-					}
-				}
-			}
-		}
-
-		.category-links {
-			display: flex;
-			flex-direction: column;
-			gap: 0.8rem;
-			height: 8.3rem;
-			overflow-y: auto;
-			padding-left: 1rem;
-
-			.category-link {
-				font-size: 1rem;
-				font-weight: 300;
-				letter-spacing: 1px;
-
-				a {
-					display: flex;
-					align-items: center;
-					gap: 0.8rem;
-					height: 1rem;
-					white-space: nowrap;
-
-					svg {
-						width: 1rem;
 						fill: getColor(--text-primary-color);
 					}
 				}
