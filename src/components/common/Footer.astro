@@ -5,16 +5,10 @@ import ZennLogo from "../../images/common/zenn-logo.svg";
 import { Image } from "astro:assets";
 const date = new Date();
 const year = date.getFullYear();
-
-const currentPath = Astro.url.pathname;
-
-const isInHome = (path: string): boolean => {
-	return path === "/";
-};
 ---
 
-<footer class:list={{ loadingslidefade: isInHome(currentPath) }}>
-	<h6 class:list={["copyright", { loadingfade: isInHome(currentPath) }]}>
+<footer>
+	<h6 class="copyright">
 		&copy; {year} Shota Inoue
 	</h6>
 	<ul class="external-links">
@@ -113,44 +107,6 @@ const isInHome = (path: string): boolean => {
 					fill: getColor(--bg-inversion-color);
 				}
 			}
-		}
-	}
-
-	.loadingslidefade {
-		animation: 3s fade-in-footer ease-out;
-	}
-
-	@keyframes fade-in-footer {
-		0% {
-			background: getColor(--bg-primary-color);
-			box-shadow: none;
-		}
-
-		80% {
-			background: getColor(--bg-primary-color);
-			box-shadow: none;
-		}
-
-		100% {
-			background: getColor(--bg-secondary-color);
-		}
-	}
-
-	.loadingfade {
-		animation: 3s fade-in-footer-items ease-out;
-	}
-
-	@keyframes fade-in-footer-items {
-		0% {
-			opacity: 0;
-		}
-
-		80% {
-			opacity: 0;
-		}
-
-		100% {
-			opacity: 1;
 		}
 	}
 </style>

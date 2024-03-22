@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import "destyle.css/destyle.min.css";
+
 interface Props {
 	svgIconPath?: string;
 	svgViewBox?: string;
