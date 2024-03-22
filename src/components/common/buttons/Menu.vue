@@ -27,11 +27,11 @@ const svgMetadata = computed<SvgMetadata>(() => {
 });
 
 const toggleOpen = async (): Promise<void> => {
-	isOpen.value = !isOpen.value;
-	isRatched.value = true;
-	setTimeout(() => {
-		isRatched.value = false;
-	}, 610);
+	if (document.querySelector(".menu-content")!.classList.contains("is-open")) {
+		isOpen.value = true;
+	} else {
+		isOpen.value = false;
+	}
 };
 </script>
 
@@ -51,8 +51,6 @@ button {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	// border: solid 3px getColor(--bg-primary-color);
-	// border-radius: 9999px;
 	padding: 2rem;
 
 	&:active {

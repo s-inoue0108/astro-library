@@ -255,8 +255,10 @@ const year = date.getFullYear();
 	let isOpen: boolean = false;
 	menuBtn!.addEventListener("click", async () => {
 		if (isOpen) {
+			menuContent!.classList.remove("is-open");
 			await closeMenu.restart();
 		} else {
+			menuContent!.classList.add("is-open");
 			await openMenu.restart();
 		}
 		isOpen = !isOpen;
