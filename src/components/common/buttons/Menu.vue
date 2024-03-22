@@ -21,8 +21,8 @@ const svgMetadata = computed<SvgMetadata>(() => {
 				viewBox: svgViewBoxes.xmark,
 		  }
 		: {
-				path: svgPaths.bars,
-				viewBox: svgViewBoxes.bars,
+				path: svgPaths.barsStaggered,
+				viewBox: svgViewBoxes.barsStaggered,
 		  };
 });
 
@@ -31,7 +31,7 @@ const toggleOpen = async (): Promise<void> => {
 	isRatched.value = true;
 	setTimeout(() => {
 		isRatched.value = false;
-	}, 310);
+	}, 610);
 };
 </script>
 
@@ -51,8 +51,8 @@ button {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	border: solid 3px getColor(--bg-primary-color);
-	border-radius: 9999px;
+	// border: solid 3px getColor(--bg-primary-color);
+	// border-radius: 9999px;
 	padding: 2rem;
 
 	&:active {
