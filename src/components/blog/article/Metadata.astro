@@ -16,9 +16,19 @@ const { title, description, thambnail, category, tags, _sys } = metadata;
 
 <div class="metadata">
 	<div class="image">
-		<Image src={thambnail.src} width={thambnail.width} height={thambnail.height} alt={thambnail.altText} class="thambnail" />
+		<Image
+			src={thambnail.src}
+			width={thambnail.width}
+			height={thambnail.height}
+			alt={thambnail.altText}
+			class="thambnail"
+		/>
 		<a href={`/blog/category/${category.slug}/1`} class="category">
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox={category.svgViewBox} fill={category.themeColor}>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox={category.svgViewBox}
+				fill={category.themeColor}
+			>
 				<path d={category.svgIconPath}></path>
 			</svg>
 			<h2>{category.name}</h2>
@@ -49,7 +59,13 @@ const { title, description, thambnail, category, tags, _sys } = metadata;
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.clock}>
 					<path d={svgPaths.clock}></path>
 				</svg>
-				<span>{new Intl.DateTimeFormat("ja").format(new Date(_sys.raw.firstPublishedAt))}</span>
+				<span
+					>{
+						new Intl.DateTimeFormat("ja").format(
+							new Date(_sys.raw.firstPublishedAt ?? _sys.createdAt)
+						)
+					}</span
+				>
 			</li>
 			{
 				_sys.raw.publishedAt && (
