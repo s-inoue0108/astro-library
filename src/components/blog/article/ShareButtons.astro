@@ -61,6 +61,39 @@ const misskeyLink = `https://misskey-hub.net/share/?text=${text}&url=${url}&visi
 </ToggleableModal>
 
 <script>
+	import { gsap } from "gsap";
+
+	const shareBtns = document.querySelectorAll(".share-btn");
+
+	gsap.set(shareBtns, {
+		yPercent: 100,
+	});
+
+	gsap
+		.timeline()
+		.to(shareBtns, {
+			yPercent: -20,
+			ease: "power3.out",
+			duration: 1,
+			delay: 0.3,
+			stagger: {
+				each: 0.25,
+			},
+		})
+		.to(
+			shareBtns,
+			{
+				yPercent: 0,
+				ease: "power3.out",
+				duration: 1,
+				delay: 0.3,
+				stagger: {
+					each: 0.25,
+				},
+			},
+			"-=1.5"
+		);
+
 	const urlCopyBtn = document.getElementById("url-copy-btn");
 	const copyLink = async (): Promise<void> => {
 		await navigator.clipboard.writeText(location.href);
@@ -76,6 +109,7 @@ const misskeyLink = `https://misskey-hub.net/share/?text=${text}&url=${url}&visi
 		display: flex;
 		align-items: center;
 		gap: 1.2rem;
+		overflow-y: hidden;
 
 		@include resp(lg) {
 			gap: 1.5rem;

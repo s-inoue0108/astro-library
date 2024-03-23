@@ -175,6 +175,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 
 		.article-content {
 			h1 {
+				width: 100%;
 				border-image: $tropic-gradient 1;
 				border-bottom: solid 4px;
 				padding-left: 0.4rem;
@@ -183,6 +184,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 				font-weight: 700;
 				letter-spacing: 1px;
 				margin: 2.5rem 0;
+				white-space: nowrap;
 
 				@include resp(sm) {
 					font-size: 1.5rem;

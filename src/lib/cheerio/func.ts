@@ -19,12 +19,18 @@ export const mathRenderer = async (rawText: string): Promise<string> => {
 	try {
 		// Rendering DISPLAY KaTeX
 		const renderedDisplayText = $.html().replaceAll(/\$\$[^\$]*\$\$/g, (text: string) => {
-			return katex.renderToString(text.replaceAll("$", "").replaceAll(/(<br>|<\\br>|<br \/>|&nbsp;|amp;)/g, ""), { output: "html", displayMode: true });
+			return katex.renderToString(
+				text.replaceAll("$", "").replaceAll(/(<br>|<\\br>|<br \/>|&nbsp;|amp;)/g, ""),
+				{ output: "html", displayMode: true }
+			);
 		});
 
 		// Rendering INLINE KaTeX
 		const renderedText = renderedDisplayText.replaceAll(/\$[^\$]*\$/g, (text: string) => {
-			return katex.renderToString(text.replaceAll("$", "").replaceAll(/(<br>|<\\br>|<br \/>|&nbsp;|amp;)/g, ""), { output: "html", displayMode: false });
+			return katex.renderToString(
+				text.replaceAll("$", "").replaceAll(/(<br>|<\\br>|<br \/>|&nbsp;|amp;)/g, ""),
+				{ output: "html", displayMode: false }
+			);
 		});
 
 		// reinitialized Cheerio API
@@ -65,7 +71,13 @@ export const syntaxHighlighter = async ($: CheerioAPI): Promise<void> => {
 
 		$(elm)
 			.parent()
-			.before(`<div class="code-title"><label class="title">${fileName ?? ""}</label><button type="button" id="copy-btn-${idx}" class="copy-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="${svgViewBoxes.copy}"><path d="${svgPaths.copy}" /></svg></button></div>`);
+			.before(
+				`<div class="code-title"><label class="title">${
+					fileName ?? ""
+				}</label><button type="button" id="copy-btn-${idx}" class="copy-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="${
+					svgViewBoxes.copy
+				}"><path d="${svgPaths.copy}" /></svg></button></div>`
+			);
 
 		$(elm).html(result.value);
 	});
@@ -76,7 +88,9 @@ export const anchorStylist = async ($: CheerioAPI): Promise<void> => {
 	$("a").each((_, elm) => {
 		if (!$(elm).attr("href") || !/^#fn/.test($(elm).attr("href")!)) {
 			$(elm).attr("target", "_blank").attr("rel", "noopener noreferrer");
-			$(elm).append(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${svgViewBoxes.arrowUpRightFromSquare}"><path d="${svgPaths.arrowUpRightFromSquare}"></path></svg>`);
+			$(elm).append(
+				`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${svgViewBoxes.arrowUpRightFromSquare}"><path d="${svgPaths.arrowUpRightFromSquare}"></path></svg>`
+			);
 		}
 	});
 };
@@ -106,6 +120,7 @@ export const getHeadings = async ($: CheerioAPI): Promise<Heading[]> => {
 		const lev = $(elm).toString().match(/h\d/)![0];
 
 		$(elm).attr("id", text);
+		$(elm).addClass(`content-${lev}`);
 
 		if (lev === "h1") {
 			h1id += 1;
@@ -135,7 +150,12 @@ export const getDiffOffsets = async ($: CheerioAPI): Promise<number[]> => {
 export const offsetsMapper = async (headings: Heading[], offsets: number[]): Promise<Heading[]> => {
 	const headingsWithOffsets: Heading[] = [];
 	headings.forEach((h, idx) => {
-		headingsWithOffsets.push({ text: h.text, lev: h.lev, h1id: h.h1id, offsets: [offsets[idx], offsets[idx + 1]] });
+		headingsWithOffsets.push({
+			text: h.text,
+			lev: h.lev,
+			h1id: h.h1id,
+			offsets: [offsets[idx], offsets[idx + 1]],
+		});
 	});
 
 	return headingsWithOffsets;
