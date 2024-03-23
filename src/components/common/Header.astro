@@ -7,7 +7,7 @@ const title = import.meta.env.APP_NAME;
 
 <header>
 	<ul class="container">
-		<a href={import.meta.env.APP_URL} class="app-title">
+		<a href="/" class="app-title">
 			{
 				[...title].map((char) => {
 					return char !== " " ? <span class="char">{char}</span> : <span class="char">&nbsp;</span>;

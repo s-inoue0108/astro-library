@@ -27,9 +27,9 @@ const svgMetadata = computed<SvgMetadata>(() => {
 
 const toggleOpen = async (): Promise<void> => {
 	const menuContent = document.querySelector(".menu-content");
-	if (menuContent!.classList.contains("is-open")) {
+	if (!isOpen.value && menuContent!.classList.contains("is-open")) {
 		isOpen.value = true;
-	} else {
+	} else if (isOpen.value && !menuContent!.classList.contains("is-open")) {
 		isOpen.value = false;
 	}
 };

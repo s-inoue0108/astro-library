@@ -67,7 +67,6 @@ onMounted(() => {
 		<svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgMetadata.viewBox">
 			<path :d="svgMetadata.path" />
 		</svg>
-		<label>{{ theme ? theme.toUpperCase() : "" }}</label>
 	</button>
 </template>
 
@@ -103,27 +102,6 @@ button {
 		left: 50%;
 		transform: translateX(-50%);
 		fill: getColor(--theme-color);
-
-		@include resp(lg) {
-			width: 60%;
-			height: 60%;
-		}
-	}
-
-	label {
-		cursor: pointer;
-		display: none;
-		font-size: calc(0.8rem * v-bind(scale));
-		white-space: nowrap;
-		position: absolute;
-		bottom: -4px;
-		left: 50%;
-		transform: translateX(-50%);
-		color: getColor(--text-primary-color);
-
-		@include resp(lg) {
-			display: block;
-		}
 	}
 }
 </style>

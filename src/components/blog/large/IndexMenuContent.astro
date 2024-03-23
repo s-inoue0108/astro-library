@@ -11,7 +11,7 @@ import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.caretRight}>
 						<path d={svgPaths.caretRight}></path>
 					</svg>
-					ブログ
+					<span>ブログ</span>
 				</a>
 			</li>
 			<li class="menu-link">
@@ -19,7 +19,7 @@ import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.caretRight}>
 						<path d={svgPaths.caretRight}></path>
 					</svg>
-					プロフィール
+					<span>プロフィール</span>
 				</a>
 			</li>
 			<li class="menu-link">
@@ -27,7 +27,7 @@ import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.caretRight}>
 						<path d={svgPaths.caretRight}></path>
 					</svg>
-					プライバシーポリシー
+					<span>プライバシーポリシー</span>
 				</a>
 			</li>
 			<li class="menu-link">
@@ -35,7 +35,7 @@ import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.caretRight}>
 						<path d={svgPaths.caretRight}></path>
 					</svg>
-					お問い合わせ
+					<span>お問い合わせ</span>
 				</a>
 			</li>
 		</ul>
@@ -97,6 +97,15 @@ import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 					svg {
 						height: 100%;
 						fill: getColor(--text-primary-color);
+					}
+
+					&:active {
+						color: $rose;
+						transition: 0.2s ease;
+
+						svg {
+							fill: $rose;
+						}
 					}
 				}
 			}
