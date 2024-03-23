@@ -5,6 +5,7 @@ import Metadata from "../../../components/blog/article/Metadata.astro";
 import ArticleCardCompact from "../../../components/blog/card/ArticleCardCompact.vue";
 import SideArticle from "../../../components/blog/article/SideArticle.astro";
 import NoContent from "../../../components/blog/background/NoContent.astro";
+import ShareButtons from "../../../components/blog/article/ShareButtons.astro";
 
 // Newt
 import { articles } from "../../../lib/newt/instance";
@@ -16,7 +17,13 @@ import type { Article } from "../../../lib/newt/types";
 import "katex/dist/katex.min.css";
 
 // funcs
-import { mathRenderer, anchorStylist, syntaxHighlighter, footnotesAdjuster, getHeadings } from "../../../lib/cheerio/func";
+import {
+	mathRenderer,
+	anchorStylist,
+	syntaxHighlighter,
+	footnotesAdjuster,
+	getHeadings,
+} from "../../../lib/cheerio/func";
 
 // Highlight.js
 import "../../../styles/syntax-highlight.scss";
@@ -69,12 +76,21 @@ mathRenderedHtml = $.html();
 const sideArticles = await getSideArticlesBySlug(articles, article.slug);
 ---
 
-<ArticleLayout title={`${article.title} | ブログ | ${import.meta.env.APP_NAME}`} description={`${article.description}`} imageUrl={article.thambnail ? new URL(article.thambnail.src) : undefined}>
+<ArticleLayout
+	title={`${article.title} | ブログ | ${import.meta.env.APP_NAME}`}
+	description={`${article.description}`}
+	imageUrl={article.thambnail ? new URL(article.thambnail.src) : undefined}
+>
 	<Metadata metadata={article} />
 	<div id="content">
 		<aside id="aside-content">
-			<div class="toc-side">
+			<div class="pc-side">
 				<Toc headings={headings} client:load />
+				<ShareButtons
+					article={article}
+					appName={import.meta.env.APP_NAME}
+					appUrl={import.meta.env.APP_URL}
+				/>
 			</div>
 		</aside>
 		<article id="article-content">
@@ -141,7 +157,7 @@ const sideArticles = await getSideArticlesBySlug(articles, article.slug);
 				width: 25%;
 				margin-top: -768px;
 
-				.toc-side {
+				.pc-side {
 					width: 100%;
 					height: max-content;
 					position: sticky;

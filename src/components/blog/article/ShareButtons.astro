@@ -1,0 +1,109 @@
+---
+import ToggleableModal from "../../common/modal/ToggleableModal.vue";
+import type { Article } from "../../../lib/newt/types";
+import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
+// Image
+import { Image } from "astro:assets";
+// LINE
+import LineIcon from "../../../images/common/line-icon.png";
+// Misskey
+import MisskeyIcon from "../../../images/common/misskey-icon.png";
+
+interface Props {
+	article: Pick<Article, "title" | "slug">;
+	appName: string;
+	appUrl: string;
+}
+
+const { article, appName, appUrl } = Astro.props;
+const { title, slug } = article;
+
+const text = encodeURIComponent(`${title} | ${appName}`);
+const url = `${appUrl}/blog/article/${slug}`;
+
+const xLink = `https://x.com/share?url=${url}&text=${text}&via=si_library_net`;
+const lineLink = `https://social-plugins.line.me/lineit/share?url=${url}&text=${text}`;
+const misskeyLink = `https://misskey-hub.net/share/?text=${text}&url=${url}&visibility=public&localOnly=0`;
+---
+
+<ToggleableModal
+	title="Sharing"
+	svgIconPath={svgPaths.share}
+	svgViewBox={svgViewBoxes.share}
+	client:load
+>
+	<ul class="share-btns">
+		<li class="share-btn">
+			<a href={xLink} target="_blank" rel="noopener noreferrer">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.xTwitter}>
+					<path d={svgPaths.xTwitter}></path>
+				</svg>
+			</a>
+		</li>
+		<li class="share-btn">
+			<a href={lineLink} target="_blank" rel="noopener noreferrer">
+				<Image src={LineIcon} alt="LINE" />
+			</a>
+		</li>
+		<li class="share-btn">
+			<a href={misskeyLink} target="_blank" rel="noopener noreferrer">
+				<Image src={MisskeyIcon} alt="Misskey" />
+			</a>
+		</li>
+		<li class="share-btn">
+			<button type="button" id="url-copy-btn">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.link}>
+					<path d={svgPaths.link}></path>
+				</svg>
+			</button>
+		</li>
+	</ul>
+</ToggleableModal>
+
+<script>
+	const urlCopyBtn = document.getElementById("url-copy-btn");
+	const copyLink = async (): Promise<void> => {
+		await navigator.clipboard.writeText(location.href);
+	};
+
+	urlCopyBtn!.addEventListener("click", async () => {
+		await copyLink();
+	});
+</script>
+
+<style lang="scss">
+	.share-btns {
+		display: flex;
+		align-items: center;
+		gap: 1.2rem;
+
+		@include resp(lg) {
+			gap: 1.5rem;
+		}
+
+		.share-btn {
+			width: max-content;
+			padding: 0.2rem 0;
+
+			svg {
+				width: auto;
+				height: 1.5rem;
+				fill: getColor(--text-primary-color);
+
+				@include resp(lg) {
+					height: 2rem;
+				}
+			}
+
+			img {
+				width: auto;
+				height: 1.5rem;
+				object-fit: contain;
+
+				@include resp(lg) {
+					height: 2rem;
+				}
+			}
+		}
+	}
+</style>

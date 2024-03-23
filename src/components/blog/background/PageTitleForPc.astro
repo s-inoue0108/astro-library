@@ -59,24 +59,26 @@ const { title, svgIconPath, svgViewBox, iconImage, bgImage } = Astro.props;
 	const bgImg = document.querySelector(".bg-image-pc");
 	const titleSection = document.querySelector(".title-section-pc");
 
-	gsap
-		.timeline()
-		.from(bgImg, {
-			autoAlpha: 0,
-			duration: 1,
-			delay: 0.2,
-			ease: "power4.out",
-		})
-		.from(
-			titleSection,
-			{
+	if (bgImg && titleSection) {
+		gsap
+			.timeline()
+			.from(bgImg, {
 				autoAlpha: 0,
-				yPercent: 20,
 				duration: 1,
+				delay: 0.2,
 				ease: "power4.out",
-			},
-			"-=0.8"
-		);
+			})
+			.from(
+				titleSection,
+				{
+					autoAlpha: 0,
+					yPercent: 20,
+					duration: 1,
+					ease: "power4.out",
+				},
+				"-=0.8"
+			);
+	}
 </script>
 
 <style lang="scss">

@@ -8,6 +8,7 @@ import ArticleCardCompact from "../../../components/blog/card/ArticleCardCompact
 import SideArticle from "../../../components/blog/article/SideArticle.astro";
 import NoContent from "../../../components/blog/background/NoContent.astro";
 import PreviewModeTab from "../../../components/blog/article/PreviewModeTab.vue";
+import ShareButtons from "../../../components/blog/article/ShareButtons.astro";
 
 // Newt
 import { articles } from "../../../lib/newt/instance";
@@ -89,8 +90,13 @@ const sideArticles = await getSideArticlesBySlug(articles, slug);
 	<Metadata metadata={article} />
 	<div id="content">
 		<aside id="aside-content">
-			<div class="toc-side">
+			<div class="pc-side">
 				<Toc headings={headings} client:load />
+				<ShareButtons
+					article={article}
+					appName={import.meta.env.APP_NAME}
+					appUrl={import.meta.env.APP_URL}
+				/>
 			</div>
 		</aside>
 		<article id="article-content">
@@ -237,7 +243,7 @@ const sideArticles = await getSideArticlesBySlug(articles, slug);
 				width: 25%;
 				margin-top: -768px;
 
-				.toc-side {
+				.pc-side {
 					width: 100%;
 					height: max-content;
 					position: sticky;

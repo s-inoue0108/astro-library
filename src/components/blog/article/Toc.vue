@@ -96,7 +96,7 @@ onMounted(async () => {
 	overflow-y: auto;
 
 	@include resp(lg) {
-		max-height: 70vh;
+		max-height: 60vh;
 	}
 
 	.heading {

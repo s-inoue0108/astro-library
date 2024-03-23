@@ -16,7 +16,7 @@ const currentPath = Astro.url.pathname;
 		</a>
 		<h1 class="title">{import.meta.env.APP_NAME}</h1>
 	</ul>
-	<ul class="page-links">
+	<!-- <ul class="page-links">
 		<li class="link">
 			<SvgButton
 				title="Profile"
@@ -53,7 +53,7 @@ const currentPath = Astro.url.pathname;
 				fontScale={0.75}
 			/>
 		</li>
-	</ul>
+	</ul> -->
 	<ThemeButton client:load />
 </header>
 
@@ -92,7 +92,10 @@ const currentPath = Astro.url.pathname;
 				font-size: 1.8rem;
 				font-weight: 700;
 				letter-spacing: 1px;
-				color: getColor(--text-primary-color);
+				background-image: $tropic-gradient;
+				background-clip: text;
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
 				position: absolute;
 				top: 50%;
 				left: 128px;

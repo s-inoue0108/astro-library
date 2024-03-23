@@ -27,11 +27,8 @@ interface Props {
 
 const { title, description } = Astro.props;
 
-const currentPath = Astro.url.pathname;
-
 // OGP URL
-const canonicalURL = new URL(currentPath, import.meta.env.APP_URL);
-const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
+const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 ---
 
 <!doctype html>
@@ -50,9 +47,6 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 
 		<!-- Favicon -->
 		<link rel="icon" type="image/png" href="/portfolio-favicon.png" />
-
-		<!--Reset CSS -->
-		<link rel="stylesheet" href="node_modules/destyle.css/destyle.css" />
 
 		<!--Sitemap -->
 		<link rel="sitemap" href="/sitemap-index.xml" />
