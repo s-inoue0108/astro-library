@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { svgPaths, svgViewBoxes, type SvgMetadata } from "../../../lib/svg/paths";
 
 // Props
@@ -11,39 +11,63 @@ const { scale } = withDefaults(defineProps<Props>(), {
 	scale: 1,
 });
 
-const isOpen = ref<boolean>(false);
-const state = computed<string>(() => {
-	return isOpen.value ? "Close" : "Menu";
-});
+type Theme = "light" | "dark";
+
+const theme = ref<Theme | null>(null);
 
 const svgMetadata = computed<SvgMetadata>(() => {
-	return isOpen.value
+	return theme.value === "dark"
 		? {
-				path: svgPaths.xmark,
-				viewBox: svgViewBoxes.xmark,
+				path: svgPaths.moon,
+				viewBox: svgViewBoxes.moon,
 		  }
 		: {
-				path: svgPaths.barsStaggered,
-				viewBox: svgViewBoxes.barsStaggered,
+				path: svgPaths.sun,
+				viewBox: svgViewBoxes.sun,
 		  };
 });
 
-const toggleOpen = async (): Promise<void> => {
-	const menuContent = document.querySelector(".menu-content");
-	if (menuContent!.classList.contains("is-open")) {
-		isOpen.value = true;
+const switchClass = async (theme: Theme): Promise<void> => {
+	if (theme === "dark") {
+		document.documentElement.classList.remove("light");
+		document.documentElement.classList.add("dark");
 	} else {
-		isOpen.value = false;
+		document.documentElement.classList.remove("dark");
+		document.documentElement.classList.add("light");
 	}
 };
+
+const toggleTheme = async (): Promise<void> => {
+	if (theme.value === "dark") {
+		theme.value = "light";
+	} else {
+		theme.value = "dark";
+	}
+	await switchClass(theme.value);
+	localStorage.setItem("theme", theme.value);
+};
+
+// initialization theme
+onMounted(() => {
+	if (
+		(typeof localStorage.getItem("theme") === "string" &&
+			localStorage.getItem("theme") === "dark") ||
+		(typeof window.localStorage.getItem("theme") !== "string" &&
+			window.matchMedia("(prefers-color-scheme: dark)").matches)
+	) {
+		theme.value = "dark";
+	} else {
+		theme.value = "light";
+	}
+});
 </script>
 
 <template>
-	<button type="button" id="menu-btn" @click="toggleOpen">
+	<button type="button" @click="toggleTheme">
 		<svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgMetadata.viewBox">
 			<path :d="svgMetadata.path" />
 		</svg>
-		<label>{{ state.toUpperCase() }}</label>
+		<label>{{ theme ? theme.toUpperCase() : "" }}</label>
 	</button>
 </template>
 
@@ -78,7 +102,7 @@ button {
 		top: 0;
 		left: 50%;
 		transform: translateX(-50%);
-		fill: getColor(--bg-inversion-color);
+		fill: getColor(--theme-color);
 
 		@include resp(lg) {
 			width: 60%;
