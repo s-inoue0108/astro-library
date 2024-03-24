@@ -2,11 +2,11 @@ interface CommonProps {
 	_id: string;
 	_sys: {
 		createdAt: string;
-		upstringdAt: string;
+		updatedAt: string;
 		customOrder: number;
 		raw: {
 			createdAt: string;
-			upstringdAt: string;
+			updatedAt: string;
 			firstPublishedAt: string;
 			publishedAt: string;
 		};

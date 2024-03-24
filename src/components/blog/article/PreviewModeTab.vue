@@ -4,14 +4,16 @@ import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 import SvgButton from "../../common/buttons/Svg.vue";
 
 interface Props {
-	article: Pick<Article, "_id" | "slug">;
+	article: Pick<Article, "_id" | "_sys" | "slug">;
 	secret: string;
 	prev?: Pick<Article, "slug"> | null;
 	next?: Pick<Article, "slug"> | null;
 }
 
 const { article, secret, prev, next } = defineProps<Props>();
-const { _id, slug } = article;
+const { _id, _sys, slug } = article;
+
+const publishState = _sys.raw.publishedAt ? "#fb7185" : "#0ea5e9";
 </script>
 
 <template>
@@ -113,8 +115,8 @@ const { _id, slug } = article;
 
 		.slug {
 			font-family: "Source Code Pro", Consolas, monospace;
-			color: $rose;
-			background: getColor(--bg-secondary-color);
+			color: v-bind(publishState);
+			background: getColor(--bg-primary-color);
 			border-radius: 12px;
 			padding: 0.3rem 1rem;
 			font-size: 1.2rem;
@@ -151,25 +153,18 @@ const { _id, slug } = article;
 	border-top-left-radius: 12px;
 
 	@include resp(lg) {
-		width: 80px;
-		height: auto;
-	}
-
-	&:active {
-		background: $rose;
-		transition: 0.2s ease;
+		width: 100px;
+		height: 100px;
 	}
 
 	svg {
-		margin: 1rem;
-		transform: translateX(-15px);
-		width: 100%;
-		height: 30px;
-		fill: $rose;
-
-		@include resp(lg) {
-			height: 40px;
-		}
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 70%;
+		height: auto;
+		fill: v-bind(publishState);
 	}
 }
 
