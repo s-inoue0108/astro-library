@@ -16,13 +16,48 @@ const newtPreviewClient = createClient({
 });
 
 // Get Articles
-export const getArticles = async (limit: number = 1000, order: "asc" | "desc" = "desc", depth: 0 | 1 | 2 = 2, categoryId?: Category["_id"], tagIds?: Tag["_id"][]): Promise<Article[] | null> => {
+export const getArticles = async (
+	limit: number = 1000,
+	order: "asc" | "desc" = "desc",
+	depth: 0 | 1 | 2 = 2,
+	categoryId?: Category["_id"],
+	tagIds?: Tag["_id"][]
+): Promise<Article[] | null> => {
 	try {
 		const { items: articles } = await newtClient.getContents<Article>({
 			appUid: "blog",
 			modelUid: "article",
 			query: {
 				order: [`${order === "desc" ? "-" : ""}_sys.raw.firstPublishedAt`],
+				limit: limit,
+				depth: depth,
+				category: categoryId,
+				tags: {
+					in: tagIds,
+				},
+			},
+		});
+		return articles;
+	} catch (err) {
+		console.error(err);
+		return null;
+	}
+};
+
+// Get Raw Articles
+export const getRawArticles = async (
+	limit: number = 1000,
+	order: "asc" | "desc" = "desc",
+	depth: 0 | 1 | 2 = 2,
+	categoryId?: Category["_id"],
+	tagIds?: Tag["_id"][]
+): Promise<RawArticle[] | null> => {
+	try {
+		const { items: articles } = await newtPreviewClient.getContents<RawArticle>({
+			appUid: "blog",
+			modelUid: "article",
+			query: {
+				order: [`${order === "desc" ? "-" : ""}_sys.raw.createdAt`],
 				limit: limit,
 				depth: depth,
 				category: categoryId,
@@ -75,7 +110,10 @@ export const getTags = async (depth: 0 | 1 | 2 = 2): Promise<Tag[] | null> => {
 };
 
 // Get Category by Slug
-export const getCategoryBySlug = async (slug: Category["slug"], depth: 0 | 1 | 2 = 2): Promise<Category | null> => {
+export const getCategoryBySlug = async (
+	slug: Category["slug"],
+	depth: 0 | 1 | 2 = 2
+): Promise<Category | null> => {
 	try {
 		const category = await newtClient.getFirstContent<Category>({
 			appUid: "blog",
@@ -93,7 +131,10 @@ export const getCategoryBySlug = async (slug: Category["slug"], depth: 0 | 1 | 2
 };
 
 // Get Tags by Slugs
-export const getTagsBySlugs = async (slugs: Tag["slug"][], depth: 0 | 1 | 2 = 2): Promise<Tag[] | null> => {
+export const getTagsBySlugs = async (
+	slugs: Tag["slug"][],
+	depth: 0 | 1 | 2 = 2
+): Promise<Tag[] | null> => {
 	try {
 		const { items: tags } = await newtClient.getContents<Tag>({
 			appUid: "blog",
@@ -114,7 +155,10 @@ export const getTagsBySlugs = async (slugs: Tag["slug"][], depth: 0 | 1 | 2 = 2)
 };
 
 // Get Preview Article by Slug
-export const getPreviewBySlug = async (slug?: Article["slug"], depth: 0 | 1 | 2 = 2): Promise<RawArticle | Article | null> => {
+export const getPreviewBySlug = async (
+	slug?: Article["slug"],
+	depth: 0 | 1 | 2 = 2
+): Promise<RawArticle | Article | null> => {
 	try {
 		const article = await newtPreviewClient.getFirstContent<RawArticle | Article>({
 			appUid: "blog",

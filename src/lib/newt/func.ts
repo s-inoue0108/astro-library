@@ -1,6 +1,9 @@
-import type { Article } from "./types";
+import type { Article, RawArticle } from "./types";
 
-export const getSideArticlesBySlug = async (articles: Article[] | null, slug: Article["slug"]): Promise<{ prev: Article | null; next: Article | null }> => {
+export const getSideArticlesBySlug = async (
+	articles: Article[] | RawArticle[] | null,
+	slug: Article["slug"]
+): Promise<{ prev: Article | RawArticle | null; next: Article | RawArticle | null }> => {
 	if (!articles) {
 		return {
 			prev: null,

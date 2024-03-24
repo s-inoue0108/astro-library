@@ -12,7 +12,7 @@ import ShareButtons from "../../../components/blog/article/ShareButtons.astro";
 
 // Newt
 import { articles } from "../../../lib/newt/instance";
-import { getPreviewBySlug } from "../../../lib/newt/client";
+import { getPreviewBySlug, getRawArticles } from "../../../lib/newt/client";
 import { getSideArticlesBySlug } from "../../../lib/newt/func";
 
 // KaTeX
@@ -83,7 +83,10 @@ const headings = await getHeadings($);
 mathRenderedHtml = $.html();
 
 // Side articles
+const rawArticles = await getRawArticles();
 const sideArticles = await getSideArticlesBySlug(articles, slug);
+const sideRawArticles = await getSideArticlesBySlug(rawArticles, slug);
+console.log(sideRawArticles);
 ---
 
 <ArticleLayout
@@ -131,8 +134,8 @@ const sideArticles = await getSideArticlesBySlug(articles, slug);
 		<PreviewModeTab
 			article={article}
 			secret={import.meta.env.NEWT_ARTICLE_PREVIEW_SECRET}
-			prev={sideArticles.prev}
-			next={sideArticles.next}
+			prev={sideRawArticles.prev}
+			next={sideRawArticles.next}
 		/>
 	</div>
 </ArticleLayout>
