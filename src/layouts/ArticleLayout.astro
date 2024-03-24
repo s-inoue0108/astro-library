@@ -377,9 +377,14 @@ const ogpImageURL = new URL("portfolio-favicon.png", canonicalURL);
 			blockquote {
 				margin: 1rem 0;
 				width: 100%;
-				padding: 0.5rem;
+				padding: 0.5rem 1rem;
 				border-left: solid 8px getColor(--border-color);
 				background: getColor(--bg-secondary-color);
+
+				@include resp(lg) {
+					border-left-width: 12px;
+					padding: 0.6rem 1.2rem;
+				}
 			}
 
 			ul {
