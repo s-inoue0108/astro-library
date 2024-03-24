@@ -23,6 +23,7 @@ import {
 	syntaxHighlighter,
 	footnotesAdjuster,
 	getHeadings,
+	imgStylist,
 } from "../../../lib/cheerio/func";
 
 // Highlight.js
@@ -59,6 +60,9 @@ const $ = load(mathRenderedHtml);
 
 // anchor link
 await anchorStylist($);
+
+// add figure tag
+await imgStylist($);
 
 // code block
 await syntaxHighlighter($);

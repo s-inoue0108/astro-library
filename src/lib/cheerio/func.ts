@@ -95,6 +95,22 @@ export const anchorStylist = async ($: CheerioAPI): Promise<void> => {
 	});
 };
 
+// styling <img />
+export const imgStylist = async ($: CheerioAPI): Promise<void> => {
+	$("img").each((_, elm) => {
+		$(elm).unwrap().wrap("<figure></figure>");
+		if ($(elm).attr("title") && $(elm).attr("title") !== "") {
+			$(elm).after(
+				`<figcaption><svg xmlns="http://www.w3.org/2000/svg" viewBox="${
+					svgViewBoxes.image
+				}"><path d="${svgPaths.image}"></path></svg><span>${$(elm).attr(
+					"title"
+				)}</span></figcaption>`
+			);
+		}
+	});
+};
+
 // styling footnotes
 export const footnotesAdjuster = async ($: CheerioAPI): Promise<void> => {
 	if ($(".footnotes-sep") && $(".footnotes")) {
