@@ -648,12 +648,6 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 				.copy-btn {
 					position: relative;
 
-					&:active {
-						animation: shake 0.2s ease;
-						opacity: 0.5;
-						transition: 0.2s ease;
-					}
-
 					svg {
 						position: absolute;
 						top: 50%;
@@ -666,24 +660,6 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 						@include resp(lg) {
 							height: 20px;
 							width: auto;
-						}
-					}
-
-					@keyframes shake {
-						0% {
-							transform: translateX(0);
-						}
-
-						25% {
-							transform: translateX(16px);
-						}
-
-						75% {
-							transform: translateX(-16px);
-						}
-
-						100% {
-							transform: translateX(0);
 						}
 					}
 				}

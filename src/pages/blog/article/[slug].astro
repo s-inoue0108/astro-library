@@ -163,8 +163,29 @@ const sideArticles = await getSideArticlesBySlug(articles, article.slug);
 		const code = $(elm).text();
 		const copyBtn = document.getElementById(`copy-btn-${idx}`);
 
+		const copyAnim = gsap
+			.timeline({ paused: true })
+			.to(copyBtn, {
+				scale: 1.2,
+				x: -10,
+				ease: "power4.out",
+				duration: 0.1,
+			})
+			.to(copyBtn, {
+				x: 10,
+				ease: "power4.out",
+				duration: 0.1,
+			})
+			.to(copyBtn, {
+				x: 0,
+				scale: 1,
+				ease: "power4.out",
+				duration: 0.1,
+			});
+
 		copyBtn!.addEventListener("click", async () => {
 			await copyToClipboard(code);
+			await copyAnim.restart();
 		});
 	});
 </script>
@@ -191,34 +212,6 @@ const sideArticles = await getSideArticlesBySlug(articles, article.slug);
 					position: sticky;
 					top: 96px;
 				}
-			}
-		}
-	}
-
-	.copy-btn {
-		&:active {
-			animation: shake 1s ease;
-		}
-
-		@keyframes shake {
-			0% {
-				transform: translateX(0);
-			}
-
-			25% {
-				transform: translateX(4px);
-			}
-
-			50% {
-				transform: translateX(0);
-			}
-
-			75% {
-				transform: translateX(-4px);
-			}
-
-			100% {
-				transform: translateX(0);
 			}
 		}
 	}
