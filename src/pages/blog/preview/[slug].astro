@@ -128,7 +128,12 @@ const sideArticles = await getSideArticlesBySlug(articles, slug);
 		</article>
 	</div>
 	<div id="preview-tab">
-		<PreviewModeTab article={article} />
+		<PreviewModeTab
+			article={article}
+			secret={import.meta.env.NEWT_ARTICLE_PREVIEW_SECRET}
+			prev={sideArticles.prev}
+			next={sideArticles.next}
+		/>
 	</div>
 </ArticleLayout>
 
@@ -180,12 +185,6 @@ const sideArticles = await getSideArticlesBySlug(articles, slug);
 	// preview tab
 	const previewTab = document.getElementById("preview-tab");
 	const closeBtn = document.getElementById("preview-tab-close-btn");
-
-	gsap.from(previewTab, {
-		y: 100,
-		duration: 1.5,
-		ease: "power1.inOut",
-	});
 
 	const openAnim = gsap.to(previewTab, {
 		y: 0,

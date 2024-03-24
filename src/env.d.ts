@@ -13,6 +13,9 @@ interface ImportMetaEnv {
 	readonly GITHUB_URL: string;
 	readonly X_URL: string;
 	readonly ZENN_URL: string;
+	readonly GITHUB_ACCESS_TOKEN: string;
+	readonly GITHUB_REPO_NAME: string;
+	readonly GITHUB_REPO_OWNER: string;
 }
 
 interface ImportMeta {

@@ -10,16 +10,6 @@ interface Props {
 }
 
 const { direction, article } = Astro.props;
-
-const currentPath = Astro.url.pathname;
-const regex = /^\/blog\/preview\//
-
-const transitionPath = (slug: Article["slug"]): string => {
-	if (regex.test(currentPath)) {
-		return `/blog/preview/${slug}?secret=${import.meta.env.NEWT_ARTICLE_PREVIEW_SECRET}`
-	}
-	return `/blog/article/${slug}`
-}
 ---
 
 <>
@@ -27,7 +17,7 @@ const transitionPath = (slug: Article["slug"]): string => {
 		() => {
 			if (article && direction === "prev") {
 				return (
-					<a href={transitionPath(article.slug)} class="prev">
+					<a href={`/blog/article/${article.slug}`} class="prev">
 						<Image src={article.thambnail.src} width={article.thambnail.width} height={article.thambnail.height} alt={article.thambnail.altText} class="img-prev" />
 						<div class="title">{article.title}</div>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.chevronRight}>
@@ -37,7 +27,7 @@ const transitionPath = (slug: Article["slug"]): string => {
 				);
 			} else if (article && direction === "next") {
 				return (
-					<a href={transitionPath(article.slug)} class="next">
+					<a href={`/blog/article/${article.slug}`} class="next">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.chevronLeft}>
 							<path d={svgPaths.chevronLeft} />
 						</svg>

@@ -6,23 +6,23 @@ import "katex/dist/katex.min.css";
 import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 import SvgButton from "../../common/buttons/Svg.vue";
 
-const isOutline = ref<boolean>(false);
+const isDisplay = ref<boolean>(false);
 const text = ref<string>("");
 
 const renderedDom = computed<string>(() => {
 	try {
-		return katex.renderToString(text.value, { output: "html", displayMode: isOutline.value });
+		return katex.renderToString(text.value, { output: "html", displayMode: isDisplay.value });
 	} catch {
 		return "Rendering Error";
 	}
 });
 
 const copyBtnColor = computed<string>(() => {
-	return isOutline.value ? "rgb(14 165 233)" : "rgb(251 113 133)";
+	return isDisplay.value ? "rgb(14 165 233)" : "rgb(251 113 133)";
 });
 
 const copy = async (): Promise<void> => {
-	if (isOutline.value) {
+	if (isDisplay.value) {
 		await navigator.clipboard.writeText("$$ " + text.value + " $$");
 	} else {
 		await navigator.clipboard.writeText(" $ " + text.value + " $ ");
@@ -45,8 +45,8 @@ const reset = async (): Promise<void> => {
 		</div>
 		<div class="config">
 			<h1 class="title">KaTeX Editor</h1>
-			<label for="toggle" class="toggle-button-4">
-				<input id="toggle" type="checkbox" v-model="isOutline" />
+			<label for="toggle" class="toggle-btn">
+				<input id="toggle" type="checkbox" v-model="isDisplay" />
 			</label>
 			<button type="button" @click="copy" class="copy-btn">
 				<svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.copy">
@@ -123,7 +123,7 @@ const reset = async (): Promise<void> => {
 			}
 		}
 
-		.toggle-button-4 {
+		.toggle-btn {
 			display: flex;
 			align-items: center;
 			position: relative;
@@ -136,11 +136,11 @@ const reset = async (): Promise<void> => {
 			transition: background-color 0.4s;
 		}
 
-		.toggle-button-4:has(:checked) {
+		.toggle-btn:has(:checked) {
 			background-color: #bae6fd;
 		}
 
-		.toggle-button-4::before {
+		.toggle-btn::before {
 			position: absolute;
 			left: 5px;
 			width: 42px;
@@ -151,12 +151,12 @@ const reset = async (): Promise<void> => {
 			transition: left 0.4s;
 		}
 
-		.toggle-button-4:has(:checked)::before {
+		.toggle-btn:has(:checked)::before {
 			left: 50px;
 			background-color: $sky;
 		}
 
-		.toggle-button-4::after {
+		.toggle-btn::after {
 			position: absolute;
 			left: 26px;
 			transform: translateX(-50%);
@@ -168,13 +168,13 @@ const reset = async (): Promise<void> => {
 			white-space: nowrap;
 		}
 
-		.toggle-button-4:has(:checked)::after {
+		.toggle-btn:has(:checked)::after {
 			left: 71px;
 			content: "DSP";
 			white-space: nowrap;
 		}
 
-		.toggle-button-4 input {
+		.toggle-btn input {
 			display: none;
 		}
 	}

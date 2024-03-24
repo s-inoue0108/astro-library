@@ -5,27 +5,58 @@ import SvgButton from "../../common/buttons/Svg.vue";
 
 interface Props {
 	article: Pick<Article, "_id" | "slug">;
+	secret: string;
+	prev?: Pick<Article, "slug"> | null;
+	next?: Pick<Article, "slug"> | null;
 }
 
-const { article } = defineProps<Props>();
+const { article, secret, prev, next } = defineProps<Props>();
 const { _id, slug } = article;
 </script>
 
 <template>
 	<div class="preview-tab">
 		<div class="current-preview">
+			<SvgButton
+				v-if="prev"
+				:isLink="true"
+				:linkUrl="`/blog/preview/${prev.slug}?secret=${secret}`"
+				:isBlank="false"
+				:fontWeight="500"
+				:svgIconPath="svgPaths.chevronLeft"
+				:svgViewBox="svgViewBoxes.chevronLeft"
+			/>
 			<a :href="`/blog/article/${slug}`" target="_blank" rel="noopener noreferrer" class="slug">
 				{{ slug }}
 			</a>
+			<SvgButton
+				v-if="next"
+				:isLink="true"
+				:linkUrl="`/blog/preview/${next.slug}?secret=${secret}`"
+				:isBlank="false"
+				:fontWeight="500"
+				:svgIconPath="svgPaths.chevronRight"
+				:svgViewBox="svgViewBoxes.chevronRight"
+			/>
 		</div>
 		<ul class="buttons">
+			<SvgButton
+				title="Readme"
+				:isLink="true"
+				:linkUrl="`/readme?secret=${secret}`"
+				:isBlank="true"
+				:fontWeight="500"
+				:widthScale="3.6"
+				:svgIconPath="svgPaths.readme"
+				:svgViewBox="svgViewBoxes.readme"
+			/>
 			<SvgButton
 				title="Edit"
 				:isLink="true"
 				:linkUrl="`https://app.newt.so/si-library/apps/blog/models/article/contents/${_id}`"
 				:isBlank="true"
 				:fontWeight="500"
-				:widthScale="3"
+				:widthScale="2.6"
 				:svgIconPath="svgPaths.penNib"
 				:svgViewBox="svgViewBoxes.penNib"
 			/>
@@ -35,14 +66,14 @@ const { _id, slug } = article;
 				:svgIconPath="svgPaths.subscript"
 				:svgViewBox="svgViewBoxes.subscript"
 				:fontWeight="500"
-				:widthScale="3"
+				:widthScale="2.6"
 				btnId="katex-editor-open-btn"
 			/>
 		</ul>
 	</div>
 	<button type="button" id="preview-tab-close-btn">
-		<svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.arrowsUpDown">
-			<path :d="svgPaths.arrowsUpDown"></path>
+		<svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.circleInfo">
+			<path :d="svgPaths.circleInfo"></path>
 		</svg>
 	</button>
 </template>
@@ -68,7 +99,17 @@ const { _id, slug } = article;
 
 	.current-preview {
 		display: flex;
+		justify-content: center;
 		align-items: center;
+		gap: 0.5rem;
+
+		a {
+			fill: getColor(--bg-primary-color);
+		}
+
+		@include resp(lg) {
+			gap: 1rem;
+		}
 
 		.slug {
 			font-family: "Source Code Pro", Consolas, monospace;
@@ -124,11 +165,19 @@ const { _id, slug } = article;
 		transform: translateX(-15px);
 		width: 100%;
 		height: 30px;
-		fill: getColor(--text-inversion-color);
+		fill: $rose;
 
 		@include resp(lg) {
 			height: 40px;
 		}
+	}
+}
+
+#katex-editor-open-btn {
+	display: none;
+
+	@include resp(lg) {
+		display: block;
 	}
 }
 </style>

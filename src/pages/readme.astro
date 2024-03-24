@@ -1,0 +1,22 @@
+---
+export const prerender = false;
+
+import ReadmeLayout from "../layouts/ReadmeLayout.astro";
+
+// README
+import { Content as README } from "../../README.md";
+
+// validate secret
+if (
+	!Astro.url.searchParams.get("secret") ||
+	Astro.url.searchParams.get("secret") !== import.meta.env.NEWT_ARTICLE_PREVIEW_SECRET
+) {
+	return Astro.redirect("/");
+}
+---
+
+<ReadmeLayout title={`README | ${import.meta.env.APP_NAME}`} description="README">
+	<article id="readme">
+		<README />
+	</article>
+</ReadmeLayout>
