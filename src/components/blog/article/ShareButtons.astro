@@ -99,8 +99,29 @@ const misskeyLink = `https://misskey-hub.net/share/?text=${text}&url=${url}&visi
 		await navigator.clipboard.writeText(location.href);
 	};
 
+	const copyAnim = gsap
+		.timeline({ paused: true })
+		.to(urlCopyBtn, {
+			scale: 1.2,
+			x: -10,
+			ease: "power4.out",
+			duration: 0.1,
+		})
+		.to(urlCopyBtn, {
+			x: 10,
+			ease: "power4.out",
+			duration: 0.1,
+		})
+		.to(urlCopyBtn, {
+			x: 0,
+			scale: 1,
+			ease: "power4.out",
+			duration: 0.1,
+		});
+
 	urlCopyBtn!.addEventListener("click", async () => {
 		await copyLink();
+		await copyAnim.restart();
 	});
 </script>
 
