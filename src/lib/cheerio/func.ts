@@ -135,7 +135,7 @@ export const calloutStylist = async ($: CheerioAPI): Promise<void> => {
 				p.before(
 					`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${s.svgViewBox}"><path d="${s.svgPath}"></path></svg>`
 				);
-				p.parent().addClass(`blockquote-${s.slug}`);
+				$(elm).addClass(`blockquote-${s.slug}`);
 			}
 		});
 	});
