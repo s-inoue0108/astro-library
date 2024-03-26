@@ -111,6 +111,36 @@ export const imgStylist = async ($: CheerioAPI): Promise<void> => {
 	});
 };
 
+const calloutStyles: { slug: string; svgPath: string; svgViewBox: string }[] = [
+	{ slug: "info", svgPath: svgPaths.circleInfo, svgViewBox: svgViewBoxes.circleInfo },
+	{
+		slug: "warning",
+		svgPath: svgPaths.circleExclamation,
+		svgViewBox: svgViewBoxes.circleExclamation,
+	},
+	{ slug: "hint", svgPath: svgPaths.lightbulb, svgViewBox: svgViewBoxes.lightbulb },
+];
+
+// styling <blockquote>
+export const calloutStylist = async ($: CheerioAPI): Promise<void> => {
+	$("blockquote").each((_, elm) => {
+		const p = $(elm).find("p");
+		const style = p.children("strong").first();
+		if (!p || !style) return;
+
+		calloutStyles.forEach((s) => {
+			if (style.text() === s.slug) {
+				p.children("br").first().remove();
+				style.remove();
+				p.before(
+					`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${s.svgViewBox}"><path d="${s.svgPath}"></path></svg>`
+				);
+				p.parent().addClass(`blockquote-${s.slug}`);
+			}
+		});
+	});
+};
+
 // styling footnotes
 export const footnotesAdjuster = async ($: CheerioAPI): Promise<void> => {
 	if ($(".footnotes-sep") && $(".footnotes")) {

@@ -26,6 +26,7 @@ import {
 	footnotesAdjuster,
 	getHeadings,
 	imgStylist,
+	calloutStylist,
 } from "../../../lib/cheerio/func";
 
 // Highlight.js
@@ -72,6 +73,9 @@ await imgStylist($);
 
 // code block
 await syntaxHighlighter($);
+
+// styling callout
+await calloutStylist($);
 
 // exchange footnotes-sep to h1
 await footnotesAdjuster($);

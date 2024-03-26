@@ -105,7 +105,7 @@ onMounted(async () => {
 			font-size: 1.2rem;
 			font-weight: 600;
 			display: inline-flex;
-			align-items: center;
+			align-items: start;
 			gap: 0.5rem;
 
 			.before {
@@ -136,9 +136,6 @@ onMounted(async () => {
 			max-width: 100%;
 			margin-left: 1.4rem;
 			font-weight: 400;
-			display: inline-flex;
-			align-items: center;
-			gap: 0.5rem;
 
 			.before {
 				background: getColor(--bg-inversion-color);
@@ -146,6 +143,8 @@ onMounted(async () => {
 				width: 0.5rem;
 				height: 0.5rem;
 				border-radius: 9999px;
+				vertical-align: middle;
+				margin-right: 0.5rem;
 			}
 		}
 
