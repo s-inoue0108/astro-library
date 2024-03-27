@@ -1,0 +1,86 @@
+---
+// Image
+import { Image } from "astro:assets";
+import type { Article } from "../../../lib/newt/types";
+
+interface Props {
+	article: Pick<Article, "title" | "slug" | "thambnail">;
+}
+
+const { article } = Astro.props;
+const { title, slug, thambnail } = article;
+
+const sliceText = (text: string | undefined, limit: number): string => {
+	if (!text || text.length === 0) {
+		return "";
+	}
+	if (text && text.length > limit) {
+		return `${text.slice(0, limit)}...`;
+	}
+	return text;
+};
+---
+
+<a href={`/blog/article/${slug}`} class="card">
+	<ul class="info">
+		<li class="thambnail">
+			<Image
+				width={thambnail.width}
+				height={thambnail.height}
+				src={thambnail.src}
+				alt={thambnail.altText}
+			/>
+		</li>
+		<li class="title">{sliceText(title, 50)}</li>
+	</ul>
+</a>
+
+<style lang="scss">
+	.card {
+		width: 100%;
+		height: 96px;
+		display: block;
+		border-radius: 4px;
+		background: getColor(--bg-secondary-color);
+
+		@include resp(lg) {
+			height: 128px;
+		}
+
+		&:active {
+			opacity: 0.5;
+			transition: 0.2s ease;
+		}
+
+		.info {
+			display: flex;
+			width: 100%;
+			height: 100%;
+
+			.thambnail {
+				width: 30%;
+				height: 100%;
+
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					border-radius: 2px 0 0 2px;
+
+					@include resp(lg) {
+						border-radius: 4px 0 0 4px;
+					}
+				}
+			}
+
+			.title {
+				width: 70%;
+				padding: 0.5rem;
+
+				@include resp(lg) {
+					font-size: 1.2rem;
+				}
+			}
+		}
+	}
+</style>

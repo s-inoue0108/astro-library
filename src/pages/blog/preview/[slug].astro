@@ -4,7 +4,7 @@ export const prerender = false;
 import ArticleLayout from "../../../layouts/ArticleLayout.astro";
 import Toc from "../../../components/blog/article/Toc.vue";
 import Metadata from "../../../components/blog/article/Metadata.astro";
-import ArticleCardCompact from "../../../components/blog/card/ArticleCardCompact.vue";
+import ArticleCardCompact from "../../../components/blog/card/ArticleCardCompact.astro";
 import SideArticle from "../../../components/blog/article/SideArticle.astro";
 import NoContent from "../../../components/blog/background/NoContent.astro";
 import PreviewModeTab from "../../../components/blog/article/PreviewModeTab.vue";
@@ -333,9 +333,13 @@ const sideRawArticles = await getSideArticlesBySlug(rawArticles, slug);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 0.7rem;
+		gap: 1rem;
 		width: 100%;
 		margin: 2.5rem 0;
+
+		@include resp(lg) {
+			gap: 1.2rem;
+		}
 
 		li {
 			width: 100%;

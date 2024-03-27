@@ -5,7 +5,6 @@ import type { Article } from "../../../lib/newt/types";
 import { getSegments, fuseClient, type Segment } from "../../../lib/fusejs/instance";
 import type { FuseResult } from "fuse.js";
 import SvgButton from "../../common/buttons/Svg.vue";
-import ArticleCardCompact from "../card/ArticleCardCompact.vue";
 
 const keyword = ref<string>("");
 
@@ -50,6 +49,16 @@ const getShowedArticles = (hits: FuseResult<Segment>[]): Article[] => {
 const showedArticles = computed<Article[]>(() => {
 	return getShowedArticles(hits.value);
 });
+
+const sliceText = (text: string | undefined, limit: number): string => {
+	if (!text || text.length === 0) {
+		return "";
+	}
+	if (text && text.length > limit) {
+		return `${text.slice(0, limit)}...`;
+	}
+	return text;
+};
 </script>
 
 <template>
@@ -64,7 +73,16 @@ const showedArticles = computed<Article[]>(() => {
 	<Transition name="swap">
 		<ul class="hit-articles" v-if="showedArticles && showedArticles.length > 0">
 			<li v-for="article in showedArticles" :key="article._id">
-				<ArticleCardCompact :article="article" />
+				<a :href="`/blog/article/${article.slug}`" class="card">
+					<ul class="info">
+						<li class="title">
+							<h2>{{ sliceText(article.title, 50) }}</h2>
+						</li>
+						<li class="description">
+							<p>{{ sliceText(article.description, 100) }}</p>
+						</li>
+					</ul>
+				</a>
 			</li>
 		</ul>
 		<div class="no-hit" v-else-if="keyword && keyword.length > 0">
@@ -180,6 +198,36 @@ const showedArticles = computed<Article[]>(() => {
 
 	li {
 		width: 100%;
+
+		.card {
+			width: 100%;
+			height: 100%;
+			display: block;
+			padding: 0.3rem 0;
+			border-bottom: solid 1px getColor(--border-color);
+
+			&:active {
+				color: $rose;
+				border-color: $rose;
+				transition: 0.2s ease;
+			}
+
+			.info {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+
+				.title {
+					font-weight: 700;
+				}
+
+				.description {
+					color: getColor(--text-secondary-color);
+					font-size: 0.7rem;
+					font-weight: 300;
+				}
+			}
+		}
 	}
 }
 
