@@ -173,7 +173,7 @@ onMounted(async () => {
 }
 
 .highlight {
-	background: $tropic-gradient;
+	background: tropicGradient(90deg);
 	background-clip: text;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;

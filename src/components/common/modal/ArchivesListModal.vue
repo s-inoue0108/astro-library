@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import type { Article } from '../../../lib/newt/types';
+import { computed, ref } from "vue";
+import type { Article } from "../../../lib/newt/types";
 
 import Modal from "./NormalModal.vue";
 import ArchiveCard from "../../blog/card/ArchiveCard.vue";
@@ -10,7 +10,7 @@ interface Props {
 	articles?: Article[] | null;
 }
 
-const { articles } = defineProps<Props>()
+const { articles } = defineProps<Props>();
 
 const getExistYearsList = (): number[] => {
 	if (!articles) {
@@ -18,34 +18,36 @@ const getExistYearsList = (): number[] => {
 	}
 
 	const years = articles.map((article) => {
-		return new Date(article._sys.raw.firstPublishedAt).getFullYear()
+		return new Date(article._sys.raw.firstPublishedAt).getFullYear();
 	});
 
 	const uniqueYears = Array.from(new Set(years)).sort((a, b) => b - a);
 	return uniqueYears;
-}
+};
 
 const getExistMonthsList = (year: number): number[] => {
 	if (!articles) {
 		return [];
 	}
 
-	const months = articles.filter((article) => {
-		return new Date(article._sys.raw.firstPublishedAt).getFullYear() === year
-	}).map((article) => {
-		return new Date(article._sys.raw.firstPublishedAt).getMonth() + 1
-	});
+	const months = articles
+		.filter((article) => {
+			return new Date(article._sys.raw.firstPublishedAt).getFullYear() === year;
+		})
+		.map((article) => {
+			return new Date(article._sys.raw.firstPublishedAt).getMonth() + 1;
+		});
 
 	const uniqueMonths = Array.from(new Set(months)).sort((a, b) => b - a);
 	return uniqueMonths;
-}
+};
 
 const selectedYear = ref<string>(`${new Date().getFullYear()}`);
 
 const existYears = getExistYearsList();
 
 // generate months and existence list
-const existMonthsAndExistence = computed<{ month: number, exist: boolean }[]>(() => {
+const existMonthsAndExistence = computed<{ month: number; exist: boolean }[]>(() => {
 	const returnArr = [];
 	const existMonths = getExistMonthsList(+selectedYear.value);
 
@@ -53,7 +55,7 @@ const existMonthsAndExistence = computed<{ month: number, exist: boolean }[]>(()
 		returnArr.push({ month: m, exist: existMonths.includes(m) });
 	}
 	return returnArr;
-})
+});
 </script>
 
 <template>
@@ -89,7 +91,6 @@ const existMonthsAndExistence = computed<{ month: number, exist: boolean }[]>(()
 
 .year-selector {
 	width: max-content;
-	color: getColor(--text-primary-color);
 	font-size: 0.9rem;
 	font-weight: 500;
 	border-radius: 9999px;
@@ -109,14 +110,19 @@ const existMonthsAndExistence = computed<{ month: number, exist: boolean }[]>(()
 			align-items: center;
 			width: auto;
 			height: 0.9rem;
-			fill: getColor(--text-primary-color);
+			fill: getColor(--text-secondary-color);
 		}
 	}
 
 	select {
 		padding: 0 1rem;
 		background: getColor(--bg-primary-color);
-		color: getColor(--text-primary-color);
+		color: getColor(--text-secondary-color);
+
+		option {
+			background: getColor(--bg-secondary-color);
+			color: getColor(--text-primary-color);
+		}
 	}
 }
 </style>

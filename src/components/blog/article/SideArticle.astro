@@ -47,8 +47,8 @@ const { direction, article } = Astro.props;
 	.next {
 		margin-top: 1rem;
 		width: 100%;
-		height: 64px;
-		background: getColor(--bg-secondary-color);
+		height: 80px;
+		border: solid 1px getColor(--border-color);
 		border-radius: 4px;
 		display: flex;
 
@@ -65,7 +65,7 @@ const { direction, article } = Astro.props;
 
 		.title {
 			padding: 4px;
-			width: calc(100% - 64px - 32px);
+			width: calc(100% - 80px - 32px);
 
 			@include resp(lg) {
 				padding: 8px;
@@ -74,7 +74,7 @@ const { direction, article } = Astro.props;
 		}
 
 		img {
-			width: 64px;
+			width: 80px;
 			height: 100%;
 			object-fit: cover;
 
@@ -84,14 +84,15 @@ const { direction, article } = Astro.props;
 		}
 
 		svg {
-			margin: 16px 0;
+			margin: auto;
 			width: 32px;
-			height: auto;
+			max-height: 32px;
 			fill: getColor(--text-primary-color);
 
 			@include resp(lg) {
-				margin: 16px 8px;
-			    width: 48px;
+				margin: auto;
+			  width: 48px;
+				max-height: 48px;
 			}
 		}
 	}

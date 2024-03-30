@@ -4,11 +4,11 @@ import { Image } from "astro:assets";
 import type { Article } from "../../../lib/newt/types";
 
 interface Props {
-	article: Pick<Article, "title" | "slug" | "thambnail">;
+	article: Pick<Article, "title" | "slug" | "thambnail" | "category">;
 }
 
 const { article } = Astro.props;
-const { title, slug, thambnail } = article;
+const { title, slug, thambnail, category } = article;
 
 const sliceText = (text: string | undefined, limit: number): string => {
 	if (!text || text.length === 0) {
@@ -19,6 +19,8 @@ const sliceText = (text: string | undefined, limit: number): string => {
 	}
 	return text;
 };
+
+const svgColor = category.themeColor;
 ---
 
 <a href={`/blog/article/${slug}`} class="card">
@@ -30,18 +32,23 @@ const sliceText = (text: string | undefined, limit: number): string => {
 				src={thambnail.src}
 				alt={thambnail.altText}
 			/>
+			<div class="svg-bg">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox={category.svgViewBox}>
+					<path d={category.svgIconPath}></path>
+				</svg>
+			</div>
 		</li>
 		<li class="title">{sliceText(title, 50)}</li>
 	</ul>
 </a>
 
-<style lang="scss">
+<style lang="scss" define:vars={{ svgColor }}>
 	.card {
 		width: 100%;
-		height: 96px;
+		height: 80px;
 		display: block;
 		border-radius: 4px;
-		background: getColor(--bg-secondary-color);
+		border: solid 1px getColor(--border-color);
 
 		@include resp(lg) {
 			height: 128px;
@@ -60,6 +67,7 @@ const sliceText = (text: string | undefined, limit: number): string => {
 			.thambnail {
 				width: 30%;
 				height: 100%;
+				position: relative;
 
 				img {
 					width: 100%;
@@ -69,6 +77,32 @@ const sliceText = (text: string | undefined, limit: number): string => {
 
 					@include resp(lg) {
 						border-radius: 4px 0 0 4px;
+					}
+				}
+
+				.svg-bg {
+					width: 100%;
+					height: 1.2rem;
+					position: absolute;
+					top: 0;
+					background: getColor(--bg-secondary-color, 0.5);
+					border-top-left-radius: 2px;
+
+					@include resp(lg) {
+						height: 1.8rem;
+						border-top-left-radius: 4px;
+					}
+
+					svg {
+						margin-left: 2px;
+						width: auto;
+						height: 1.2rem;
+						fill: var(--svgColor);
+
+						@include resp(lg) {
+							margin-left: 4px;
+							height: 1.8rem;
+						}
 					}
 				}
 			}

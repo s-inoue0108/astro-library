@@ -1,36 +1,45 @@
+// Component Colors
+$black: #000000;
+$white: #ffffff;
+$slate: #e8ecf1;
+$sten-white: #f3f3f3;
+$deep-gray: #090d18;
+$dark-gray: #111827;
+$shadow-gray: #cccccc;
+$navy: #000b29;
+$slate-300: #cbd5e1;
+$slate-400: #94a3b8;
+$gray-600: #4b5563;
+
+// Accent Colors
 $amber: #fbbf24;
 $orange: #fb923c;
 $rose: #fb7185;
 $sky: #0ea5e9;
 $violet: #a78bfa;
-$tropic-gradient: linear-gradient(90deg, $amber, $orange 50%, $rose);
-$tropic-gradient-to-above: linear-gradient(0deg, $amber, $orange 50%, $rose);
-$tropic-gradient-to-left: linear-gradient(-90deg, $amber, $orange 50%, $rose);
-$tropic-gradient-to-below: linear-gradient(180deg, $amber, $orange 50%, $rose);
+$emerald: #22c55e;
 
-$black: rgb(0, 0, 0);
-$white: rgb(255, 255, 255);
-$slate: rgb(232, 236, 241);
-$sten-white: rgb(243, 243, 243);
-$deep-gray: rgb(9, 13, 24);
-$dark-gray: rgb(17, 24, 39);
-$shadow-gray: #ccc;
-$navy: rgb(0, 11, 41);
-$slate-300: rgb(203, 213, 225);
-$slate-400: rgb(148, 163, 184);
-$gray-600: rgb(75, 85, 99);
-
-// HEX形式のカラーコードをRGBに変換
+// Hex to RGB
 @function hexToRgb($hex) {
 	@return red($hex), green($hex), blue($hex);
 }
 
-// CSS変数をRGBA関数で使えるようにする
-@function getColor($color_name, $alpha: 1) {
-	@return rgba(var(#{$color_name}), $alpha);
+// rgba wrapper
+@function getColor($color-name, $alpha: 1) {
+	@return rgba(var(#{$color-name}), $alpha);
 }
 
-// テーマ
+// gradient
+@function tropicGradient($angle, $alpha: 1) {
+	@return linear-gradient(
+		$angle,
+		rgba($amber, $alpha),
+		rgba($orange, $alpha) 50%,
+		rgba($rose, $alpha)
+	);
+}
+
+// Difine Themes
 $light-themes: (
 	bg-primary: $slate,
 	bg-secondary: $sten-white,
@@ -55,14 +64,14 @@ $dark-themes: (
 	theme: $amber,
 );
 
-// ライトテーマ
+// Light Theme
 .light {
 	@each $key, $color in $light-themes {
 		--#{$key}-color: #{hexToRgb($color)};
 	}
 }
 
-// ダークテーマ
+// Dark Theme
 .dark {
 	@each $key, $color in $dark-themes {
 		--#{$key}-color: #{hexToRgb($color)};

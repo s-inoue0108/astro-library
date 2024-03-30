@@ -269,7 +269,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 		.article-content {
 			h1 {
 				width: 100%;
-				border-image: $tropic-gradient 1;
+				border-image: tropicGradient(90deg) 1;
 				border-bottom: solid 4px;
 				padding-left: 0.4rem;
 				padding-bottom: 0.2rem;
@@ -295,7 +295,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 			}
 
 			h2 {
-				border-image: $tropic-gradient-to-above 1;
+				border-image: tropicGradient(0deg) 1;
 				border-left: solid 8px;
 				padding-left: 0.5rem;
 				font-size: 1.1rem;
@@ -437,12 +437,12 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 				flex-direction: column;
 				align-items: start;
 				gap: 1rem;
-				border: solid 1px #22c55e;
+				border: solid 1px $emerald;
 				border-left-width: 8px;
 
 				svg {
 					height: 1.5rem;
-					fill: #22c55e;
+					fill: $emerald;
 				}
 
 				@include resp(lg) {

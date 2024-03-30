@@ -4,19 +4,24 @@ import { categories } from "../../../lib/newt/instance";
 // Image
 import { Image } from "astro:assets";
 import ZennLogo from "../../../images/common/zenn-logo.svg";
+
+const date = new Date();
+const year = date.getFullYear();
 ---
 
 <nav class="menu-content">
 	<ul class="menu-links">
 		<li class="menu-link">
 			<a href="/blog/all/1">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.caretRight}>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox={svgViewBoxes.caretRight}
+					class="other-svgs"
+				>
 					<path d={svgPaths.caretRight}></path>
 				</svg>
 				<span>ブログ</span>
 			</a>
-		</li>
-		<li class="menu-link">
 			<ul class="categories">
 				{
 					categories &&
@@ -24,7 +29,11 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 							return (
 								<li class="category">
 									<a href={`/blog/category/${category.slug}/1`}>
-										<svg xmlns="http://www.w3.org/2000/svg" viewBox={category.svgViewBox}>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox={category.svgViewBox}
+											fill={category.themeColor}
+										>
 											<path d={category.svgIconPath} />
 										</svg>
 										<span>{category.name}</span>
@@ -35,7 +44,11 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 				}
 				<li class="category">
 					<a href={`/blog/search`}>
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.magnifyingGlass}>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox={svgViewBoxes.magnifyingGlass}
+							class="other-svgs"
+						>
 							<path d={svgPaths.magnifyingGlass}></path>
 						</svg>
 						<span>記事をさがす</span>
@@ -43,30 +56,46 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 				</li>
 			</ul>
 		</li>
+		<hr />
 		<li class="menu-link">
 			<a href="/profile">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.caretRight}>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox={svgViewBoxes.caretRight}
+					class="other-svgs"
+				>
 					<path d={svgPaths.caretRight}></path>
 				</svg>
 				<span>プロフィール</span>
 			</a>
 		</li>
+		<hr />
 		<li class="menu-link">
 			<a href="/privacy-policy">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.caretRight}>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox={svgViewBoxes.caretRight}
+					class="other-svgs"
+				>
 					<path d={svgPaths.caretRight}></path>
 				</svg>
 				<span>プライバシーポリシー</span>
 			</a>
 		</li>
+		<hr />
 		<li class="menu-link">
 			<a href="/contact">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.caretRight}>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox={svgViewBoxes.caretRight}
+					class="other-svgs"
+				>
 					<path d={svgPaths.caretRight}></path>
 				</svg>
 				<span>お問い合わせ</span>
 			</a>
 		</li>
+		<hr />
 	</ul>
 	<ul class="external-links">
 		<li class="external-link">
@@ -89,6 +118,9 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 			</a>
 		</li>
 	</ul>
+	<h6 class="copyright">
+		&copy; {year} Shota Inoue
+	</h6>
 </nav>
 
 <style lang="scss">
@@ -99,7 +131,7 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 		top: 0;
 		left: 0;
 		z-index: 100;
-		background: getColor(--bg-primary-color, 0.9);
+		background: getColor(--bg-primary-color, 0.95);
 		color: getColor(--text-primary-color);
 		padding: calc(36px + 1rem) 1.5rem;
 
@@ -116,12 +148,22 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 		display: flex;
 		flex-direction: column;
 		align-items: start;
-		gap: 1.6rem;
+		gap: 1.2rem;
+
+		@include resp(lg) {
+			flex-direction: row;
+			justify-content: space-around;
+			margin-top: 3rem;
+		}
 
 		.menu-link {
 			font-size: 1.5rem;
 			font-weight: 600;
 			letter-spacing: 1px;
+
+			@include resp(lg) {
+				font-size: 2rem;
+			}
 
 			a {
 				display: flex;
@@ -131,17 +173,15 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 				white-space: nowrap;
 
 				svg {
-					height: 100%;
-					fill: getColor(--text-primary-color);
+					height: 1.5rem;
+
+					@include resp(lg) {
+						height: 2rem;
+					}
 				}
 
-				&:active {
-					color: $rose;
-					transition: 0.2s ease;
-
-					svg {
-						fill: $rose;
-					}
+				.other-svgs {
+					fill: getColor(--text-primary-color);
 				}
 			}
 		}
@@ -150,25 +190,31 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 			display: flex;
 			flex-direction: column;
 			gap: 0.8rem;
-			padding-left: 2rem;
+			padding: 1rem 0 0 1rem;
+
+			@include resp(lg) {
+				gap: 2rem;
+				padding: 3rem 0 0 0;
+			}
 
 			.category {
 				display: inline-flex;
 				align-items: center;
-				gap: 0.5rem;
 				font-size: 1rem;
 				font-weight: 400;
 
-				svg {
-					width: 1rem;
+				@include resp(lg) {
+					font-size: 1.5rem;
+					letter-spacing: 2px;
 				}
 
-				a:active {
-					color: $rose;
-					transition: 0.2s ease;
+				svg {
+					width: 1rem;
+					max-height: 1rem;
 
-					svg {
-						fill: $rose;
+					@include resp(lg) {
+						width: 1.5rem;
+						max-height: 1.5rem;
 					}
 				}
 			}
@@ -178,7 +224,7 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 	.external-links {
 		position: absolute;
 		bottom: 1rem;
-		left: 1rem;
+		right: 1rem;
 
 		display: flex;
 		align-items: center;
@@ -208,6 +254,34 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 				height: 100%;
 				fill: getColor(--bg-inversion-color);
 			}
+		}
+	}
+
+	.copyright {
+		position: absolute;
+		bottom: 1rem;
+		left: 1rem;
+
+		font-size: 0.8rem;
+		font-weight: 300;
+		color: getColor(--text-primary-color);
+
+		@include resp(sm) {
+			font-size: 0.9rem;
+		}
+
+		@include resp(lg) {
+			font-size: 1rem;
+		}
+	}
+
+	hr {
+		width: 100vw;
+		margin-left: -1.5rem;
+		border: solid 0.5px getColor(--border-color);
+
+		@include resp(lg) {
+			display: none;
 		}
 	}
 </style>

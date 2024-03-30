@@ -289,7 +289,7 @@ const year = date.getFullYear();
 		left: 0;
 		width: 100vw;
 		height: 100vh;
-		background: $tropic-gradient-to-below;
+		background: tropicGradient(180deg);
 		z-index: 300;
 
 		.header-img {
@@ -327,7 +327,7 @@ const year = date.getFullYear();
 		font-weight: 700;
 		letter-spacing: 1.5px;
 		white-space: nowrap;
-		background-image: $tropic-gradient-to-above;
+		background-image: tropicGradient(0deg);
 		background-clip: text;
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
@@ -385,6 +385,7 @@ const year = date.getFullYear();
 	.copyright {
 		rotate: 180deg;
 		font-size: 0.8rem;
+		font-weight: 300;
 		color: getColor(--bg-primary-color);
 		position: absolute;
 		top: 1.5rem;

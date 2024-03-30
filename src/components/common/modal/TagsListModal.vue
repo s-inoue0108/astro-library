@@ -22,11 +22,11 @@ const getCategoryByName = (name: Category["name"]): Category | null => {
 	return category;
 };
 
-const bgColor = computed<Category["themeColor"] | "#fb7185">(() => {
+const bgColor = computed<Category["themeColor"] | "">(() => {
 	const category = getCategoryByName(selectedCategory.value);
 
 	if (!category) {
-		return "#fb7185";
+		return "";
 	}
 
 	return category.themeColor;
@@ -36,7 +36,7 @@ const svg = computed<{ path: Category["svgIconPath"]; viewBox: Category["svgView
 	const category = getCategoryByName(selectedCategory.value);
 
 	if (!category) {
-		return { path: svgPaths.penNib, viewBox: svgViewBoxes.penNib };
+		return { path: svgPaths.tags, viewBox: svgViewBoxes.tags };
 	}
 
 	return { path: category.svgIconPath, viewBox: category.svgViewBox };
@@ -97,13 +97,15 @@ const viewTags = computed<Tag[]>(() => {
 	font-size: 0.8rem;
 	font-weight: 500;
 	border-radius: 9999px;
-	background: v-bind(bgColor);
+	background: getColor(--bg-primary-color);
 	padding: 0.2rem 0.5rem;
 	margin-right: 5rem;
 	position: relative;
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
+	color: getColor(--text-secondary-color);
+	fill: getColor(--text-secondary-color);
 
 	label {
 		height: 100%;
@@ -113,17 +115,18 @@ const viewTags = computed<Tag[]>(() => {
 			align-items: center;
 			width: auto;
 			height: 0.8rem;
-			fill: getColor(--text-primary-color);
+			fill: v-bind(bgColor);
 		}
 	}
 
 	select {
-		background: v-bind(bgColor);
-		color: getColor(--text-primary-color);
+		background: getColor(--bg-primary-color);
+		color: v-bind(bgColor);
 		text-align-last: center;
 
 		option {
 			background: getColor(--bg-secondary-color);
+			color: getColor(--text-primary-color);
 		}
 	}
 }

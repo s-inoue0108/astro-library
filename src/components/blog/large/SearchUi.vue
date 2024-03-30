@@ -4,7 +4,6 @@ import { svgPaths, svgViewBoxes, type SvgMetadata } from "../../../lib/svg/paths
 import type { Article } from "../../../lib/newt/types";
 import { getSegments, fuseClient, type Segment } from "../../../lib/fusejs/instance";
 import type { FuseResult } from "fuse.js";
-import SvgButton from "../../common/buttons/Svg.vue";
 
 const keyword = ref<string>("");
 
@@ -90,34 +89,12 @@ const sliceText = (text: string | undefined, limit: number): string => {
 				<path :d="svgPaths.circleExclamation" />
 			</svg>
 			<h1>記事がありません</h1>
-			<div class="view-all-entries">
-				<SvgButton
-					title="記事一覧"
-					:is-link="true"
-					linkUrl="/blog/all/1"
-					:width-scale="4"
-					:svgIconPath="svgPaths.caretRight"
-					:svgViewBox="svgViewBoxes.caretRight"
-					:height-scale="0.8"
-				/>
-			</div>
 		</div>
 		<div class="no-hit" v-else>
 			<svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.magnifyingGlass">
 				<path :d="svgPaths.magnifyingGlass" />
 			</svg>
 			<h1>記事を検索</h1>
-			<div class="view-all-entries">
-				<SvgButton
-					title="記事一覧"
-					:is-link="true"
-					linkUrl="/blog/all/1"
-					:width-scale="4"
-					:svgIconPath="svgPaths.caretRight"
-					:svgViewBox="svgViewBoxes.caretRight"
-					:height-scale="0.8"
-				/>
-			</div>
 		</div>
 	</Transition>
 </template>
@@ -131,6 +108,12 @@ const sliceText = (text: string | undefined, limit: number): string => {
 	box-shadow: 0 3px 3px getColor(--shadow-color);
 	border-radius: 8px;
 
+	@include resp(lg) {
+		margin: auto;
+		width: 50%;
+		height: 48px;
+	}
+
 	input {
 		padding: 0 0.5rem;
 		width: 85%;
@@ -138,6 +121,10 @@ const sliceText = (text: string | undefined, limit: number): string => {
 		border: solid 2px getColor(--border-color);
 		border-right: none;
 		border-radius: 8px 0 0 8px;
+
+		@include resp(lg) {
+			font-size: 1.2rem;
+		}
 
 		&:focus {
 			border-color: $rose;
@@ -196,6 +183,12 @@ const sliceText = (text: string | undefined, limit: number): string => {
 	width: 100%;
 	margin-top: 2rem;
 
+	@include resp(lg) {
+		margin-top: 4rem;
+		padding: 0 3rem;
+		gap: 2rem;
+	}
+
 	li {
 		width: 100%;
 
@@ -205,6 +198,10 @@ const sliceText = (text: string | undefined, limit: number): string => {
 			display: block;
 			padding: 0.3rem 0;
 			border-bottom: solid 1px getColor(--border-color);
+
+			@include resp(lg) {
+				padding: 0.6rem 0;
+			}
 
 			&:active {
 				color: $rose;
@@ -219,12 +216,20 @@ const sliceText = (text: string | undefined, limit: number): string => {
 
 				.title {
 					font-weight: 700;
+
+					@include resp(lg) {
+						font-size: 1.2rem;
+					}
 				}
 
 				.description {
 					color: getColor(--text-secondary-color);
 					font-size: 0.7rem;
 					font-weight: 300;
+
+					@include resp(lg) {
+						font-size: 1rem;
+					}
 				}
 			}
 		}
@@ -233,9 +238,6 @@ const sliceText = (text: string | undefined, limit: number): string => {
 
 .no-hit {
 	width: 100%;
-	display: flex;
-	flex-direction: column;
-	gap: 2.4rem;
 
 	svg {
 		position: absolute;
@@ -245,6 +247,10 @@ const sliceText = (text: string | undefined, limit: number): string => {
 		width: 5rem;
 		height: auto;
 		fill: getColor(--text-secondary-color);
+
+		@include resp(lg) {
+			width: 8rem;
+		}
 	}
 
 	h1 {
@@ -257,16 +263,12 @@ const sliceText = (text: string | undefined, limit: number): string => {
 		font-weight: 700;
 		letter-spacing: 1px;
 		white-space: nowrap;
-	}
 
-	.view-all-entries {
-		position: absolute;
-		top: calc(50% + 10rem);
-		left: 50%;
-		transform: translate(-50%, -50%);
-		color: getColor(--text-secondary-color);
-
-		fill: getColor(--text-secondary-color);
+		@include resp(lg) {
+			margin-top: 3.2rem;
+			font-size: 3.2rem;
+			letter-spacing: 3px;
+		}
 	}
 }
 

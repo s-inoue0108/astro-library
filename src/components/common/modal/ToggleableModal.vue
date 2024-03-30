@@ -60,7 +60,6 @@ const toggleOpen = (): void => {
 
 <style scoped lang="scss">
 .modal {
-	border: solid 2px getColor(--border-color);
 	border-radius: 4px;
 	background: getColor(--bg-secondary-color);
 	padding: 0.5rem;
