@@ -21,11 +21,11 @@ const progressPercent = ref<number>(0);
 const circumference = 2 * Math.PI * radius;
 
 const progress = computed<number>(() => {
-	const calculated = 2 * Math.PI * (1 - progressPercent.value) * radius;
+	const val = 2 * Math.PI * (1 - progressPercent.value) * radius;
 	if (progressPercent.value > 1) {
 		return 0;
 	}
-	return calculated;
+	return val;
 });
 
 onMounted(() => {
@@ -49,9 +49,9 @@ onMounted(() => {
 		},
 	});
 
-	window.addEventListener("scroll", async () => {
+	const height = document.getElementById("article-content")!.scrollHeight;
+	window.addEventListener("scroll", () => {
 		const scrollAmount = window.scrollY;
-		const height = document.getElementById("article-content")!.scrollHeight;
 		progressPercent.value = scrollAmount / height;
 	});
 });
