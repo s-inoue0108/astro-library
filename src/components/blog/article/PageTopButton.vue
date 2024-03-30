@@ -29,6 +29,8 @@ const progress = computed<number>(() => {
 });
 
 onMounted(() => {
+	progressPercent.value = window.scrollY / document.getElementById("article-content")!.scrollHeight;
+
 	const articleContent = document.querySelector(".article-content");
 	const pageTopBtn = document.getElementById("page-top-btn");
 
@@ -78,6 +80,16 @@ onMounted(() => {
 	bottom: 8px;
 	right: 8px;
 
+	&:active {
+		fill-opacity: 0.5;
+		transition: 0.2s ease-in-out;
+	}
+
+	@include resp(lg) {
+		top: calc(5rem + 21px);
+		right: calc(25% + 8px + 21px);
+	}
+
 	.chevron {
 		position: absolute;
 		top: 50%;
@@ -85,7 +97,7 @@ onMounted(() => {
 		transform: translate(-50%, -50%);
 		width: 40%;
 		height: 40%;
-		fill: getColor(--theme-color);
+		fill: $rose;
 		z-index: 1001;
 	}
 
@@ -102,7 +114,7 @@ onMounted(() => {
 		.bar {
 			stroke-linecap: butt;
 			stroke-width: 16px;
-			stroke: getColor(--theme-color);
+			stroke: $rose;
 			stroke-dasharray: v-bind(circumference);
 			stroke-dashoffset: v-bind(progress);
 		}
