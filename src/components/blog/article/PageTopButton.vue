@@ -74,7 +74,7 @@ onMounted(() => {
 	width: 42px;
 	height: 42px;
 	border-radius: 9999px;
-	z-index: 1000;
+	z-index: 10;
 
 	position: fixed;
 	bottom: 8px;
@@ -98,7 +98,7 @@ onMounted(() => {
 		width: 40%;
 		height: 40%;
 		fill: $rose;
-		z-index: 1001;
+		z-index: 11;
 	}
 
 	.progress-bar {

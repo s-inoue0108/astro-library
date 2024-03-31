@@ -54,6 +54,14 @@ const year = date.getFullYear();
 						<span>記事をさがす</span>
 					</a>
 				</li>
+				<li class="category">
+					<a href={`/blog/links`}>
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.link} class="other-svgs">
+							<path d={svgPaths.link}></path>
+						</svg>
+						<span>開発リンク集</span>
+					</a>
+				</li>
 			</ul>
 		</li>
 		<hr />
@@ -148,7 +156,7 @@ const year = date.getFullYear();
 		display: flex;
 		flex-direction: column;
 		align-items: start;
-		gap: 1.2rem;
+		gap: 1rem;
 
 		@include resp(lg) {
 			flex-direction: row;
@@ -189,7 +197,7 @@ const year = date.getFullYear();
 		.categories {
 			display: flex;
 			flex-direction: column;
-			gap: 0.8rem;
+			gap: 0.7rem;
 			padding: 1rem 0 0 1rem;
 
 			@include resp(lg) {
@@ -201,7 +209,7 @@ const year = date.getFullYear();
 				display: inline-flex;
 				align-items: center;
 				font-size: 1rem;
-				font-weight: 400;
+				font-weight: 300;
 
 				@include resp(lg) {
 					font-size: 1.5rem;

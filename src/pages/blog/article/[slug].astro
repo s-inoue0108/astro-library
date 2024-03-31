@@ -252,11 +252,11 @@ const sideArticles = await getSideArticlesBySlug(articles, article.slug);
 		align-items: center;
 		gap: 1rem;
 		width: 100%;
-		margin: 2.5rem 0;
+		margin: 2.5rem 0 10rem 0;
 
 		@include resp(lg) {
 			gap: 1.2rem;
-			margin: 4rem 0;
+			margin: 4rem 0 16rem 0;
 		}
 
 		li {
@@ -268,10 +268,11 @@ const sideArticles = await getSideArticlesBySlug(articles, article.slug);
 		width: 100%;
 		height: calc(160px + 1rem);
 		position: relative;
-		margin-top: 3rem;
+		margin-top: 6rem;
 
 		@include resp(lg) {
 			height: 92px;
+			margin-top: 10rem;
 		}
 
 		.prev-article {
