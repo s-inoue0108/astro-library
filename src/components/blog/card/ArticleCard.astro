@@ -26,9 +26,9 @@ const sliceText = (text: string | undefined, limit: number): string => {
 ---
 
 <a href={`/blog/article/${slug}`} class="card">
-	<div class="thambnail">
+	<figure class="thambnail">
 		{thambnail ? <Image src={thambnail.src} width={thambnail.width} height={thambnail.height} alt={thambnail?.altText ?? ""} /> : <Image src={NoImage} alt="No Image" />}
-	</div>
+	</figure>
 	<ul class="info">
 		<li class="title">
 			<h1>{sliceText(title, 30)}</h1>

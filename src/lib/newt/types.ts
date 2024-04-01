@@ -44,6 +44,13 @@ export interface Tag extends CommonProps {
 	parentCategory: Category;
 }
 
+export interface DevLink extends CommonProps {
+	title: string;
+	href: string;
+	description?: string;
+	icon?: NewtImageProps;
+}
+
 export interface Article extends CommonProps {
 	title: string;
 	slug: string;

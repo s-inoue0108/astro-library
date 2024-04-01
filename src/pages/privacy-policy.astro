@@ -1,11 +1,22 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import PageTitle from "../components/blog/background/PageTitle.astro";
+import PageTitleForPc from "../components/blog/background/PageTitleForPc.astro";
+import { svgPaths, svgViewBoxes } from "../lib/svg/paths";
 ---
 
 <Layout
 	title={`プライバシーポリシー | ${import.meta.env.APP_NAME}`}
 	description="プライバシーポリシー"
 >
-	<PageTitle title="プライバシーポリシー" />
+	<PageTitle
+		title="プライバシーポリシー"
+		svgIconPath={svgPaths.circleInfo}
+		svgViewBox={svgViewBoxes.circleInfo}
+	/>
+	<PageTitleForPc
+		title="プライバシーポリシー"
+		svgIconPath={svgPaths.circleInfo}
+		svgViewBox={svgViewBoxes.circleInfo}
+	/>
 </Layout>

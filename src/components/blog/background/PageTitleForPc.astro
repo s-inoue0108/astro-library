@@ -11,9 +11,12 @@ interface Props {
 	svgViewBox?: string;
 	iconImage?: NewtImageProps;
 	bgImage?: NewtImageProps;
+	marginRem?: number;
 }
 
-const { title, svgIconPath, svgViewBox, iconImage, bgImage } = Astro.props;
+const { title, svgIconPath, svgViewBox, iconImage, bgImage, marginRem } = Astro.props;
+
+const margin = marginRem && marginRem !== 0 ? `${marginRem}rem` : "0";
 ---
 
 <div class="page-title">
@@ -81,7 +84,7 @@ const { title, svgIconPath, svgViewBox, iconImage, bgImage } = Astro.props;
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" define:vars={{ margin }}>
 	.page-title {
 		position: relative;
 		margin-top: 1rem;
@@ -91,12 +94,12 @@ const { title, svgIconPath, svgViewBox, iconImage, bgImage } = Astro.props;
 		display: none;
 
 		@include resp(lg) {
-			width: calc(100% - 2rem);
+			width: calc(100% - var(--margin));
 			display: block;
 		}
 
 		@include resp(xl) {
-			width: calc(100% - 4rem);
+			width: calc(100% - 2 * var(--margin));
 		}
 
 		.bg-image-pc {

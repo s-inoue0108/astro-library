@@ -1,0 +1,94 @@
+---
+// Image
+import { Image } from "astro:assets";
+import type { DevLink } from "../../../lib/newt/types";
+import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
+
+interface Props {
+	link: DevLink;
+}
+
+const { link } = Astro.props;
+const { title, href, description, icon } = link;
+---
+
+<a href={href} target="_blank" rel="noopener noreferrer" class="card">
+	<figure class="icon">
+		{
+			icon ? (
+				<Image src={icon.src} width={icon.width} height={icon.height} alt={icon.altText} />
+			) : (
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.link}>
+					<path d={svgPaths.link} />
+				</svg>
+			)
+		}
+	</figure>
+	<div class="info">
+		<h1 class="title">
+			{title}
+		</h1>
+		<p class="description">
+			{description}
+		</p>
+	</div>
+</a>
+
+<style lang="scss">
+	.card {
+		display: flex;
+		justify-content: space-between;
+
+		&:active {
+			opacity: 0.5;
+			transition: 0.3s ease;
+		}
+
+		width: 100%;
+		height: 128px;
+		background: getColor(--bg-secondary-color);
+		border: solid 1px getColor(--border-color);
+		border-radius: 4px;
+
+		figure {
+			width: 30%;
+			height: 100%;
+			background: getColor(--border-color);
+			position: relative;
+
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+
+			svg {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 80%;
+				max-height: 80%;
+				fill: getColor(--bg-secondary-color);
+			}
+		}
+
+		.info {
+			padding: 0.5rem;
+			width: 70%;
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
+
+			.title {
+				font-size: 1.2rem;
+				font-weight: 700;
+				letter-spacing: 0.5px;
+			}
+
+			.description {
+				color: getColor(--text-secondary-color);
+			}
+		}
+	}
+</style>

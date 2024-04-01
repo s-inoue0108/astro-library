@@ -11,6 +11,7 @@ import { getArticles, getCategories } from "../../../../lib/newt/client";
 import type { Article, Category } from "../../../../lib/newt/types";
 import type { Page, GetStaticPathsOptions } from "astro";
 import PageTitleForPc from "../../../../components/blog/background/PageTitleForPc.astro";
+import { svgPaths, svgViewBoxes } from "../../../../lib/svg/paths";
 
 export const getStaticPaths = async ({
 	paginate,
@@ -52,8 +53,19 @@ const { page, category } = Astro.props;
 >
 	<div id="contents">
 		<section id="articles">
-			<PageTitleForPc title={category.name} bgImage={category.image} />
-			<PageTitle title={category.name} bgImage={category.image} />
+			<PageTitleForPc
+				title={category.name}
+				bgImage={category.image}
+				svgIconPath={category.svgIconPath}
+				svgViewBox={category.svgViewBox}
+				marginRem={2}
+			/>
+			<PageTitle
+				title={category.name}
+				bgImage={category.image}
+				svgIconPath={category.svgIconPath}
+				svgViewBox={category.svgViewBox}
+			/>
 			<CategoriesNavBar />
 			<ArticleCards articles={page.data} />
 			<Pager page={page} />

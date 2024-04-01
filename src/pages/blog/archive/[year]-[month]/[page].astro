@@ -11,6 +11,7 @@ import { getArticles } from "../../../../lib/newt/client";
 import type { Article } from "../../../../lib/newt/types";
 import type { Page, GetStaticPathsOptions } from "astro";
 import PageTitleForPc from "../../../../components/blog/background/PageTitleForPc.astro";
+import { svgPaths, svgViewBoxes } from "../../../../lib/svg/paths";
 
 export const getStaticPaths = async ({
 	paginate,
@@ -69,8 +70,17 @@ const { page, year, month } = Astro.props;
 >
 	<div id="contents">
 		<section id="articles">
-			<PageTitleForPc title={`${year}年${month}月`} />
-			<PageTitle title={`${year}年${month}月`} />
+			<PageTitleForPc
+				title={`${year}年${month}月`}
+				svgIconPath={svgPaths.calendar}
+				svgViewBox={svgViewBoxes.calendar}
+				marginRem={2}
+			/>
+			<PageTitle
+				title={`${year}年${month}月`}
+				svgIconPath={svgPaths.calendar}
+				svgViewBox={svgViewBoxes.calendar}
+			/>
 			<CategoriesNavBar />
 			<ArticleCards articles={page.data} />
 			<Pager page={page} />

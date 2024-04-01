@@ -1,5 +1,5 @@
 import { createClient } from "newt-client-js";
-import type { Article, Category, RawArticle, Tag } from "../newt/types";
+import type { Article, Category, RawArticle, Tag, DevLink } from "../newt/types";
 
 // Newt Client
 const newtClient = createClient({
@@ -39,8 +39,7 @@ export const getArticles = async (
 		});
 		return articles;
 	} catch (err) {
-		console.error(err);
-		return null;
+		throw err;
 	}
 };
 
@@ -68,8 +67,7 @@ export const getRawArticles = async (
 		});
 		return articles;
 	} catch (err) {
-		console.error(err);
-		return null;
+		throw err;
 	}
 };
 
@@ -86,8 +84,7 @@ export const getCategories = async (depth: 0 | 1 | 2 = 2): Promise<Category[] | 
 		});
 		return categories;
 	} catch (err) {
-		console.error(err);
-		return null;
+		throw err;
 	}
 };
 
@@ -104,8 +101,24 @@ export const getTags = async (depth: 0 | 1 | 2 = 2): Promise<Tag[] | null> => {
 		});
 		return tags;
 	} catch (err) {
-		console.error(err);
-		return null;
+		throw err;
+	}
+};
+
+// Get Dev Links
+export const getDevLinks = async (depth: 0 | 1 | 2 = 2): Promise<DevLink[] | null> => {
+	try {
+		const { items: links } = await newtClient.getContents<DevLink>({
+			appUid: "blog",
+			modelUid: "link",
+			query: {
+				order: ["_sys.customOrder"],
+				depth: depth,
+			},
+		});
+		return links;
+	} catch (err) {
+		throw err;
 	}
 };
 
@@ -125,8 +138,7 @@ export const getCategoryBySlug = async (
 		});
 		return category;
 	} catch (err) {
-		console.error(err);
-		return null;
+		throw err;
 	}
 };
 
@@ -149,8 +161,7 @@ export const getTagsBySlugs = async (
 		});
 		return tags;
 	} catch (err) {
-		console.error(err);
-		return null;
+		throw err;
 	}
 };
 
@@ -170,7 +181,6 @@ export const getPreviewBySlug = async (
 		});
 		return article;
 	} catch (err) {
-		console.error(err);
-		return null;
+		throw err;
 	}
 };
