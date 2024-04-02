@@ -12,6 +12,7 @@ import type { Article } from "../../../lib/newt/types";
 import type { Page, GetStaticPathsOptions } from "astro";
 import PageTitleForPc from "../../../components/blog/background/PageTitleForPc.astro";
 import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
+import CategoriesListModal from "../../../components/common/modal/CategoriesListModal.vue";
 
 export const getStaticPaths = async ({
 	paginate,
@@ -59,6 +60,7 @@ const { page } = Astro.props;
 			<Pager page={page} />
 		</section>
 		<section id="sidebar">
+			<CategoriesListModal categories={categories} tags={tags} articles={articles} client:visible />
 			<TagsListModal categories={categories} tags={tags} client:visible />
 			<ArchivesListModal articles={articles} client:visible />
 		</section>

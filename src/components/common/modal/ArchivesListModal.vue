@@ -99,6 +99,7 @@ const existMonthsAndExistence = computed<{ month: number; exist: boolean }[]>(()
 	margin-right: 4rem;
 	position: relative;
 	display: flex;
+
 	align-items: center;
 	gap: 0.5rem;
 
@@ -115,6 +116,7 @@ const existMonthsAndExistence = computed<{ month: number; exist: boolean }[]>(()
 	}
 
 	select {
+		cursor: pointer;
 		padding: 0 1rem;
 		background: getColor(--bg-primary-color);
 		color: getColor(--text-secondary-color);

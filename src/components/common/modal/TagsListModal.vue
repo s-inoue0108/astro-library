@@ -36,7 +36,7 @@ const svg = computed<{ path: Category["svgIconPath"]; viewBox: Category["svgView
 	const category = getCategoryByName(selectedCategory.value);
 
 	if (!category) {
-		return { path: svgPaths.tags, viewBox: svgViewBoxes.tags };
+		return { path: svgPaths.filter, viewBox: svgViewBoxes.filter };
 	}
 
 	return { path: category.svgIconPath, viewBox: category.svgViewBox };
@@ -120,6 +120,7 @@ const viewTags = computed<Tag[]>(() => {
 	}
 
 	select {
+		cursor: pointer;
 		background: getColor(--bg-primary-color);
 		color: v-bind(bgColor);
 		text-align-last: center;
