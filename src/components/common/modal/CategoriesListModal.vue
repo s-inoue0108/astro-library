@@ -10,7 +10,7 @@ interface Props {
 	tags?: Tag[] | null;
 }
 
-const selectedTerm = ref<string>("デフォルト");
+const selectedTerm = ref<"デフォルト" | "タグ数順" | "記事数順">("デフォルト");
 
 const { categories, articles, tags } = defineProps<Props>();
 
@@ -131,6 +131,7 @@ watchEffect(() => {
 				gap: 1rem;
 				color: getColor(--text-primary-color);
 				letter-spacing: 1px;
+				white-space: nowrap;
 
 				svg {
 					width: auto;
