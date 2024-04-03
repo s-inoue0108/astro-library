@@ -1,22 +1,24 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import ArticleLayout from "../layouts/ArticleLayout.astro";
 import PageTitle from "../components/blog/background/PageTitle.astro";
 import PageTitleForPc from "../components/blog/background/PageTitleForPc.astro";
 import { svgPaths, svgViewBoxes } from "../lib/svg/paths";
+
+import { Content } from "../components/markdown/site-policy.md";
 ---
 
-<Layout
-	title={`プライバシーポリシー | ${import.meta.env.APP_NAME}`}
-	description="プライバシーポリシー"
->
+<ArticleLayout title={`サイトポリシー | ${import.meta.env.APP_NAME}`} description="サイトポリシー">
 	<PageTitle
-		title="プライバシーポリシー"
+		title="サイトポリシー"
 		svgIconPath={svgPaths.circleInfo}
 		svgViewBox={svgViewBoxes.circleInfo}
 	/>
 	<PageTitleForPc
-		title="プライバシーポリシー"
+		title="サイトポリシー"
 		svgIconPath={svgPaths.circleInfo}
 		svgViewBox={svgViewBoxes.circleInfo}
 	/>
-</Layout>
+	<div class="article-content">
+		<Content />
+	</div>
+</ArticleLayout>

@@ -22,9 +22,7 @@ export const getStaticPaths = async ({
 	const tags = await getTags();
 	const articles = await getArticles();
 
-	if (!tags || tags.length <= 0 || !articles || articles.length <= 0) {
-		return null;
-	}
+	if (!tags || tags.length <= 0 || !articles || articles.length <= 0) return;
 
 	const routes = tags.flatMap((tag) => {
 		const filteredArticles = articles.filter((article) => {

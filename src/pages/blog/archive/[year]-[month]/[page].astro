@@ -21,9 +21,7 @@ export const getStaticPaths = async ({
 }) => {
 	const articles = await getArticles();
 
-	if (!articles || articles.length <= 0) {
-		return null;
-	}
+	if (!articles || articles.length <= 0) return;
 
 	// publishedAtを取得
 	const pubDates = articles.map((article) => {
@@ -48,7 +46,7 @@ export const getStaticPaths = async ({
 		});
 		return paginate(filteredArticles, {
 			params: { year: date.year.toString(), month: date.month.toString() },
-			pageSize: 1,
+			pageSize: 12,
 			props: { year: date.year, month: date.month },
 		});
 	});

@@ -64,6 +64,13 @@ const { direction, article } = Astro.props;
 			transition: .2s ease;
 		}
 
+		@include resp(lg) {
+			&:hover {
+				opacity: 0.5;
+				transition: 0.2s all;
+			}
+		}
+
 		.title {
 			padding: 4px;
 			width: calc(100% - 80px - 32px);

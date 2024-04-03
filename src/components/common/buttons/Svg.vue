@@ -94,6 +94,13 @@ button {
 		transition: 0.3s ease;
 	}
 
+	@include resp(lg) {
+		&:hover {
+			opacity: 0.5;
+			transition: 0.3s all;
+		}
+	}
+
 	.ring {
 		position: relative;
 		border: solid 2px getColor(--border-color);

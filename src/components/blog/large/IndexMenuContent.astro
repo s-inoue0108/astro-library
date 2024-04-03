@@ -23,11 +23,11 @@ import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 				</a>
 			</li>
 			<li class="menu-link">
-				<a href="/privacy-policy">
+				<a href="/document/1">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.caretRight}>
 						<path d={svgPaths.caretRight}></path>
 					</svg>
-					<span>プライバシーポリシー</span>
+					<span>ドキュメント</span>
 				</a>
 			</li>
 			<li class="menu-link">
@@ -36,6 +36,14 @@ import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 						<path d={svgPaths.caretRight}></path>
 					</svg>
 					<span>お問い合わせ</span>
+				</a>
+			</li>
+			<li class="menu-link-mini">
+				<a href="/site-policy">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.circleInfo}>
+						<path d={svgPaths.circleInfo}></path>
+					</svg>
+					<span>サイトポリシー</span>
 				</a>
 			</li>
 		</ul>
@@ -74,8 +82,9 @@ import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 		letter-spacing: 1px;
 
 		@include resp(lg) {
-			top: calc(230px - 8rem);
-			font-size: 8rem;
+			top: calc(230px - 6rem);
+			font-size: 6rem;
+			letter-spacing: 4px;
 		}
 	}
 
@@ -97,7 +106,7 @@ import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 			@include resp(lg) {
 				flex-direction: row;
 				justify-content: space-around;
-				margin-top: 3rem;
+				margin-top: 5rem;
 			}
 
 			.menu-link {
@@ -116,6 +125,18 @@ import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 					height: 1.5rem;
 					white-space: nowrap;
 
+					&:active {
+						opacity: 0.5;
+						transition: 0.2s ease;
+					}
+
+					@include resp(lg) {
+						&:hover {
+							opacity: 0.5;
+							transition: 0.2s all;
+						}
+					}
+
 					svg {
 						height: 1.5rem;
 						fill: getColor(--text-primary-color);
@@ -123,6 +144,43 @@ import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 						@include resp(lg) {
 							height: 2rem;
 						}
+					}
+				}
+			}
+
+			.menu-link-mini a {
+				font-size: 1rem;
+				font-weight: 300;
+				letter-spacing: 0.5px;
+				color: getColor(--text-secondary-color);
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5rem;
+
+				&:active {
+					opacity: 0.5;
+					transition: 0.2s ease;
+				}
+
+				svg {
+					width: auto;
+					height: 0.9rem;
+					fill: getColor(--text-secondary-color);
+				}
+
+				@include resp(lg) {
+					font-size: 1.3rem;
+					position: fixed;
+					bottom: 240px;
+					left: 2rem;
+
+					&:hover {
+						opacity: 0.5;
+						transition: 0.2s all;
+					}
+
+					svg {
+						height: 1.2rem;
 					}
 				}
 			}

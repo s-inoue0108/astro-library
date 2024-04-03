@@ -1,7 +1,7 @@
 ---
 export const prerender = false;
 
-import ReadmeLayout from "../layouts/ReadmeLayout.astro";
+import ArticleLayout from "../layouts/ArticleLayout.astro";
 
 // README
 import { Content as README } from "../../README.md";
@@ -15,8 +15,8 @@ if (
 }
 ---
 
-<ReadmeLayout title={`README | ${import.meta.env.APP_NAME}`} description="README">
-	<article id="readme">
+<ArticleLayout title={`README | ${import.meta.env.APP_NAME}`} description="README">
+	<article class="article-content">
 		<README />
 	</article>
-</ReadmeLayout>
+</ArticleLayout>

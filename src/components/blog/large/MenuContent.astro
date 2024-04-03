@@ -4,9 +4,6 @@ import { categories } from "../../../lib/newt/instance";
 // Image
 import { Image } from "astro:assets";
 import ZennLogo from "../../../images/common/zenn-logo.svg";
-
-const date = new Date();
-const year = date.getFullYear();
 ---
 
 <nav class="menu-content">
@@ -79,7 +76,7 @@ const year = date.getFullYear();
 		</li>
 		<hr />
 		<li class="menu-link">
-			<a href="/privacy-policy">
+			<a href="/document/1">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox={svgViewBoxes.caretRight}
@@ -87,7 +84,7 @@ const year = date.getFullYear();
 				>
 					<path d={svgPaths.caretRight}></path>
 				</svg>
-				<span>プライバシーポリシー</span>
+				<span>ドキュメント</span>
 			</a>
 		</li>
 		<hr />
@@ -126,9 +123,7 @@ const year = date.getFullYear();
 			</a>
 		</li>
 	</ul>
-	<h6 class="copyright">
-		&copy; {year} Shota Inoue
-	</h6>
+	<a href="/site-policy" class="site-policy"> サイトポリシー </a>
 </nav>
 
 <style lang="scss">
@@ -139,7 +134,7 @@ const year = date.getFullYear();
 		top: 0;
 		left: 0;
 		z-index: 100;
-		background: getColor(--bg-primary-color, 0.95);
+		background: getColor(--bg-secondary-color, 0.95);
 		color: getColor(--text-primary-color);
 		padding: calc(36px + 1rem) 1.5rem;
 
@@ -180,6 +175,18 @@ const year = date.getFullYear();
 				height: 1.5rem;
 				white-space: nowrap;
 
+				&:active {
+					opacity: 0.5;
+					transition: 0.2s ease;
+				}
+
+				@include resp(lg) {
+					&:hover {
+						opacity: 0.5;
+						transition: 0.2s all;
+					}
+				}
+
 				svg {
 					height: 1.5rem;
 
@@ -209,11 +216,21 @@ const year = date.getFullYear();
 				display: inline-flex;
 				align-items: center;
 				font-size: 1rem;
-				font-weight: 300;
+				font-weight: 400;
+				color: getColor(--text-secondary-color);
 
 				@include resp(lg) {
 					font-size: 1.5rem;
 					letter-spacing: 2px;
+				}
+
+				a {
+					@include resp(lg) {
+						&:hover {
+							transform: translateX(-20px);
+							transition: 0.2s all;
+						}
+					}
 				}
 
 				svg {
@@ -246,9 +263,19 @@ const year = date.getFullYear();
 			width: 1.2rem;
 			height: 1.2rem;
 
+			&:active {
+				opacity: 0.5;
+				transition: 0.2s ease;
+			}
+
 			@include resp(lg) {
 				width: 2rem;
 				height: 2rem;
+
+				&:hover {
+					opacity: 0.5;
+					transition: 0.2s all;
+				}
 			}
 
 			img {
@@ -265,14 +292,18 @@ const year = date.getFullYear();
 		}
 	}
 
-	.copyright {
+	.site-policy {
 		position: absolute;
-		bottom: 0.5rem;
+		bottom: 0.6rem;
 		left: 1rem;
-
 		font-size: 0.8rem;
 		font-weight: 300;
-		color: getColor(--text-primary-color);
+		color: getColor(--text-secondary-color);
+
+		&:active {
+			opacity: 0.5;
+			transition: 0.2s ease;
+		}
 
 		@include resp(sm) {
 			font-size: 0.9rem;
@@ -280,6 +311,11 @@ const year = date.getFullYear();
 
 		@include resp(lg) {
 			font-size: 1rem;
+
+			&:hover {
+				opacity: 0.5;
+				transition: 0.2s all;
+			}
 		}
 	}
 

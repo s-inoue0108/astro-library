@@ -1,0 +1,87 @@
+---
+import type { DocumentFile } from "../../../lib/newt/types";
+import { svgPaths, svgViewBoxes, type SvgMetadata } from "../../../lib/svg/paths";
+
+interface Props {
+	doc: DocumentFile;
+}
+
+const { doc } = Astro.props;
+const { file, title } = doc;
+
+const getSvgByFileTypes = (fileType: string): SvgMetadata => {
+	if (fileType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+		// Word
+		return { path: svgPaths.fileWord, viewBox: svgViewBoxes.fileWord };
+	} else if (fileType === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+		// Excel
+		return { path: svgPaths.fileExcel, viewBox: svgViewBoxes.fileExcel };
+	} else if (
+		fileType === "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+	) {
+		// PowerPoint
+		return { path: svgPaths.filePowerpoint, viewBox: svgViewBoxes.filePowerpoint };
+	} else if (fileType === "text/csv") {
+		// CSV
+		return { path: svgPaths.fileCsv, viewBox: svgViewBoxes.fileCsv };
+	} else if (fileType === "application/pdf") {
+		// PDF
+		return { path: svgPaths.filePdf, viewBox: svgViewBoxes.filePdf };
+	}
+	// Others
+	return { path: svgPaths.file, viewBox: svgViewBoxes.file };
+};
+
+const fileSvg = getSvgByFileTypes(file.fileType);
+---
+
+<div class="doc">
+	<svg xmlns="http://www.w3.org/2000/svg" class="chevron" viewBox={fileSvg.viewBox}>
+		<path d={fileSvg.path}></path>
+	</svg>
+	<a href={file.src} target="_blank" rel="noopener noreferrer">
+		{title}
+	</a>
+</div>
+
+<style lang="scss">
+	.doc {
+		width: max-content;
+		display: inline-flex;
+		align-items: center;
+
+		@include resp(lg) {
+			font-size: 1.5rem;
+		}
+
+		svg {
+			width: 1.2rem;
+			height: 1.2rem;
+			fill: getColor(--text-secondary-color);
+
+			@include resp(lg) {
+				width: 1.7rem;
+				height: 1.7rem;
+			}
+		}
+
+		a {
+			padding-left: 0.5rem;
+			letter-spacing: 0.5px;
+			color: $sky;
+
+			@include resp(lg) {
+				padding-left: 1rem;
+				letter-spacing: 1px;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+
+			&:visited {
+				color: $violet;
+			}
+		}
+	}
+</style>

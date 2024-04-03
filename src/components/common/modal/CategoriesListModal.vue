@@ -79,12 +79,6 @@ watchEffect(() => {
 				<li v-for="category in refCategories" :key="category._id" class="category">
 					<a :href="`/blog/category/${category.slug}/1`">
 						<div class="name">
-							<svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.caretRight">
-								<path :d="svgPaths.caretRight"></path>
-							</svg>
-							<span>{{ category.name }}</span>
-						</div>
-						<div class="stats">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								:viewBox="category.svgViewBox"
@@ -92,12 +86,15 @@ watchEffect(() => {
 							>
 								<path :d="category.svgIconPath"></path>
 							</svg>
-							<span v-if="selectedTerm === '記事数順'"
-								>{{ getNumberOfArticles(category.slug) }}記事</span
-							>
-							<span v-else-if="selectedTerm === 'タグ数順'"
-								>{{ getNumberOfTags(category.slug) }}タグ</span
-							>
+							<span>{{ category.name }}</span>
+						</div>
+						<div class="stats">
+							<span v-if="selectedTerm === '記事数順'">
+								{{ getNumberOfArticles(category.slug) }} 記事
+							</span>
+							<span v-else-if="selectedTerm === 'タグ数順'">
+								{{ getNumberOfTags(category.slug) }} タグ
+							</span>
 						</div>
 					</a>
 					<hr />
@@ -125,18 +122,26 @@ watchEffect(() => {
 			width: 100%;
 			height: 100%;
 
+			@include resp(lg) {
+				&:hover {
+					opacity: 0.5;
+					transition: 0.2s all;
+				}
+			}
+
 			.name {
 				display: inline-flex;
 				align-items: center;
 				gap: 1rem;
 				color: getColor(--text-primary-color);
+				font-weight: 500;
 				letter-spacing: 1px;
 				white-space: nowrap;
 
 				svg {
-					width: auto;
-					height: 70%;
-					fill: getColor(--text-primary-color);
+					width: 1.2rem;
+					max-height: 1.2rem;
+					height: auto;
 				}
 			}
 
@@ -145,12 +150,6 @@ watchEffect(() => {
 				align-items: center;
 				gap: 1rem;
 				color: getColor(--text-secondary-color);
-
-				svg {
-					width: 0.8rem;
-					height: auto;
-					max-height: 1rem;
-				}
 			}
 		}
 	}

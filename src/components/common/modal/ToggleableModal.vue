@@ -107,12 +107,22 @@ const toggleOpen = (): void => {
 
 			@include resp(lg) {
 				width: 1.6rem;
+
+				&:hover {
+					opacity: 0.5;
+					transition: 0.2s ease;
+				}
 			}
 
 			svg {
 				width: 100%;
 				height: 100%;
 				fill: getColor(--border-color);
+			}
+
+			&:active {
+				opacity: 0.5;
+				transition: 0.2s ease;
 			}
 		}
 	}

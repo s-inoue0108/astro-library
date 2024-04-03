@@ -53,6 +53,15 @@ const themeColor = computed<string>(() => {
 		transition: 0.3s ease;
 	}
 
+	a {
+		@include resp(lg) {
+			&:hover {
+				opacity: 0.5;
+				transition: 0.2s all;
+			}
+		}
+	}
+
 	img {
 		height: 0.8rem;
 		object-fit: contain;

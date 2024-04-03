@@ -85,6 +85,13 @@ button {
 		transition: 0.3s ease;
 	}
 
+	@include resp(lg) {
+		&:hover {
+			opacity: 0.5;
+			transition: 0.3s ease;
+		}
+	}
+
 	@include resp(sm) {
 		width: calc(30px * v-bind(scale));
 		height: calc(30px * v-bind(scale));

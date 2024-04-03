@@ -140,6 +140,18 @@ const misskeyLink = `https://misskey-hub.net/share/?text=${text}&url=${url}&visi
 			width: max-content;
 			padding: 0.2rem 0;
 
+			&:active {
+				opacity: 0.5;
+				transition: 0.2s ease;
+			}
+
+			@include resp(lg) {
+				&:hover {
+					opacity: 0.5;
+					transition: 0.2s ease;
+				}
+			}
+
 			svg {
 				width: auto;
 				height: 1.5rem;

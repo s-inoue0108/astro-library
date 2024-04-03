@@ -159,6 +159,13 @@ onMounted(async () => {
 				text-decoration: underline;
 				transition: 0.2s ease;
 			}
+
+			@include resp(lg) {
+				&:hover {
+					text-decoration: underline;
+					transition: 0.2s ease;
+				}
+			}
 		}
 	}
 }

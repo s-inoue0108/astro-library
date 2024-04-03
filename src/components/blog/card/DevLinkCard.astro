@@ -44,6 +44,13 @@ const { title, href, description, icon } = link;
 			transition: 0.3s ease;
 		}
 
+		@include resp(lg) {
+			&:hover {
+				opacity: 0.5;
+				transition: 0.3s all;
+			}
+		}
+
 		width: 100%;
 		height: 128px;
 		background: getColor(--bg-secondary-color);

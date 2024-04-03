@@ -60,6 +60,13 @@ const svgColor = category.themeColor;
 			transition: 0.2s ease;
 		}
 
+		@include resp(lg) {
+			&:hover {
+				opacity: 0.5;
+				transition: 0.2s all;
+			}
+		}
+
 		.info {
 			display: flex;
 			width: 100%;

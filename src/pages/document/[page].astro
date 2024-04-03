@@ -1,0 +1,92 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageTitle from "../../components/blog/background/PageTitle.astro";
+import PageTitleForPc from "../../components/blog/background/PageTitleForPc.astro";
+import { svgPaths, svgViewBoxes } from "../../lib/svg/paths";
+import { getDocFiles } from "../../lib/newt/client";
+import type { Page, GetStaticPathsOptions } from "astro";
+import Pager from "../../components/blog/background/Pager.vue";
+import type { DocumentFile } from "../../lib/newt/types";
+import NoContent from "../../components/blog/background/NoContent.astro";
+import DocumentLinkCard from "../../components/blog/card/DocumentLinkCard.astro";
+
+export const getStaticPaths = async ({
+	paginate,
+}: {
+	paginate: GetStaticPathsOptions["paginate"];
+}) => {
+	const docs = await getDocFiles();
+
+	if (!docs || docs.length <= 0) return;
+
+	const routes = docs.flatMap((doc) => {
+		return paginate(docs, {
+			pageSize: 20,
+			props: { doc },
+		});
+	});
+	return routes;
+};
+
+// Props
+interface Props {
+	page: Page<DocumentFile>;
+}
+
+const { page } = Astro.props;
+---
+
+<Layout
+	title={`ドキュメント | ${import.meta.env.APP_NAME}`}
+	description="ドキュメントを公開しています"
+>
+	<PageTitle title="ドキュメント" svgIconPath={svgPaths.folder} svgViewBox={svgViewBoxes.folder} />
+	<PageTitleForPc
+		title="ドキュメント"
+		svgIconPath={svgPaths.folder}
+		svgViewBox={svgViewBoxes.folder}
+	/>
+	<section id="doc-links">
+		<ul class="links">
+			{
+				page.data && page.data.length > 0 ? (
+					page.data.map((doc) => {
+						return (
+							<li>
+								<DocumentLinkCard doc={doc} />
+							</li>
+						);
+					})
+				) : (
+					<NoContent
+						message="エントリがありません"
+						svgIconPath={svgPaths.folder}
+						svgViewBox={svgViewBoxes.folder}
+					/>
+				)
+			}
+		</ul>
+	</section>
+	<Pager page={page} />
+</Layout>
+
+<style lang="scss">
+	#doc-links {
+		margin-top: 1rem;
+
+		.links {
+			width: max-content;
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+
+			@include resp(lg) {
+				gap: 2rem;
+			}
+
+			li {
+				width: 100%;
+			}
+		}
+	}
+</style>

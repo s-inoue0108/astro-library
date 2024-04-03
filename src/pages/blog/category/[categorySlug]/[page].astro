@@ -21,9 +21,7 @@ export const getStaticPaths = async ({
 	const categories = await getCategories();
 	const articles = await getArticles();
 
-	if (!categories || !articles || articles.length <= 0) {
-		return null;
-	}
+	if (!categories || !articles || articles.length <= 0) return;
 
 	const routes = categories.flatMap((category) => {
 		const filteredArticles = articles.filter((article) => {
@@ -31,7 +29,7 @@ export const getStaticPaths = async ({
 		});
 		return paginate(filteredArticles, {
 			params: { categorySlug: category.slug },
-			pageSize: 1,
+			pageSize: 12,
 			props: { category: category },
 		});
 	});

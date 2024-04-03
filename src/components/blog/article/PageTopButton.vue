@@ -108,7 +108,7 @@ onMounted(() => {
 
 		.bg {
 			stroke: getColor(--bg-secondary-color);
-			fill: getColor(--bg-secondary-color);
+			fill: getColor(--bg-inversion-color);
 		}
 
 		.bar {

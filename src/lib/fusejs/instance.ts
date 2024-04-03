@@ -29,12 +29,22 @@ export const getSegments = async (articles: Article[]): Promise<Segment[]> => {
 	});
 
 	// uniqueな配列
-	const uniqueSegments = Array.from(new Map(segments.map((seg) => [JSON.stringify(seg), seg])).values());
+	const uniqueSegments = Array.from(
+		new Map(segments.map((seg) => [JSON.stringify(seg), seg])).values()
+	);
 
 	return uniqueSegments;
 };
 
 // FuseJS Client
-export const fuseClient = async (segments: Segment[], threshold: number = 0.2, minMatchCharLength: number = 2): Promise<Fuse<Segment>> => {
-	return new Fuse(segments, { keys: ["word"], threshold: threshold, minMatchCharLength: minMatchCharLength });
+export const fuseClient = async (
+	segments: Segment[],
+	threshold: number = 0.2,
+	minMatchCharLength: number = 2
+): Promise<Fuse<Segment>> => {
+	return new Fuse(segments, {
+		keys: ["word"],
+		threshold: threshold,
+		minMatchCharLength: minMatchCharLength,
+	});
 };

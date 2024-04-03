@@ -1,5 +1,5 @@
 import { createClient } from "newt-client-js";
-import type { Article, Category, RawArticle, Tag, DevLink } from "../newt/types";
+import type { Article, Category, RawArticle, Tag, DevLink, DocumentFile } from "../newt/types";
 
 // Newt Client
 const newtClient = createClient({
@@ -117,6 +117,23 @@ export const getDevLinks = async (depth: 0 | 1 | 2 = 2): Promise<DevLink[] | nul
 			},
 		});
 		return links;
+	} catch (err) {
+		throw err;
+	}
+};
+
+// Get Document Files
+export const getDocFiles = async (depth: 0 | 1 | 2 = 2): Promise<DocumentFile[] | null> => {
+	try {
+		const { items: docs } = await newtClient.getContents<DocumentFile>({
+			appUid: "blog",
+			modelUid: "docmnt",
+			query: {
+				order: ["_sys.customOrder"],
+				depth: depth,
+			},
+		});
+		return docs;
 	} catch (err) {
 		throw err;
 	}

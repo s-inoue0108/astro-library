@@ -72,6 +72,13 @@ const sliceText = (text: string | undefined, limit: number): string => {
 			transition: 0.3s ease;
 		}
 
+		@include resp(lg) {
+			&:hover {
+				opacity: 0.5;
+				transition: 0.2s all;
+			}
+		}
+
 		.thambnail {
 			width: 100%;
 			height: 100%;

@@ -246,8 +246,15 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 				align-items: center;
 
 				&:active {
-					opacity: 0.5;
+					text-decoration: underline;
 					transition: 0.2s ease;
+				}
+
+				@include resp(lg) {
+					&:hover {
+						text-decoration: underline;
+						transition: 0.2s all;
+					}
 				}
 
 				&:visited {
@@ -278,6 +285,13 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 				&:active {
 					opacity: 0.5;
 					transition: 0.2s ease;
+				}
+
+				@include resp(lg) {
+					&:hover {
+						opacity: 0.5;
+						transition: 0.2s all;
+					}
 				}
 			}
 

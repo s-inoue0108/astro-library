@@ -27,6 +27,20 @@ export interface NewtImageProps {
 	metadata: unknown;
 }
 
+export interface NewtFileProps {
+	_id: string;
+	src: string;
+	fileName: string;
+	fileType: string;
+	fileSize: number;
+	width: null;
+	height: null;
+	title: string;
+	altText: string;
+	description: string;
+	metadata: unknown;
+}
+
 export interface Category extends CommonProps {
 	name: string;
 	slug: string;
@@ -49,6 +63,11 @@ export interface DevLink extends CommonProps {
 	href: string;
 	description?: string;
 	icon?: NewtImageProps;
+}
+
+export interface DocumentFile extends CommonProps {
+	title: string;
+	file: NewtFileProps;
 }
 
 export interface Article extends CommonProps {

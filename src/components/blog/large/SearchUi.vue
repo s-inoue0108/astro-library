@@ -201,6 +201,12 @@ const sliceText = (text: string | undefined, limit: number): string => {
 
 			@include resp(lg) {
 				padding: 0.6rem 0;
+
+				&:hover {
+					color: $rose;
+					border-color: $rose;
+					transition: 0.2s ease;
+				}
 			}
 
 			&:active {

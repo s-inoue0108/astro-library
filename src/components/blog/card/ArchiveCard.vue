@@ -44,6 +44,14 @@ const opacity = isDisabled ? 0.5 : 1;
 		transition: 0.2s ease;
 	}
 
+	@include resp(lg) {
+		&:hover {
+			font-size: 3rem;
+			font-weight: 600;
+			transition: 0.2s ease;
+		}
+	}
+
 	.month {
 		width: 100%;
 		height: 100%;

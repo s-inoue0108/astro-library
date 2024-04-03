@@ -21,9 +21,7 @@ export const getStaticPaths = async ({
 }) => {
 	const articles = await getArticles();
 
-	if (!articles || articles.length <= 0) {
-		return null;
-	}
+	if (!articles || articles.length <= 0) return;
 
 	const routes = articles.flatMap((article) => {
 		return paginate(articles, {
