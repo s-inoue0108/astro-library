@@ -70,13 +70,15 @@ const { page, year, month } = Astro.props;
 	<div id="contents">
 		<section id="articles">
 			<PageTitleForPc
-				title={`${year}年${month}月`}
+				title={`${year}年${month}月の記事`}
+				description={`${year}年${month}月に公開された記事の一覧です`}
 				svgIconPath={svgPaths.calendar}
 				svgViewBox={svgViewBoxes.calendar}
 				marginRem={2}
 			/>
 			<PageTitle
-				title={`${year}年${month}月`}
+				title={`${year}年${month}月の記事`}
+				description={`${year}年${month}月に公開された記事の一覧です`}
 				svgIconPath={svgPaths.calendar}
 				svgViewBox={svgViewBoxes.calendar}
 			/>

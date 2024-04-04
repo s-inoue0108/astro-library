@@ -10,12 +10,8 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 	<ul class="menu-links">
 		<li class="menu-link">
 			<a href="/blog/all/1">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox={svgViewBoxes.caretRight}
-					class="other-svgs"
-				>
-					<path d={svgPaths.caretRight}></path>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.penNib} class="other-svgs">
+					<path d={svgPaths.penNib}></path>
 				</svg>
 				<span>ブログ</span>
 			</a>
@@ -64,12 +60,8 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 		<hr />
 		<li class="menu-link">
 			<a href="/profile">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox={svgViewBoxes.caretRight}
-					class="other-svgs"
-				>
-					<path d={svgPaths.caretRight}></path>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.user} class="other-svgs">
+					<path d={svgPaths.user}></path>
 				</svg>
 				<span>プロフィール</span>
 			</a>
@@ -77,12 +69,8 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 		<hr />
 		<li class="menu-link">
 			<a href="/document/1">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox={svgViewBoxes.caretRight}
-					class="other-svgs"
-				>
-					<path d={svgPaths.caretRight}></path>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.folder} class="other-svgs">
+					<path d={svgPaths.folder}></path>
 				</svg>
 				<span>ドキュメント</span>
 			</a>
@@ -90,12 +78,8 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 		<hr />
 		<li class="menu-link">
 			<a href="/contact">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox={svgViewBoxes.caretRight}
-					class="other-svgs"
-				>
-					<path d={svgPaths.caretRight}></path>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.envelope} class="other-svgs">
+					<path d={svgPaths.envelope}></path>
 				</svg>
 				<span>お問い合わせ</span>
 			</a>
@@ -134,7 +118,7 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 		top: 0;
 		left: 0;
 		z-index: 100;
-		background: getColor(--bg-secondary-color, 0.95);
+		background: getColor(--bg-secondary-color, 0.9);
 		color: getColor(--text-primary-color);
 		padding: calc(36px + 1rem) 1.5rem;
 
@@ -163,15 +147,17 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 			font-size: 1.5rem;
 			font-weight: 600;
 			letter-spacing: 1px;
+			width: 100%;
 
 			@include resp(lg) {
-				font-size: 2rem;
+				width: max-content;
+				font-size: 2.4rem;
 			}
 
 			a {
 				display: flex;
 				align-items: center;
-				gap: 1rem;
+				gap: 0.8rem;
 				height: 1.5rem;
 				white-space: nowrap;
 
@@ -181,6 +167,7 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 				}
 
 				@include resp(lg) {
+					height: 2rem;
 					&:hover {
 						opacity: 0.5;
 						transition: 0.2s all;
@@ -188,9 +175,11 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 				}
 
 				svg {
+					width: 1.5rem;
 					height: 1.5rem;
 
 					@include resp(lg) {
+						width: auto;
 						height: 2rem;
 					}
 				}
@@ -199,47 +188,47 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 					fill: getColor(--text-primary-color);
 				}
 			}
-		}
 
-		.categories {
-			display: flex;
-			flex-direction: column;
-			gap: 0.5rem;
-			padding: 1rem 0 0 1rem;
-
-			@include resp(lg) {
-				gap: 2rem;
-				padding: 3rem 0 0 0;
-			}
-
-			.category {
-				display: inline-flex;
-				align-items: center;
-				font-size: 1rem;
-				font-weight: 400;
-				color: getColor(--text-secondary-color);
+			.categories {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5rem;
+				padding: 1rem 0 0 1rem;
 
 				@include resp(lg) {
-					font-size: 1.5rem;
-					letter-spacing: 2px;
+					gap: 2rem;
+					padding: 3rem 0 0 0;
 				}
 
-				a {
+				.category {
+					display: inline-flex;
+					align-items: center;
+					font-size: 1rem;
+					font-weight: 400;
+					color: getColor(--text-secondary-color);
+
 					@include resp(lg) {
-						&:hover {
-							transform: translateX(-20px);
-							transition: 0.2s all;
+						font-size: 1.5rem;
+						letter-spacing: 2px;
+						text-decoration: none;
+					}
+
+					a {
+						@include resp(lg) {
+							&:hover {
+								transition: 0.2s ease;
+							}
 						}
 					}
-				}
 
-				svg {
-					width: 1rem;
-					max-height: 1rem;
+					svg {
+						width: 1rem;
+						max-height: 1rem;
 
-					@include resp(lg) {
-						width: 1.5rem;
-						max-height: 1.5rem;
+						@include resp(lg) {
+							width: 1.5rem;
+							max-height: 1.5rem;
+						}
 					}
 				}
 			}
