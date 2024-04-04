@@ -46,9 +46,8 @@ const fileSvg = getSvgByFileTypes(file.fileType);
 
 <style lang="scss">
 	.doc {
-		width: max-content;
 		display: inline-flex;
-		align-items: center;
+		align-items: top;
 
 		@include resp(lg) {
 			font-size: 1.5rem;
@@ -69,6 +68,7 @@ const fileSvg = getSvgByFileTypes(file.fileType);
 			padding-left: 0.5rem;
 			letter-spacing: 0.5px;
 			color: $sky;
+			white-space: wrap;
 
 			@include resp(lg) {
 				padding-left: 1rem;

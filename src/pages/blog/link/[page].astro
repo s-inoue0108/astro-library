@@ -40,8 +40,18 @@ const { page } = Astro.props;
 	title={`開発リンク集 | ページ${page.currentPage} | ブログ | ${import.meta.env.APP_NAME}`}
 	description="開発リンク集"
 >
-	<PageTitle title="開発リンク集" svgIconPath={svgPaths.link} svgViewBox={svgViewBoxes.link} />
-	<PageTitleForPc title="開発リンク集" svgIconPath={svgPaths.link} svgViewBox={svgViewBoxes.link} />
+	<PageTitle
+		title="開発リンク集"
+		description="Web開発に利用しているサイトをまとめています"
+		svgIconPath={svgPaths.link}
+		svgViewBox={svgViewBoxes.link}
+	/>
+	<PageTitleForPc
+		title="開発リンク集"
+		description="Web開発に利用しているサイトをまとめています"
+		svgIconPath={svgPaths.link}
+		svgViewBox={svgViewBoxes.link}
+	/>
 	<section id="dev-links">
 		<ul class="cards">
 			{
@@ -82,6 +92,10 @@ const { page } = Astro.props;
 			li {
 				width: 100%;
 				margin: auto;
+
+				@include resp(lg) {
+					width: 70%;
+				}
 			}
 		}
 	}
