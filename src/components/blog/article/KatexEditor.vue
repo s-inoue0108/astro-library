@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" type="commonjs">
 import "@fontsource/source-code-pro/600.css";
 import { computed, ref } from "vue";
 import katex from "katex";

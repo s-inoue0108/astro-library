@@ -458,13 +458,16 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 			}
 
 			table {
-				margin: auto;
-				display: block;
+				margin: 1.2rem auto;
+				display: table;
 				max-width: 100%;
 				overflow-x: auto;
 				white-space: nowrap;
 				border-collapse: collapse;
-				padding-bottom: 1rem;
+
+				@include resp(lg) {
+					margin: 2rem auto;
+				}
 
 				th,
 				td {
