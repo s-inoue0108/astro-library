@@ -8,42 +8,34 @@ import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 		<ul class="menu-links">
 			<li class="menu-link">
 				<a href="/blog/all/1">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.caretRight}>
-						<path d={svgPaths.caretRight}></path>
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.penNib}>
+						<path d={svgPaths.penNib}></path>
 					</svg>
 					<span>ブログ</span>
 				</a>
 			</li>
 			<li class="menu-link">
 				<a href="/profile">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.caretRight}>
-						<path d={svgPaths.caretRight}></path>
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.user}>
+						<path d={svgPaths.user}></path>
 					</svg>
 					<span>プロフィール</span>
 				</a>
 			</li>
 			<li class="menu-link">
 				<a href="/document/1">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.caretRight}>
-						<path d={svgPaths.caretRight}></path>
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.folder}>
+						<path d={svgPaths.folder}></path>
 					</svg>
 					<span>ドキュメント</span>
 				</a>
 			</li>
 			<li class="menu-link">
 				<a href="/contact">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.caretRight}>
-						<path d={svgPaths.caretRight}></path>
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.envelope}>
+						<path d={svgPaths.envelope}></path>
 					</svg>
 					<span>お問い合わせ</span>
-				</a>
-			</li>
-			<li class="menu-link-mini">
-				<a href="/site-policy">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.circleInfo}>
-						<path d={svgPaths.circleInfo}></path>
-					</svg>
-					<span>サイトポリシー</span>
 				</a>
 			</li>
 		</ul>
@@ -138,10 +130,12 @@ import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 					}
 
 					svg {
+						width: 1.5rem;
 						height: 1.5rem;
 						fill: getColor(--text-primary-color);
 
 						@include resp(lg) {
+							width: 2rem;
 							height: 2rem;
 						}
 					}

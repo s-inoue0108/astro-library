@@ -7,13 +7,14 @@ import { Image } from "astro:assets";
 
 interface Props {
 	title: string;
+	description?: string;
 	svgIconPath?: string;
 	svgViewBox?: string;
 	iconImage?: NewtImageProps;
 	bgImage?: NewtImageProps;
 }
 
-const { title, svgIconPath, svgViewBox, iconImage, bgImage } = Astro.props;
+const { title, description, svgIconPath, svgViewBox, iconImage, bgImage } = Astro.props;
 ---
 
 <div class="page-title">
@@ -51,6 +52,7 @@ const { title, svgIconPath, svgViewBox, iconImage, bgImage } = Astro.props;
 		}
 		<h1 class="title">{title}</h1>
 	</div>
+	{description && description.length > 0 && <p class="description">{description}</p>}
 </div>
 
 <script>
@@ -128,6 +130,18 @@ const { title, svgIconPath, svgViewBox, iconImage, bgImage } = Astro.props;
 				letter-spacing: 1px;
 				white-space: nowrap;
 			}
+		}
+
+		.description {
+			position: absolute;
+			bottom: 0.8rem;
+			left: 50%;
+			transform: translateX(-50%);
+			color: getColor(--text-secondary-color);
+			font-size: 0.8rem;
+			font-weight: 600;
+			letter-spacing: 1.5px;
+			white-space: nowrap;
 		}
 	}
 </style>

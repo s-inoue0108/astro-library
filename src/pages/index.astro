@@ -63,16 +63,21 @@ const year = date.getFullYear();
 						<Image src={ZennLogo} alt="Zenn" />
 					</a>
 				</li>
+				<li class="site-policy">
+					<a href="/site-policy">
+						<span>サイトポリシー</span>
+					</a>
+				</li>
 			</ul>
-			<h6 class="copyright">
-				&copy; {year} Shota Inoue
-			</h6>
 		</div>
 	</div>
 	<h1 class="title">
 		<span>Shota Inoue</span>
 		<span>Web Library</span>
 	</h1>
+	<h6 class="copyright">
+		&copy; {year} Shota Inoue
+	</h6>
 	<div class="theme-button">
 		<IndexThemeButton scale={2.4} client:load />
 	</div>
@@ -85,6 +90,7 @@ const year = date.getFullYear();
 
 	const headerImg = document.querySelector(".header-img");
 	const title = document.querySelector(".title");
+	const copyright = document.querySelector(".copyright");
 	const curtains = document.querySelector(".curtains");
 	const themeButton = document.querySelector(".theme-button");
 	const menuContent = document.querySelector(".menu-content");
@@ -125,12 +131,22 @@ const year = date.getFullYear();
 		.from(
 			title,
 			{
-				yPercent: 60,
+				y: 100,
 				autoAlpha: 0,
 				duration: 0.8,
 				ease: "power4.out",
 			},
 			"-=0.7"
+		)
+		.from(
+			copyright,
+			{
+				y: 100,
+				autoAlpha: 0,
+				duration: 0.8,
+				ease: "power4.out",
+			},
+			"-=0.8"
 		)
 		.from(
 			themeButton,
@@ -339,6 +355,24 @@ const year = date.getFullYear();
 		}
 	}
 
+	.copyright {
+		position: fixed;
+		top: calc(50% + 5.6rem);
+		left: 50%;
+		transform: translateX(-50%);
+		color: getColor(--text-secondary-color);
+		font-size: 0.8rem;
+		font-weight: 300;
+		letter-spacing: 0.5px;
+		white-space: nowrap;
+
+		@include resp(lg) {
+			top: calc(50% + 12rem);
+			font-size: 1.2rem;
+			letter-spacing: 1px;
+		}
+	}
+
 	.menu-button {
 		position: absolute;
 		top: 1rem;
@@ -349,7 +383,7 @@ const year = date.getFullYear();
 		rotate: calc(180deg);
 		position: absolute;
 		top: 1rem;
-		right: 1rem;
+		right: 0.5rem;
 
 		display: flex;
 		align-items: center;
@@ -362,6 +396,11 @@ const year = date.getFullYear();
 		.external-link {
 			width: 1.2rem;
 			height: 1.2rem;
+
+			&:active {
+				opacity: 0.5;
+				transition: 0.2s ease;
+			}
 
 			@include resp(lg) {
 				width: 2rem;
@@ -385,24 +424,25 @@ const year = date.getFullYear();
 				fill: getColor(--bg-primary-color);
 			}
 		}
-	}
 
-	.copyright {
-		rotate: 180deg;
-		font-size: 0.8rem;
-		font-weight: 300;
-		color: getColor(--bg-primary-color);
-		position: absolute;
-		top: 1.5rem;
-		right: 50%;
-		transform: translateX(-50%);
+		.site-policy {
+			font-size: 0.8rem;
+			font-weight: 300;
+			color: getColor(--text-inversion-color);
 
-		@include resp(sm) {
-			font-size: 0.9rem;
-		}
+			&:active {
+				opacity: 0.5;
+				transition: 0.2s ease;
+			}
 
-		@include resp(lg) {
-			font-size: 1rem;
+			@include resp(lg) {
+				font-size: 1.2rem;
+
+				&:hover {
+					opacity: 0.5;
+					transition: 0.2s all;
+				}
+			}
 		}
 	}
 

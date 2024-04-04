@@ -7,6 +7,7 @@ import { Image } from "astro:assets";
 
 interface Props {
 	title: string;
+	description?: string;
 	svgIconPath?: string;
 	svgViewBox?: string;
 	iconImage?: NewtImageProps;
@@ -14,7 +15,7 @@ interface Props {
 	marginRem?: number;
 }
 
-const { title, svgIconPath, svgViewBox, iconImage, bgImage, marginRem } = Astro.props;
+const { title, description, svgIconPath, svgViewBox, iconImage, bgImage, marginRem } = Astro.props;
 
 const margin = marginRem && marginRem !== 0 ? `${marginRem}rem` : "0";
 ---
@@ -54,6 +55,7 @@ const margin = marginRem && marginRem !== 0 ? `${marginRem}rem` : "0";
 		}
 		<h1 class="title">{title}</h1>
 	</div>
+	{description && description.length > 0 && <p class="description">{description}</p>}
 </div>
 
 <script>
@@ -139,6 +141,18 @@ const margin = marginRem && marginRem !== 0 ? `${marginRem}rem` : "0";
 				letter-spacing: 3px;
 				white-space: nowrap;
 			}
+		}
+
+		.description {
+			position: absolute;
+			bottom: 1.2rem;
+			left: 50%;
+			transform: translateX(-50%);
+			color: getColor(--text-secondary-color);
+			font-size: 1.2rem;
+			font-weight: 600;
+			letter-spacing: 4px;
+			white-space: nowrap;
 		}
 	}
 </style>

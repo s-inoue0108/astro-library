@@ -53,6 +53,7 @@ const { page, category } = Astro.props;
 		<section id="articles">
 			<PageTitleForPc
 				title={category.name}
+				description={category.description}
 				bgImage={category.image}
 				svgIconPath={category.svgIconPath}
 				svgViewBox={category.svgViewBox}
@@ -60,6 +61,7 @@ const { page, category } = Astro.props;
 			/>
 			<PageTitle
 				title={category.name}
+				description={category.description}
 				bgImage={category.image}
 				svgIconPath={category.svgIconPath}
 				svgViewBox={category.svgViewBox}
