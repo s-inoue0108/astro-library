@@ -25,7 +25,7 @@ export const getStaticPaths = async ({
 
 	// publishedAtを取得
 	const pubDates = articles.map((article) => {
-		const pubDate = new Date(article._sys.raw.publishedAt);
+		const pubDate = new Date(article._sys.raw.firstPublishedAt);
 		return {
 			year: pubDate.getFullYear(),
 			month: pubDate.getMonth() + 1,
@@ -40,8 +40,8 @@ export const getStaticPaths = async ({
 	const routes = uniquePubDates.flatMap((date) => {
 		const filteredArticles = articles.filter((article) => {
 			return (
-				new Date(article._sys.raw.publishedAt).getFullYear() === date.year &&
-				new Date(article._sys.raw.publishedAt).getMonth() + 1 === date.month
+				new Date(article._sys.raw.firstPublishedAt).getFullYear() === date.year &&
+				new Date(article._sys.raw.firstPublishedAt).getMonth() + 1 === date.month
 			);
 		});
 		return paginate(filteredArticles, {
