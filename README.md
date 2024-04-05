@@ -1,34 +1,36 @@
 # Shota Inoue Web Library
 
-![Shota Inoue Web Library](/portfolio-favicon.png)
+![Shota Inoue Web Library](https://si-library.net/portfolio-favicon.png)
 
-## Objective
+## 目的
 
 プログラミングなどの学習記録をコンテンツ化し、継続的に配信する仕組みの提供
 
-# Stack
+# スタック
+
+`/preview` ルートを SSR で、その他を SSG でホスティングしています。ブログを更新すると Slack チャンネル #blog へ通知され、自動 Deploy を行います。
 
 ## フロントエンド
 
-### AstroJS
+### [AstroJS](https://docs.astro.build/en/getting-started/)
 
-<div class="iframely-embed" data-embedded-url="https://docs.astro.build/en/getting-started/"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://docs.astro.build/en/getting-started/" data-iframely-url="//cdn.iframe.ly/api/iframe?card=small&url=https%3A%2F%2Fdocs.astro.build%2Fen%2Fgetting-started%2F&key=878c5bef402f0b2911bf6d4ce6261abd">Getting Started</a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script>
+## コンテンツ管理
+
+### [Newt](https://app.newt.so/spaces)
 
 ## ホスティング
 
-### Vercel
-
-<div class="iframely-embed" data-embedded-url="https://vercel.com"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://vercel.com/home" data-iframely-url="//cdn.iframe.ly/api/iframe?card=small&url=https%3A%2F%2Fvercel.com&key=878c5bef402f0b2911bf6d4ce6261abd">Vercel: Build and deploy the best Web experiences with The Frontend Cloud</a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script>
-
----
-
-ブログを更新すると Slack チャンネル #blog へ通知され、自動 Deploy を行います。
+### [Vercel](https://vercel.com/s-inoue0108/astro-library/deployments)
 
 # Markdown
+
+リッチテキストのほかに Markdown を利用して記事を書くことができます。
 
 ## 特殊な記法
 
 ### コールアウト
+
+インフォメーション
 
 ```md:Info
 > **info**
@@ -36,11 +38,15 @@
 > text
 ```
 
+注意
+
 ```md:Warning
 > **warning**
 > text
 > text
 ```
+
+ヒント
 
 ```md:Hint
 > **hint**
@@ -50,9 +56,16 @@
 
 ### 数式
 
+$ KeTeX $ [^1] を使用しています。
+[^1]: mhchem 拡張を検討中
+
+インライン
+
 ```tex:Inline
 $ \frac{a}{b} = c $
 ```
+
+ディスプレイ
 
 ```tex:Display
 $$ \frac{a}{b} = c $$
