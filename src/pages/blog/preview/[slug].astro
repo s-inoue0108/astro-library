@@ -40,15 +40,11 @@ import AuthorData from "../../../components/blog/article/AuthorData.astro";
 const { slug } = Astro.params;
 
 // get preview
-const article = await getPreviewBySlug(slug);
+const secret = Astro.url.searchParams.get("secret");
+const article = await getPreviewBySlug(secret, slug);
 
 // validate secret and params existance
-if (
-	!article ||
-	!slug ||
-	!Astro.url.searchParams.get("secret") ||
-	Astro.url.searchParams.get("secret") !== import.meta.env.NEWT_ARTICLE_PREVIEW_SECRET
-) {
+if (!article || !slug || !secret || secret !== import.meta.env.NEWT_ARTICLE_PREVIEW_SECRET) {
 	return Astro.redirect("/");
 }
 

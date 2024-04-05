@@ -104,7 +104,7 @@ onMounted(() => {
 	.progress-bar {
 		width: 100%;
 		height: 100%;
-		transform: rotateZ(180deg);
+		transform: rotateZ(270deg);
 
 		.bg {
 			stroke: getColor(--bg-secondary-color);

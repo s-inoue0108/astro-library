@@ -1,5 +1,15 @@
 import { createClient } from "newt-client-js";
-import type { Article, Category, RawArticle, Tag, DevLink, DocumentFile } from "../newt/types";
+import type {
+	Article,
+	Category,
+	RawArticle,
+	Tag,
+	DevLink,
+	DocumentFile,
+	Skill,
+	Work,
+	Qualification,
+} from "../newt/types";
 
 // Newt Client
 const newtClient = createClient({
@@ -184,6 +194,7 @@ export const getTagsBySlugs = async (
 
 // Get Preview Article by Slug
 export const getPreviewBySlug = async (
+	secret: string | null,
 	slug?: Article["slug"],
 	depth: 0 | 1 | 2 = 2
 ): Promise<RawArticle | Article | null> => {
@@ -196,7 +207,69 @@ export const getPreviewBySlug = async (
 				depth: depth,
 			},
 		});
+		if (!secret || secret !== import.meta.env.NEWT_ARTICLE_PREVIEW_SECRET)
+			throw new Error("Invalid secret");
 		return article;
+	} catch (err) {
+		throw err;
+	}
+};
+
+// Get Skills
+export const getSkills = async (
+	limit: number = 1000,
+	depth: 0 | 1 | 2 = 2
+): Promise<Skill[] | null> => {
+	try {
+		const { items: skills } = await newtClient.getContents<Skill>({
+			appUid: "profile",
+			modelUid: "skill",
+			query: {
+				limit: limit,
+				depth: depth,
+			},
+		});
+		return skills;
+	} catch (err) {
+		throw err;
+	}
+};
+
+// Get Works
+export const getWorks = async (
+	limit: number = 1000,
+	depth: 0 | 1 | 2 = 2
+): Promise<Work[] | null> => {
+	try {
+		const { items: works } = await newtClient.getContents<Work>({
+			appUid: "profile",
+			modelUid: "work",
+			query: {
+				limit: limit,
+				depth: depth,
+			},
+		});
+		return works;
+	} catch (err) {
+		throw err;
+	}
+};
+
+// Get Qualifications
+export const getQualifications = async (
+	limit: number = 1000,
+	depth: 0 | 1 | 2 = 2
+): Promise<Qualification[] | null> => {
+	try {
+		const { items: qualifications } = await newtClient.getContents<Qualification>({
+			appUid: "profile",
+			modelUid: "qualification",
+			query: {
+				limit: limit,
+				depth: depth,
+			},
+		});
+		return qualifications;
 	} catch (err) {
 		throw err;
 	}

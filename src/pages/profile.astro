@@ -3,6 +3,23 @@ import Layout from "../layouts/Layout.astro";
 import PageTitle from "../components/blog/background/PageTitle.astro";
 import PageTitleForPc from "../components/blog/background/PageTitleForPc.astro";
 import { svgPaths, svgViewBoxes } from "../lib/svg/paths";
+import ProgressBar from "../components/profile/ProgressBar.vue";
+
+import type { Skill } from "../lib/newt/types";
+
+import { Content as ProfileContent } from "../markdown/profile.md";
+import { getQualifications, getSkills, getWorks } from "../lib/newt/client";
+
+const skills = await getSkills();
+const works = await getWorks();
+const qualifications = await getQualifications();
+
+const categories = skills ? Array.from(new Set(skills.map((skill) => skill.category))) : [];
+
+const getSkillsByCategory = (category: string): Skill[] => {
+	if (!skills) return [];
+	return skills.filter((skill) => skill.category === category);
+};
 ---
 
 <Layout
@@ -21,4 +38,64 @@ import { svgPaths, svgViewBoxes } from "../lib/svg/paths";
 		svgIconPath={svgPaths.user}
 		svgViewBox={svgViewBoxes.user}
 	/>
+
+	<!-- <ProfileContent /> -->
+
+	<section class="skill-categories">
+		{
+			categories.length > 0 &&
+				categories.map((category) => {
+					return (
+						<>
+							<div class="category-name">{category.toUpperCase()}</div>
+							<ul class="skills">
+								{getSkillsByCategory(category).map((skill) => {
+									return (
+										<li class="skill">
+											<ProgressBar skill={skill} client:visible />
+										</li>
+									);
+								})}
+							</ul>
+						</>
+					);
+				})
+		}
+	</section>
 </Layout>
+
+<style lang="scss">
+	.skill-categories {
+		margin: 0 calc((100% - 252px - 4rem) / 2);
+
+		@include resp(lg) {
+			margin: 0 calc((100% - 840px - 24rem) / 2);
+		}
+		.category-name {
+			margin-top: 2rem;
+			font-size: 1.8rem;
+			font-weight: 600;
+			letter-spacing: 1px;
+
+			@include resp(lg) {
+				font-size: 3.2rem;
+				letter-spacing: 4px;
+				padding-left: 2rem;
+			}
+		}
+
+		.skills {
+			width: 100%;
+			margin: 2rem 0;
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 2rem;
+
+			@include resp(lg) {
+				margin: 8rem 0;
+				gap: 6rem;
+			}
+		}
+	}
+</style>

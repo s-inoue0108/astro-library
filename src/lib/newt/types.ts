@@ -41,6 +41,7 @@ export interface NewtFileProps {
 	metadata: unknown;
 }
 
+// Blog
 export interface Category extends CommonProps {
 	name: string;
 	slug: string;
@@ -101,4 +102,30 @@ export interface RawArticle extends CommonProps {
 		};
 	};
 	relatedArticles?: Article[];
+}
+
+// Profile
+
+export interface Skill extends CommonProps {
+	name: string;
+	category: string;
+	color: string;
+	level: number;
+	icon: NewtImageProps;
+}
+
+export interface Work extends CommonProps {
+	title: string;
+	description?: string;
+	images?: NewtImageProps[];
+	stacks?: {
+		text: string;
+		icon?: NewtImageProps;
+	}[];
+	url?: string;
+}
+
+export interface Qualification extends CommonProps {
+	name: string;
+	date: Date;
 }
