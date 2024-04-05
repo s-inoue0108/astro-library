@@ -1,19 +1,26 @@
-# Overview
+# Shota Inoue Web Library
 
-## README
-
-- [GitHub](https://github.com/s-inoue0108/astro-library)
-- [Shota Inoue Web Library](https://si-library.net/readme?secret=cHVvQBBY5KogpM0nrPcqp9wVwHTUCGwqrcYPZc4iHtU)
+![Shota Inoue Web Library](/portfolio-favicon.png)
 
 ## Objective
 
 プログラミングなどの学習記録をコンテンツ化し、継続的に配信する仕組みの提供
 
-## Stack
+# Stack
 
-- Astro.js
-- [Newt](https://app.newt.so/si-library/apps)
-- [Vercel](https://vercel.com/dashboard)
+## フロントエンド
+
+### AstroJS
+
+<div class="iframely-embed" data-embedded-url="https://docs.astro.build/en/getting-started/"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://docs.astro.build/en/getting-started/" data-iframely-url="//cdn.iframe.ly/api/iframe?card=small&url=https%3A%2F%2Fdocs.astro.build%2Fen%2Fgetting-started%2F&key=878c5bef402f0b2911bf6d4ce6261abd">Getting Started</a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script>
+
+## ホスティング
+
+### Vercel
+
+<div class="iframely-embed" data-embedded-url="https://vercel.com"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://vercel.com/home" data-iframely-url="//cdn.iframe.ly/api/iframe?card=small&url=https%3A%2F%2Fvercel.com&key=878c5bef402f0b2911bf6d4ce6261abd">Vercel: Build and deploy the best Web experiences with The Frontend Cloud</a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script>
+
+---
 
 ブログを更新すると Slack チャンネル #blog へ通知され、自動 Deploy を行います。
 
@@ -39,4 +46,14 @@
 > **hint**
 > text
 > text
+```
+
+### 数式
+
+```tex:Inline
+$ \frac{a}{b} = c $
+```
+
+```tex:Display
+$$ \frac{a}{b} = c $$
 ```

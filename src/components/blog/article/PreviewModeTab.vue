@@ -45,7 +45,7 @@ const publishState = _sys.raw.publishedAt ? "#fb7185" : "#0ea5e9";
 			<SvgButton
 				title="Readme"
 				:isLink="true"
-				:linkUrl="`/readme?secret=${secret}`"
+				linkUrl="https://github.com/s-inoue0108/astro-library/blob/main/README.md"
 				:isBlank="true"
 				:fontWeight="500"
 				:widthScale="3.6"

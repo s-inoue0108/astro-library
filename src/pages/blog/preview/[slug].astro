@@ -185,6 +185,7 @@ const sideRawArticles = await getSideArticlesBySlug(rawArticles, slug);
 	$("pre code").each((idx, elm) => {
 		const code = $(elm).text();
 		const copyBtn = document.getElementById(`copy-btn-${idx}`);
+		if (!copyBtn) return;
 
 		const copyAnim = gsap
 			.timeline({ paused: true })
@@ -206,7 +207,7 @@ const sideRawArticles = await getSideArticlesBySlug(rawArticles, slug);
 				duration: 0.1,
 			});
 
-		copyBtn!.addEventListener("click", async () => {
+		copyBtn.addEventListener("click", async () => {
 			await copyToClipboard(code);
 			await copyAnim.restart();
 		});
@@ -231,7 +232,7 @@ const sideRawArticles = await getSideArticlesBySlug(rawArticles, slug);
 	});
 
 	let isOpen = true;
-	closeBtn!.addEventListener("click", async () => {
+	closeBtn?.addEventListener("click", async () => {
 		if (isOpen) {
 			await closeAnim.restart();
 		} else {
@@ -266,7 +267,7 @@ const sideRawArticles = await getSideArticlesBySlug(rawArticles, slug);
 	});
 
 	let isOpenEditor = false;
-	katexEditorOpenBtn!.addEventListener("click", async () => {
+	katexEditorOpenBtn?.addEventListener("click", async () => {
 		document.querySelector("header")!.classList.add("blind");
 		document.querySelector("footer")!.classList.add("blind");
 		document.querySelector("main")!.classList.add("blind");
@@ -274,7 +275,7 @@ const sideRawArticles = await getSideArticlesBySlug(rawArticles, slug);
 		isOpenEditor = !isOpenEditor;
 	});
 
-	katexEditorCloseBtn!.addEventListener("click", async () => {
+	katexEditorCloseBtn?.addEventListener("click", async () => {
 		document.querySelector("header")!.classList.remove("blind");
 		document.querySelector("footer")!.classList.remove("blind");
 		document.querySelector("main")!.classList.remove("blind");
