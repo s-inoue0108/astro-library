@@ -103,7 +103,7 @@ const sideArticles = await getSideArticlesBySlug(articles, article.slug);
 		</aside>
 		<article id="article-content">
 			<div set:html={mathRenderedHtml} class="article-content" />
-			<h1 class="rel-articles content-h1" id="関連記事">関連記事</h1>
+			<h1 class="rel-articles" id="関連記事">関連記事</h1>
 			<ul class="hit-articles">
 				{
 					article.relatedArticles && article.relatedArticles.length > 0 ? (
@@ -172,6 +172,7 @@ const sideArticles = await getSideArticlesBySlug(articles, article.slug);
 	$("pre code").each((idx, elm) => {
 		const code = $(elm).text();
 		const copyBtn = document.getElementById(`copy-btn-${idx}`);
+		if (!copyBtn) return;
 
 		const copyAnim = gsap
 			.timeline({ paused: true })
@@ -193,7 +194,7 @@ const sideArticles = await getSideArticlesBySlug(articles, article.slug);
 				duration: 0.1,
 			});
 
-		copyBtn!.addEventListener("click", async () => {
+		copyBtn.addEventListener("click", async () => {
 			await copyToClipboard(code);
 			await copyAnim.restart();
 		});

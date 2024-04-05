@@ -107,7 +107,7 @@ onMounted(() => {
 		transform: rotateZ(270deg);
 
 		.bg {
-			stroke: getColor(--bg-secondary-color);
+			stroke: getColor(--bg-inversion-color);
 			fill: getColor(--bg-inversion-color);
 		}
 

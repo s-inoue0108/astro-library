@@ -39,14 +39,17 @@ import AuthorData from "../../../components/blog/article/AuthorData.astro";
 // params
 const { slug } = Astro.params;
 
-// get preview
+// Get secret
 const secret = Astro.url.searchParams.get("secret");
+
+// validate secret
+if (!secret || secret !== import.meta.env.NEWT_ARTICLE_PREVIEW_SECRET) return Astro.redirect("/");
+
+// get preview
 const article = await getPreviewBySlug(secret, slug);
 
-// validate secret and params existance
-if (!article || !slug || !secret || secret !== import.meta.env.NEWT_ARTICLE_PREVIEW_SECRET) {
-	return Astro.redirect("/");
-}
+// validate params existance
+if (!article || !slug) return Astro.redirect("/");
 
 // check typeof article.content
 let rawHtml: string;
@@ -106,7 +109,7 @@ const sideRawArticles = await getSideArticlesBySlug(rawArticles, slug);
 		</aside>
 		<article id="article-content">
 			<div set:html={mathRenderedHtml} class="article-content" />
-			<h1 class="rel-articles content-h1" id="関連記事">関連記事</h1>
+			<h1 class="rel-articles" id="関連記事">関連記事</h1>
 			<ul class="hit-articles">
 				{
 					article.relatedArticles && article.relatedArticles.length > 0 ? (
@@ -166,7 +169,7 @@ const sideRawArticles = await getSideArticlesBySlug(rawArticles, slug);
 			opacity: 1,
 			scrollTrigger: {
 				trigger: elm,
-				toggleActions: "play reset restart reset",
+				toggleActions: "play reset play reset",
 			},
 		});
 	});
