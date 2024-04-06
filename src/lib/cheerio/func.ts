@@ -141,7 +141,7 @@ export const calloutStylist = async ($: CheerioAPI): Promise<void> => {
 				p.children("br").first().remove();
 				style.remove();
 				p.before(
-					`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${s.svgViewBox}"><path d="${s.svgPath}"></path></svg>`
+					`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${s.svgViewBox}" class="svg-${s.slug}"><path d="${s.svgPath}"></path></svg>`
 				);
 				$(elm).addClass(`blockquote-${s.slug}`);
 			}

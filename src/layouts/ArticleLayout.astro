@@ -306,6 +306,10 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 					border-left-width: 12px;
 					padding: 0.6rem 1.2rem;
 				}
+
+				code {
+					background: getColor(--bg-primary-color);
+				}
 			}
 
 			.blockquote-info {
@@ -316,7 +320,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 				border: solid 1px $sky;
 				border-left-width: 8px;
 
-				svg {
+				.svg-info {
 					height: 1.5rem;
 					fill: $sky;
 				}
@@ -325,7 +329,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 					border-width: 2px;
 					border-left-width: 12px;
 
-					svg {
+					.svg-info {
 						height: 1.8rem;
 					}
 				}
@@ -339,7 +343,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 				border: solid 1px $amber;
 				border-left-width: 8px;
 
-				svg {
+				.svg-warning {
 					height: 1.5rem;
 					fill: $amber;
 				}
@@ -348,7 +352,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 					border-width: 2px;
 					border-left-width: 12px;
 
-					svg {
+					.svg-warning {
 						height: 1.8rem;
 					}
 				}
@@ -362,7 +366,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 				border: solid 1px $emerald;
 				border-left-width: 8px;
 
-				svg {
+				.svg-hint {
 					height: 1.5rem;
 					fill: $emerald;
 				}
@@ -371,7 +375,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 					border-width: 2px;
 					border-left-width: 12px;
 
-					svg {
+					.svg-hint {
 						height: 1.8rem;
 					}
 				}
@@ -630,11 +634,6 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 				overflow-x: auto;
 				overflow-y: hidden;
 				padding: 0.5rem 0;
-
-				.katex {
-					color: getColor(--text-primary-color);
-					border-color: getColor(--text-primary-color);
-				}
 			}
 
 			.katex-display::-webkit-scrollbar {
