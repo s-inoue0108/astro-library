@@ -169,11 +169,11 @@ export const getHeadings = async ($: CheerioAPI): Promise<Heading[]> => {
 	const headings: Heading[] = [];
 	let h1id = 0;
 
-	$("h1,h2,h3").each((_, elm) => {
+	$("h1,h2,h3").each((idx, elm) => {
 		const text = $(elm).text();
 		const lev = $(elm).toString().match(/h\d/)![0];
 
-		$(elm).attr("id", text);
+		$(elm).attr("id", `number-${idx}-${text}`);
 		$(elm).addClass(`content-${lev}`);
 
 		if (lev === "h1") {

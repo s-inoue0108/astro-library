@@ -50,7 +50,7 @@ onMounted(async () => {
 <template>
 	<Modal title="Contents" :svgIconPath="svgPaths.listUl" :svgViewBox="svgViewBoxes.listUl">
 		<ul class="headings">
-			<li class="heading" v-for="h in headingsData">
+			<li class="heading" v-for="(h, idx) in headingsData" :key="idx">
 				<a :id="`toc-${h.lev}-${h.text}`" :href="`#${h.text}`" class="toc-h1" v-if="h.lev === 'h1'">
 					<span class="before" v-if="h.text !== '脚注'">{{ h.h1id }}</span>
 					<span class="before" v-else>
@@ -62,14 +62,19 @@ onMounted(async () => {
 				</a>
 				<a
 					:id="`toc-${h.lev}-${h.text}`"
-					:href="`#${h.text}`"
+					:href="`#number-${idx}-${h.text}`"
 					class="toc-h2"
 					v-else-if="h.lev === 'h2'"
 				>
 					<span class="before" />
 					{{ h.text }}
 				</a>
-				<a :id="`toc-${h.lev}-${h.text}`" :href="`#${h.text}`" class="toc-h-else" v-else>
+				<a
+					:id="`toc-${h.lev}-${h.text}`"
+					:href="`#number-${idx}-${h.text}`"
+					class="toc-h-else"
+					v-else
+				>
 					{{ h.text }}
 				</a>
 			</li>
