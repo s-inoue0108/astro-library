@@ -181,7 +181,7 @@ export const getHeadings = async ($: CheerioAPI): Promise<Heading[]> => {
 		const text = $(elm).text();
 		const lev = $(elm).toString().match(/h\d/)![0];
 
-		$(elm).attr("id", `number-${idx}-${text}`);
+		$(elm).attr("id", `${idx}-${text}`);
 		$(elm).addClass(`content-${lev}`);
 
 		if (lev === "h1") {
