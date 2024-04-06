@@ -235,7 +235,7 @@ const sideRawArticles = await getSideArticlesBySlug(rawArticles, slug);
 		paused: true,
 	});
 
-	let isOpen = true;
+	let isOpen = false;
 	closeBtn?.addEventListener("click", async () => {
 		if (isOpen) {
 			await closeAnim.restart();

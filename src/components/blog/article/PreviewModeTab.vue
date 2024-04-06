@@ -14,6 +14,8 @@ const { article, secret, prev, next } = defineProps<Props>();
 const { _id, _sys, slug } = article;
 
 const publishState = _sys.raw.publishedAt ? "#fb7185" : "#0ea5e9";
+const cursor = _sys.raw.publishedAt ? "pointer" : "none";
+const pointerEvents = _sys.raw.publishedAt ? "visible" : "none";
 </script>
 
 <template>
@@ -28,7 +30,13 @@ const publishState = _sys.raw.publishedAt ? "#fb7185" : "#0ea5e9";
 				:svgIconPath="svgPaths.chevronLeft"
 				:svgViewBox="svgViewBoxes.chevronLeft"
 			/>
-			<a :href="`/blog/article/${slug}`" target="_blank" rel="noopener noreferrer" class="slug">
+			<a
+				:href="`/blog/article/${slug}`"
+				:tabindex="_sys.raw.publishedAt ? 1 : -1"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="slug"
+			>
 				{{ slug }}
 			</a>
 			<SvgButton
@@ -74,8 +82,8 @@ const publishState = _sys.raw.publishedAt ? "#fb7185" : "#0ea5e9";
 		</ul>
 	</div>
 	<button type="button" id="preview-tab-close-btn">
-		<svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.barsStaggered">
-			<path :d="svgPaths.barsStaggered"></path>
+		<svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.globe">
+			<path :d="svgPaths.globe"></path>
 		</svg>
 	</button>
 </template>
@@ -120,11 +128,23 @@ const publishState = _sys.raw.publishedAt ? "#fb7185" : "#0ea5e9";
 			border-radius: 12px;
 			padding: 0.3rem 1rem;
 			font-size: 1.2rem;
+			pointer-events: v-bind(pointerEvents);
+			cursor: v-bind(cursor);
+
+			&:active {
+				opacity: 0.5;
+				transition: 0.2s all;
+			}
 
 			@include resp(lg) {
 				font-size: 2rem;
 				padding: 0.5rem 1rem;
 				letter-spacing: 0.7px;
+
+				&:hover {
+					opacity: 0.5;
+					transition: 0.2s all;
+				}
 			}
 		}
 	}
@@ -152,9 +172,19 @@ const publishState = _sys.raw.publishedAt ? "#fb7185" : "#0ea5e9";
 	bottom: 100px;
 	border-top-left-radius: 12px;
 
+	&:active {
+		opacity: 0.5;
+		transition: 0.2s all;
+	}
+
 	@include resp(lg) {
 		width: 100px;
 		height: 100px;
+
+		&:hover {
+			opacity: 0.5;
+			transition: 0.2s all;
+		}
 	}
 
 	svg {

@@ -13,11 +13,7 @@ const opacity = isDisabled ? 0.5 : 1;
 </script>
 
 <template>
-	<a
-		:href="`/blog/archive/${year}-${month}/1`"
-		:tabindex="isDisabled ? -1 : 1"
-		class="archive-month-card"
-	>
+	<a :href="`/blog/archive/${year}-${month}/1`" class="archive-month-card">
 		<label class="month">
 			{{ month }}
 		</label>
