@@ -13,6 +13,10 @@ interface Props {
 const { article, secret, prev, next } = defineProps<Props>();
 const { _id, _sys, slug } = article;
 
+const sliceText = (text: string, limit: number = 15): string => {
+	return `${text.slice(0, limit)}...`;
+};
+
 const publishState = _sys.raw.publishedAt ? "#fb7185" : "#0ea5e9";
 const cursor = _sys.raw.publishedAt ? "pointer" : "none";
 const pointerEvents = _sys.raw.publishedAt ? "visible" : "none";
@@ -37,7 +41,7 @@ const pointerEvents = _sys.raw.publishedAt ? "visible" : "none";
 				rel="noopener noreferrer"
 				class="slug"
 			>
-				{{ slug }}
+				{{ sliceText(slug) }}
 			</a>
 			<SvgButton
 				v-if="next"
