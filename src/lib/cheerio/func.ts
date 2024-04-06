@@ -98,7 +98,7 @@ export const anchorStylist = async ($: CheerioAPI): Promise<void> => {
 // styling <img />
 export const imgStylist = async ($: CheerioAPI): Promise<void> => {
 	$("img").each((_, elm) => {
-		$(elm).unwrap().wrap("<figure></figure>");
+		$(elm).unwrap().wrap('<figure class="figure-img"></figure>');
 		if ($(elm).attr("title") && $(elm).attr("title") !== "") {
 			$(elm).after(
 				`<figcaption><svg xmlns="http://www.w3.org/2000/svg" viewBox="${
@@ -111,6 +111,14 @@ export const imgStylist = async ($: CheerioAPI): Promise<void> => {
 	});
 };
 
+// styling <table>
+export const tableStylist = async ($: CheerioAPI): Promise<void> => {
+	$("table").each((_, elm) => {
+		$(elm).wrap('<figure class="figure-table"></figure>');
+	});
+};
+
+// Callout
 const calloutStyles: { slug: string; svgPath: string; svgViewBox: string }[] = [
 	{ slug: "info", svgPath: svgPaths.circleInfo, svgViewBox: svgViewBoxes.circleInfo },
 	{

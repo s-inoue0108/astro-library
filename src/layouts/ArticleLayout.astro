@@ -457,13 +457,16 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 				color: getColor(--text-secondary-color);
 			}
 
+			.figure-table {
+				width: 100%;
+				overflow-x: auto;
+			}
+
 			table {
 				margin: 1.2rem auto;
-				display: table;
-				max-width: 100%;
-				overflow-x: auto;
-				white-space: nowrap;
+				min-width: 1px;
 				border-collapse: collapse;
+				display: table;
 
 				@include resp(lg) {
 					margin: 2rem auto;
@@ -471,18 +474,30 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 
 				th,
 				td {
-					width: 1px;
-					min-width: 4rem;
 					border: solid 1px getColor(--border-color);
 					padding: 0.5rem;
+					white-space: nowrap;
+
+					@include resp(lg) {
+						font-size: 1.2rem;
+						padding: 0.5rem 1rem;
+					}
 				}
 
 				th {
 					text-align: center;
+
+					@include resp(lg) {
+						font-size: 1.2rem;
+					}
 				}
 
 				td {
 					background: getColor(--bg-secondary-color);
+
+					@include resp(lg) {
+						font-size: 1.2rem;
+					}
 				}
 			}
 
@@ -546,7 +561,7 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 				}
 			}
 
-			figure {
+			.figure-img {
 				padding: 2rem 0;
 				width: 100%;
 				display: flex;
