@@ -12,15 +12,15 @@
 
 ## フロントエンド
 
-### [AstroJS](https://docs.astro.build/en/getting-started/)
+[AstroJS](https://docs.astro.build/en/getting-started/)
 
 ## コンテンツ管理
 
-### [Newt](https://app.newt.so/spaces)
+[Newt](https://app.newt.so/spaces)
 
 ## ホスティング
 
-### [Vercel](https://vercel.com/s-inoue0108/astro-library/deployments)
+[Vercel](https://vercel.com/s-inoue0108/astro-library/deployments)
 
 # Markdown
 

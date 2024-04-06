@@ -74,8 +74,8 @@ const publishState = _sys.raw.publishedAt ? "#fb7185" : "#0ea5e9";
 		</ul>
 	</div>
 	<button type="button" id="preview-tab-close-btn">
-		<svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.circleInfo">
-			<path :d="svgPaths.circleInfo"></path>
+		<svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.barsStaggered">
+			<path :d="svgPaths.barsStaggered"></path>
 		</svg>
 	</button>
 </template>

@@ -217,6 +217,10 @@ const sideRawArticles = await getSideArticlesBySlug(rawArticles, slug);
 	const previewTab = document.getElementById("preview-tab");
 	const closeBtn = document.getElementById("preview-tab-close-btn");
 
+	gsap.set(previewTab, {
+		y: 100,
+	});
+
 	const openAnim = gsap.to(previewTab, {
 		y: 0,
 		duration: 0.5,
