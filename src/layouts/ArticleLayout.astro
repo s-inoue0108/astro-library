@@ -307,6 +307,15 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 					padding: 0.6rem 1.2rem;
 				}
 
+				.code-title {
+					background: getColor(--bg-primary-color);
+					margin-bottom: calc(4px - 0.9rem);
+				}
+
+				pre {
+					background: getColor(--bg-primary-color);
+				}
+
 				code {
 					background: getColor(--bg-primary-color);
 				}
@@ -527,6 +536,52 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 				}
 			}
 
+			.code-title {
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0.5rem 1rem;
+				margin-top: 1rem;
+				margin-bottom: 4px;
+				background: getColor(--bg-secondary-color);
+				border-radius: 4px 4px 0 0;
+
+				@include resp(lg) {
+					margin-top: 2rem;
+					margin-bottom: 6px;
+					font-size: 1.2rem;
+					padding: 0.5rem 1.5rem;
+					letter-spacing: 0.5px;
+				}
+
+				.title {
+					width: 80%;
+					font-weight: 600;
+					overflow-x: auto;
+					overflow-y: hidden;
+				}
+
+				.copy-btn {
+					position: relative;
+
+					svg {
+						position: absolute;
+						top: 50%;
+						right: 0;
+						transform: translateY(-50%);
+						height: 16px;
+						width: auto;
+						fill: getColor(--text-secondary-color);
+
+						@include resp(lg) {
+							height: 20px;
+							width: auto;
+						}
+					}
+				}
+			}
+
 			pre {
 				display: block;
 				width: 100%;
@@ -643,51 +698,6 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 			.katex-display::-webkit-scrollbar-thumb {
 				background: getColor(--border-color);
 				border-radius: 9999px;
-			}
-
-			.code-title {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				padding: 0.5rem 1rem;
-				margin-top: 1rem;
-				margin-bottom: 4px;
-				background: getColor(--bg-secondary-color);
-				border-radius: 4px 4px 0 0;
-
-				@include resp(lg) {
-					margin-top: 2rem;
-					margin-bottom: 6px;
-					font-size: 1.2rem;
-					padding: 0.5rem 1.5rem;
-					letter-spacing: 0.5px;
-				}
-
-				.title {
-					width: 80%;
-					font-weight: 600;
-					overflow-x: auto;
-					overflow-y: hidden;
-				}
-
-				.copy-btn {
-					position: relative;
-
-					svg {
-						position: absolute;
-						top: 50%;
-						right: 0;
-						transform: translateY(-50%);
-						height: 16px;
-						width: auto;
-						fill: getColor(--text-secondary-color);
-
-						@include resp(lg) {
-							height: 20px;
-							width: auto;
-						}
-					}
-				}
 			}
 		}
 	}
