@@ -20,7 +20,11 @@ export const mathRenderer = async (rawText: string): Promise<string> => {
 		// Rendering DISPLAY KaTeX
 		const renderedDisplayText = $.html().replaceAll(/\$\$[^\$]*\$\$/g, (text: string) => {
 			return katex.renderToString(
-				text.replaceAll("$", "").replaceAll(/(<br>|<\\br>|<br \/>|&nbsp;|amp;)/g, ""),
+				text
+					.replaceAll("$", "")
+					.replaceAll(/(<br>|<\\br>|<br \/>|&nbsp;|amp;)/g, "")
+					.replaceAll(/(&lt;)/g, "<")
+					.replaceAll(/(&gt;)/g, ">"),
 				{ output: "html", displayMode: true }
 			);
 		});
@@ -28,7 +32,11 @@ export const mathRenderer = async (rawText: string): Promise<string> => {
 		// Rendering INLINE KaTeX
 		const renderedText = renderedDisplayText.replaceAll(/\$[^\$]*\$/g, (text: string) => {
 			return katex.renderToString(
-				text.replaceAll("$", "").replaceAll(/(<br>|<\\br>|<br \/>|&nbsp;|amp;)/g, ""),
+				text
+					.replaceAll("$", "")
+					.replaceAll(/(<br>|<\\br>|<br \/>|&nbsp;|amp;)/g, "")
+					.replaceAll(/(&lt:)/g, "<")
+					.replaceAll(/(&gt:)/g, ">"),
 				{ output: "html", displayMode: false }
 			);
 		});
