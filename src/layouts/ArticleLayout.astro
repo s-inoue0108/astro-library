@@ -462,6 +462,15 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 				overflow-x: auto;
 			}
 
+			.figure-table::-webkit-scrollbar {
+				background: getColor(--bg-secondary-color);
+			}
+
+			.figure-table::-webkit-scrollbar-thumb {
+				background: getColor(--border-color);
+				border-radius: 9999px;
+			}
+
 			table {
 				margin: 1.2rem auto;
 				min-width: 1px;
@@ -621,6 +630,11 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 				overflow-x: auto;
 				overflow-y: hidden;
 				padding: 0.5rem 0;
+
+				.katex {
+					color: getColor(--text-primary-color);
+					border-color: getColor(--text-primary-color);
+				}
 			}
 
 			.katex-display::-webkit-scrollbar {
