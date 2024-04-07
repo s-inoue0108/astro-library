@@ -48,3 +48,16 @@ export const fuseClient = async (
 		minMatchCharLength: minMatchCharLength,
 	});
 };
+
+// Slice text
+const generateSegmentData = (text: string): Intl.SegmentData[] => {
+	const segmenter = new Intl.Segmenter("ja", { granularity: "grapheme" });
+	return [...segmenter.segment(text)];
+};
+
+export const sliceText = (text?: string | null, limit: number = 50): string => {
+	if (!text) return "";
+	const segmentData = generateSegmentData(text);
+	if (segmentData.length > limit) return `${text.slice(0, limit)}...`;
+	return text;
+};

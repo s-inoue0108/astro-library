@@ -4,6 +4,7 @@ import { svgPaths, svgViewBoxes, type SvgMetadata } from "../../../lib/svg/paths
 import type { Article } from "../../../lib/newt/types";
 import { getSegments, fuseClient, type Segment } from "../../../lib/fusejs/instance";
 import type { FuseResult } from "fuse.js";
+import { sliceText } from "../../../lib/fusejs/instance";
 
 const keyword = ref<string>("");
 
@@ -48,16 +49,6 @@ const getShowedArticles = (hits: FuseResult<Segment>[]): Article[] => {
 const showedArticles = computed<Article[]>(() => {
 	return getShowedArticles(hits.value);
 });
-
-const sliceText = (text: string | undefined, limit: number): string => {
-	if (!text || text.length === 0) {
-		return "";
-	}
-	if (text && text.length > limit) {
-		return `${text.slice(0, limit)}...`;
-	}
-	return text;
-};
 </script>
 
 <template>

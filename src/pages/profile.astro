@@ -4,6 +4,7 @@ import PageTitle from "../components/blog/background/PageTitle.astro";
 import PageTitleForPc from "../components/blog/background/PageTitleForPc.astro";
 import { svgPaths, svgViewBoxes } from "../lib/svg/paths";
 import ProgressBar from "../components/profile/ProgressBar.vue";
+import QualificationCard from "../components/profile/QualificationCard.vue";
 
 import type { Skill } from "../lib/newt/types";
 
@@ -41,7 +42,21 @@ const getSkillsByCategory = (category: string): Skill[] => {
 
 	<!-- <ProfileContent /> -->
 
-	<section class="skill-categories">
+	<section id="qualifications-section">
+		<ul class="qualifications">
+			{
+				qualifications &&
+					qualifications.map((qualification) => {
+						return (
+							<li class="qualification">
+								<QualificationCard qualification={qualification} />
+							</li>
+						);
+					})
+			}
+		</ul>
+	</section>
+	<section id="skills-section">
 		{
 			categories.length > 0 &&
 				categories.map((category) => {
@@ -62,10 +77,11 @@ const getSkillsByCategory = (category: string): Skill[] => {
 				})
 		}
 	</section>
+	<section id="works-section"></section>
 </Layout>
 
 <style lang="scss">
-	.skill-categories {
+	#skills-section {
 		margin: 0 calc((100% - 252px - 4rem) / 2);
 
 		@include resp(lg) {
@@ -95,6 +111,18 @@ const getSkillsByCategory = (category: string): Skill[] => {
 			@include resp(lg) {
 				margin: 8rem 0;
 				gap: 6rem;
+			}
+		}
+	}
+
+	#qualifications-section {
+		.qualifications {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			.qualification {
+				width: 100%;
 			}
 		}
 	}

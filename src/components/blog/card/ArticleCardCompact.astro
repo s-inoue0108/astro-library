@@ -2,6 +2,7 @@
 // Image
 import { Image } from "astro:assets";
 import type { Article } from "../../../lib/newt/types";
+import { sliceText } from "../../../lib/fusejs/instance";
 
 interface Props {
 	article: Pick<Article, "title" | "slug" | "thambnail" | "category">;
@@ -9,12 +10,6 @@ interface Props {
 
 const { article } = Astro.props;
 const { title, slug, thambnail, category } = article;
-
-const sliceText = (text: string | undefined, limit: number): string => {
-	if (!text || text.length === 0) return "";
-	if (text && text.length > limit) return `${text.slice(0, limit)}...`;
-	return text;
-};
 
 const svgColor = category.themeColor;
 ---

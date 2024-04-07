@@ -128,4 +128,9 @@ export interface Work extends CommonProps {
 export interface Qualification extends CommonProps {
 	name: string;
 	date: Date;
+	credential?: {
+		id: string;
+		type: string;
+		data: string | NewtImageProps;
+	};
 }

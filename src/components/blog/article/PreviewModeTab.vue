@@ -2,6 +2,7 @@
 import type { Article } from "../../../lib/newt/types";
 import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 import SvgButton from "../../common/buttons/Svg.vue";
+import { sliceText } from "../../../lib/fusejs/instance";
 
 interface Props {
 	article: Pick<Article, "_id" | "_sys" | "slug">;
@@ -12,10 +13,6 @@ interface Props {
 
 const { article, secret, prev, next } = defineProps<Props>();
 const { _id, _sys, slug } = article;
-
-const sliceText = (text: string, limit: number = 15): string => {
-	return `${text.slice(0, limit)}...`;
-};
 
 const publishState = _sys.raw.publishedAt ? "#fb7185" : "#0ea5e9";
 const cursor = _sys.raw.publishedAt ? "pointer" : "none";
@@ -41,7 +38,7 @@ const pointerEvents = _sys.raw.publishedAt ? "visible" : "none";
 				rel="noopener noreferrer"
 				class="slug"
 			>
-				{{ sliceText(slug) }}
+				{{ sliceText(slug, 15) }}
 			</a>
 			<SvgButton
 				v-if="next"
