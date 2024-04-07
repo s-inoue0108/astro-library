@@ -107,13 +107,16 @@ export const anchorStylist = async ($: CheerioAPI): Promise<void> => {
 export const imgStylist = async ($: CheerioAPI): Promise<void> => {
 	$("img").each((_, elm) => {
 		$(elm).unwrap().wrap('<figure class="figure-img"></figure>');
-		if ($(elm).attr("title") && $(elm).attr("title") !== "") {
+		const title = $(elm).parent("figure").next("strong");
+
+		if (title && /^caption: /.test(title.text())) {
+			title.remove();
 			$(elm).after(
 				`<figcaption><svg xmlns="http://www.w3.org/2000/svg" viewBox="${
 					svgViewBoxes.image
-				}"><path d="${svgPaths.image}"></path></svg><span>${$(elm).attr(
-					"title"
-				)}</span></figcaption>`
+				}"><path d="${svgPaths.image}"></path></svg><span>${title
+					.text()
+					.replace(/^caption: /, "")}</span></figcaption>`
 			);
 		}
 	});
@@ -123,6 +126,18 @@ export const imgStylist = async ($: CheerioAPI): Promise<void> => {
 export const tableStylist = async ($: CheerioAPI): Promise<void> => {
 	$("table").each((_, elm) => {
 		$(elm).wrap('<figure class="figure-table"></figure>');
+		const title = $(elm).parent("figure").prev("p").children("strong");
+
+		if (title && /^caption: /.test(title.text())) {
+			title.parent("p").remove();
+			$(elm).before(
+				`<figcaption><svg xmlns="http://www.w3.org/2000/svg" viewBox="${
+					svgViewBoxes.table
+				}"><path d="${svgPaths.table}"></path></svg>${title
+					.text()
+					.replace(/^caption: /, "")}</figcaption>`
+			);
+		}
 	});
 };
 
