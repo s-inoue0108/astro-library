@@ -5,6 +5,10 @@ import PageTitleForPc from "../components/blog/background/PageTitleForPc.astro";
 import { svgPaths, svgViewBoxes } from "../lib/svg/paths";
 import ProgressBar from "../components/profile/ProgressBar.vue";
 import QualificationCard from "../components/profile/QualificationCard.vue";
+import SectionTitle from "../components/profile/SectionTitle.vue";
+// Image
+import { Image } from "astro:assets";
+import TokyoNightScape from "../images/common/TokyoNightScape.jpeg";
 
 import type { Skill } from "../lib/newt/types";
 
@@ -40,9 +44,24 @@ const getSkillsByCategory = (category: string): Skill[] => {
 		svgViewBox={svgViewBoxes.user}
 	/>
 
-	<!-- <ProfileContent /> -->
-
+	<SectionTitle title="Introduction" nextHref="/profile#qualifications-section" />
+	<section id="introduction-section">
+		<div class="bg-image">
+			<Image src={TokyoNightScape} alt="東京の夜景" />
+			<div class="blind"></div>
+		</div>
+		<ProfileContent />
+	</section>
+	<SectionTitle
+		title="Qualifications"
+		prevHref="/profile#introduction-section"
+		nextHref="/profile#skills-section"
+	/>
 	<section id="qualifications-section">
+		<div class="bg-image">
+			<Image src={TokyoNightScape} alt="東京の夜景" />
+			<div class="blind"></div>
+		</div>
 		<ul class="qualifications">
 			{
 				qualifications &&
@@ -56,6 +75,11 @@ const getSkillsByCategory = (category: string): Skill[] => {
 			}
 		</ul>
 	</section>
+	<SectionTitle
+		title="Skills"
+		prevHref="/profile#qualifications-section"
+		nextHref="/profile#works-section"
+	/>
 	<section id="skills-section">
 		{
 			categories.length > 0 &&
@@ -77,16 +101,33 @@ const getSkillsByCategory = (category: string): Skill[] => {
 				})
 		}
 	</section>
-	<section id="works-section"></section>
+	<SectionTitle title="Works" prevHref="/profile#skills-section" />
+	<section id="works-section">
+		<div class="bg-image">
+			<Image src={TokyoNightScape} alt="東京の夜景" />
+			<div class="blind"></div>
+		</div>
+		<ul class="works">
+			{
+				works &&
+					works.map((work) => {
+						return <li class="work">{work}</li>;
+					})
+			}
+		</ul>
+	</section>
 </Layout>
 
 <style lang="scss">
-	#skills-section {
-		margin: 0 calc((100% - 252px - 4rem) / 2);
+	#introduction-section {
+		position: relative;
+		min-height: 100vh;
+	}
 
-		@include resp(lg) {
-			margin: 0 calc((100% - 840px - 24rem) / 2);
-		}
+	#skills-section {
+		position: relative;
+		min-height: 100vh;
+
 		.category-name {
 			margin-top: 2rem;
 			font-size: 1.8rem;
@@ -102,28 +143,66 @@ const getSkillsByCategory = (category: string): Skill[] => {
 
 		.skills {
 			width: 100%;
-			margin: 2rem 0;
 			display: flex;
 			flex-wrap: wrap;
 			align-items: center;
 			gap: 2rem;
+			margin: 2rem calc((100% - 252px - 4rem) / 2);
 
 			@include resp(lg) {
-				margin: 8rem 0;
+				margin: 8rem calc((100% - 840px - 24rem) / 2);
 				gap: 6rem;
 			}
 		}
 	}
 
 	#qualifications-section {
+		position: relative;
+		min-height: 100vh;
+
 		.qualifications {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 
+			@include resp(lg) {
+				padding: 0 3rem;
+			}
+
+			@include resp(lg) {
+				padding: 0 5rem;
+			}
+
 			.qualification {
 				width: 100%;
 			}
+		}
+	}
+
+	#works-section {
+		position: relative;
+		min-height: 100vh;
+	}
+
+	.bg-image {
+		width: calc(100% + 2rem);
+		height: 100%;
+		position: absolute;
+		margin-left: -1rem;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.blind {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: getColor(--bg-primary-color, 0.7);
 		}
 	}
 </style>

@@ -21,12 +21,40 @@ const url = getUrl(credential);
 
 <template>
 	<div class="qualification">
-		<a :href="url" target="_blank" rel="noopener noreferrer" v-if="credential">
+		<a :href="url" target="_blank" rel="noopener noreferrer" v-if="credential" class="name">
 			{{ name }}
 		</a>
-		<p v-else>{{ name }}</p>
-		<p>{{ new Intl.DateTimeFormat().format(new Date(date)) }}</p>
+		<p v-else class="name">{{ name }}</p>
+		<p class="date">{{ new Intl.DateTimeFormat().format(new Date(date)) }}</p>
 	</div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.qualification {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	.name {
+		color: getColor(--text-secondary-color);
+		font-size: 1.2rem;
+		font-weight: 600;
+		letter-spacing: 1px;
+
+		@include resp(lg) {
+			font-size: 3.6rem;
+			letter-spacing: 4px;
+		}
+	}
+
+	.date {
+		color: getColor(--text-secondary-color);
+		font-weight: 300;
+
+		@include resp(lg) {
+			font-size: 3.2rem;
+			letter-spacing: 4px;
+		}
+	}
+}
+</style>
