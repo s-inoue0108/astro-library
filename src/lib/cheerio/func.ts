@@ -212,9 +212,9 @@ export const getHeadings = async ($: CheerioAPI): Promise<Heading[]> => {
 
 export const getDiffOffsets = async ($: CheerioAPI): Promise<number[]> => {
 	const headingOffsets: number[] = [];
-	$("h1,h2,h3").each((_, elm) => {
+	$("h1,h2,h3").each((idx, elm) => {
 		const id = $(elm).attr("id");
-		const idName = $(elm).text();
+		const idName = `${idx}-${$(elm).text()}`;
 
 		if (id && id === idName) {
 			headingOffsets.push(document.getElementById(idName)!.offsetTop);
