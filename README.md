@@ -38,6 +38,8 @@
 > text
 ```
 
+---
+
 注意
 
 ```md:Warning
@@ -73,13 +75,13 @@ $$ \frac{a}{b} = c $$
 
 ### 画像キャプション
 
-画像の直後に**インラインで** `**caption: title**` と挿入すると、画像の下に `title` の部分のみが表示されます。
+画像の直後に**インラインで** `**caption: hogehoge**` と挿入すると、画像の下に `hogehoge` の部分のみが表示されます。
 
 ```md:Image
 text
 text
 
-[This is Image](imageUrl) **caption: title**
+[This is Image](imageUrl) **caption: hogehoge**
 
 text
 text
@@ -87,13 +89,13 @@ text
 
 ### 表キャプション
 
-表の直前に**ブロックで** `**caption: title**` と挿入すると、表の上に `title` の部分のみが表示されます。
+表の直前に**ブロックで** `**caption: fugafuga**` と挿入すると、表の上に `fugafuga` の部分のみが表示されます。
 
 ```md:Table
 text
 text
 
-**caption: title**
+**caption: fugafuga**
 | header | A | B | C | D |
 | :----: |:-:|:-:|:-:|:-:|
 |  data  | 1 | 2 | 3 | 4 |
