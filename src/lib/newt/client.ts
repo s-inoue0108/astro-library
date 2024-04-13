@@ -226,6 +226,7 @@ export const getSkills = async (
 			modelUid: "skill",
 			query: {
 				limit: limit,
+				order: ["_sys.customOrder"],
 				depth: depth,
 			},
 		});
@@ -246,6 +247,7 @@ export const getWorks = async (
 			modelUid: "work",
 			query: {
 				limit: limit,
+				order: ["_sys.customOrder"],
 				depth: depth,
 			},
 		});
@@ -266,6 +268,7 @@ export const getQualifications = async (
 			modelUid: "qualification",
 			query: {
 				limit: limit,
+				order: ["_sys.customOrder"],
 				depth: depth,
 			},
 		});

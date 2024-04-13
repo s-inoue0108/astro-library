@@ -6,9 +6,8 @@ import { svgPaths, svgViewBoxes } from "../lib/svg/paths";
 import ProgressBar from "../components/profile/ProgressBar.vue";
 import QualificationCard from "../components/profile/QualificationCard.vue";
 import SectionTitle from "../components/profile/SectionTitle.vue";
-// Image
-import { Image } from "astro:assets";
-import TokyoNightScape from "../images/common/TokyoNightScape.jpeg";
+
+import WorkCard from "../components/profile/WorkCard.astro";
 
 import type { Skill } from "../lib/newt/types";
 
@@ -46,10 +45,6 @@ const getSkillsByCategory = (category: string): Skill[] => {
 
 	<SectionTitle title="Introduction" nextHref="/profile#qualifications-section" />
 	<section id="introduction-section">
-		<div class="bg-image">
-			<Image src={TokyoNightScape} alt="東京の夜景" />
-			<div class="blind"></div>
-		</div>
 		<ProfileContent />
 	</section>
 	<SectionTitle
@@ -58,10 +53,6 @@ const getSkillsByCategory = (category: string): Skill[] => {
 		nextHref="/profile#skills-section"
 	/>
 	<section id="qualifications-section">
-		<div class="bg-image">
-			<Image src={TokyoNightScape} alt="東京の夜景" />
-			<div class="blind"></div>
-		</div>
 		<ul class="qualifications">
 			{
 				qualifications &&
@@ -86,7 +77,8 @@ const getSkillsByCategory = (category: string): Skill[] => {
 				categories.map((category) => {
 					return (
 						<>
-							<div class="category-name">{category.toUpperCase()}</div>
+							<h2 class="category-name">{category.toUpperCase()}</h2>
+							<p class="score-info">Click cards to display scores (0 - 100)</p>
 							<ul class="skills">
 								{getSkillsByCategory(category).map((skill) => {
 									return (
@@ -103,15 +95,15 @@ const getSkillsByCategory = (category: string): Skill[] => {
 	</section>
 	<SectionTitle title="Works" prevHref="/profile#skills-section" />
 	<section id="works-section">
-		<div class="bg-image">
-			<Image src={TokyoNightScape} alt="東京の夜景" />
-			<div class="blind"></div>
-		</div>
 		<ul class="works">
 			{
 				works &&
 					works.map((work) => {
-						return <li class="work">{work}</li>;
+						return (
+							<li class="work">
+								<WorkCard work={work} />
+							</li>
+						);
 					})
 			}
 		</ul>
@@ -127,17 +119,38 @@ const getSkillsByCategory = (category: string): Skill[] => {
 	#skills-section {
 		position: relative;
 		min-height: 100vh;
+		margin: 3rem calc((100% - 252px - 4rem) / 2);
+
+		@include resp(lg) {
+			margin: 8rem calc((100% - 840px - 24rem) / 2);
+		}
 
 		.category-name {
-			margin-top: 2rem;
-			font-size: 1.8rem;
+			margin-top: 3rem;
+			font-size: 1.5rem;
 			font-weight: 600;
-			letter-spacing: 1px;
+			letter-spacing: 4px;
+			text-align: center;
 
 			@include resp(lg) {
+				margin-top: 8rem;
 				font-size: 3.2rem;
 				letter-spacing: 4px;
 				padding-left: 2rem;
+			}
+		}
+
+		.score-info {
+			color: getColor(--text-secondary-color);
+			font-size: 0.8rem;
+			letter-spacing: 0.5px;
+			text-align: center;
+			margin-top: 0.5rem;
+
+			@include resp(lg) {
+				font-size: 1.2rem;
+				letter-spacing: 1px;
+				margin-top: 1rem;
 			}
 		}
 
@@ -147,10 +160,10 @@ const getSkillsByCategory = (category: string): Skill[] => {
 			flex-wrap: wrap;
 			align-items: center;
 			gap: 2rem;
-			margin: 2rem calc((100% - 252px - 4rem) / 2);
+			margin-top: 2rem;
 
 			@include resp(lg) {
-				margin: 8rem calc((100% - 840px - 24rem) / 2);
+				margin-top: 4rem;
 				gap: 6rem;
 			}
 		}
@@ -182,27 +195,20 @@ const getSkillsByCategory = (category: string): Skill[] => {
 	#works-section {
 		position: relative;
 		min-height: 100vh;
-	}
 
-	.bg-image {
-		width: calc(100% + 2rem);
-		height: 100%;
-		position: absolute;
-		margin-left: -1rem;
+		.works {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 3rem;
 
-		img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-		}
+			@include resp(lg) {
+				gap: 5rem;
+			}
 
-		.blind {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background: getColor(--bg-primary-color, 0.7);
+			.work {
+				width: 100%;
+			}
 		}
 	}
 </style>

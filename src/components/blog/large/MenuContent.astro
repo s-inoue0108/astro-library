@@ -36,7 +36,7 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 						})
 				}
 				<li class="category">
-					<a href={`/blog/search`}>
+					<a href="/blog/search">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox={svgViewBoxes.magnifyingGlass}
@@ -48,7 +48,7 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 					</a>
 				</li>
 				<li class="category">
-					<a href={`/blog/link/1`}>
+					<a href="/blog/link/1">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.link} class="other-svgs">
 							<path d={svgPaths.link}></path>
 						</svg>
@@ -65,6 +65,56 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 				</svg>
 				<span>プロフィール</span>
 			</a>
+			<ul class="hash-categories">
+				<li class="category">
+					<a href="/profile#introduction-section">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox={svgViewBoxes.hashtag}
+							class="other-svgs"
+						>
+							<path d={svgPaths.hashtag}></path>
+						</svg>
+						<span>Introduction</span>
+					</a>
+				</li>
+				<li class="category">
+					<a href="/profile#qualifications-section">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox={svgViewBoxes.hashtag}
+							class="other-svgs"
+						>
+							<path d={svgPaths.hashtag}></path>
+						</svg>
+						<span>Qualifications</span>
+					</a>
+				</li>
+				<li class="category">
+					<a href="/profile#skills-section">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox={svgViewBoxes.hashtag}
+							class="other-svgs"
+						>
+							<path d={svgPaths.hashtag}></path>
+						</svg>
+						<span>Skills</span>
+					</a>
+				</li>
+				<li class="category">
+					<a href="/profile#works-section">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox={svgViewBoxes.hashtag}
+							class="other-svgs"
+						>
+							<path d={svgPaths.hashtag}></path>
+						</svg>
+						<span>Works</span>
+					</a>
+				</li>
+			</ul>
 		</li>
 		<hr />
 		<li class="menu-link">
@@ -117,7 +167,7 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 		position: fixed;
 		top: 0;
 		left: 0;
-		z-index: 100;
+		z-index: 1000;
 		background: getColor(--bg-secondary-color, 0.9);
 		color: getColor(--text-primary-color);
 		padding: calc(36px + 1rem) 1.5rem;
@@ -189,8 +239,20 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 				}
 			}
 
+			.hash-categories {
+				display: none;
+
+				@include resp(lg) {
+					display: flex;
+				}
+			}
+
 			.categories {
 				display: flex;
+			}
+
+			.categories,
+			.hash-categories {
 				flex-direction: column;
 				gap: 0.5rem;
 				padding: 1rem 0 0 1rem;

@@ -117,12 +117,10 @@ export interface Skill extends CommonProps {
 export interface Work extends CommonProps {
 	title: string;
 	description?: string;
-	images?: NewtImageProps[];
-	stacks?: {
-		text: string;
-		icon?: NewtImageProps;
-	}[];
+	images: NewtImageProps[];
+	stacks?: Skill[];
 	url?: string;
+	repo?: string;
 }
 
 export interface Qualification extends CommonProps {

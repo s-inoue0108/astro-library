@@ -29,17 +29,19 @@ const toggleView = (): void => {
 </script>
 
 <template>
-	<button type="button" @click="toggleView" class="progress-circle">
-		<Transition name="switch">
-			<img :src="icon.src" :alt="name" class="icon" v-if="isViewingImage" />
-			<p v-else class="level">{{ level }}</p>
-		</Transition>
-		<svg xmlns="http://www.w3.org/2000/svg" class="progress-bar" viewBox="0 0 200 200">
-			<circle class="bar" cx="100" cy="100" :r="radius"></circle>
-			<circle class="bg" cx="100" cy="100" :r="radius"></circle>
-		</svg>
-	</button>
-	<p class="title">{{ name }}</p>
+	<div :id="`skill-${name}`">
+		<button type="button" @click="toggleView" class="progress-circle">
+			<Transition name="switch">
+				<img :src="icon.src" :alt="name" class="icon" v-if="isViewingImage" />
+				<p v-else class="level">{{ level }}</p>
+			</Transition>
+			<svg xmlns="http://www.w3.org/2000/svg" class="progress-bar" viewBox="0 0 200 200">
+				<circle class="bar" cx="100" cy="100" :r="radius"></circle>
+				<circle class="bg" cx="100" cy="100" :r="radius"></circle>
+			</svg>
+		</button>
+		<p class="title">{{ name }}</p>
+	</div>
 </template>
 
 <style scoped lang="scss">
@@ -49,9 +51,19 @@ const toggleView = (): void => {
 	width: 84px;
 	height: 84px;
 
+	&:active {
+		opacity: 0.5;
+		transition: 0.3s ease;
+	}
+
 	@include resp(lg) {
 		width: 168px;
 		height: 168px;
+
+		&:hover {
+			opacity: 0.5;
+			transition: 0.3s ease;
+		}
 	}
 
 	.icon {

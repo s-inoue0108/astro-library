@@ -22,7 +22,7 @@ const url = getUrl(credential);
 <template>
 	<div class="qualification">
 		<a :href="url" target="_blank" rel="noopener noreferrer" v-if="credential" class="name">
-			{{ name }}
+			<span>{{ name }}</span>
 		</a>
 		<p v-else class="name">{{ name }}</p>
 		<p class="date">{{ new Intl.DateTimeFormat().format(new Date(date)) }}</p>

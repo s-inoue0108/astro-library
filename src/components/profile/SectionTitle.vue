@@ -28,29 +28,28 @@ const { title, prevHref, nextHref } = defineProps<Props>();
 
 <style scoped lang="scss">
 .section-title {
-	background: getColor(--bg-secondary-color);
+	background: getColor(--bg-primary-color);
 	position: sticky;
 	top: 36px;
 	width: calc(100% + 2rem);
 	padding: 0.5rem 0;
-	// margin: 2rem 0 2rem -1rem;
 	margin-left: -1rem;
+	margin-bottom: 3rem;
 	z-index: 100;
+	border-bottom: solid 2px getColor(--border-color);
 
 	@include resp(sm) {
-		// margin: 4rem 0 4rem -1rem;
 		top: 48px;
 	}
 
 	@include resp(lg) {
-		// margin: 8rem 0 8rem -1rem;
 		top: 64px;
 	}
 
 	h1 {
 		font-size: 1.8rem;
 		font-weight: 600;
-		letter-spacing: 2px;
+		letter-spacing: 4px;
 		text-align: center;
 
 		@include resp(sm) {
@@ -69,30 +68,38 @@ const { title, prevHref, nextHref } = defineProps<Props>();
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
-		width: 1.8rem;
-		height: 1.8rem;
+		width: 1.2rem;
+		height: 1.2rem;
 
 		@include resp(sm) {
-			width: 2.4rem;
-			height: 2.4rem;
+			width: 2rem;
+			height: 2rem;
 		}
 
 		@include resp(lg) {
-			width: 3.6rem;
-			height: 3.6rem;
+			width: 3.2rem;
+			height: 3.2rem;
 		}
 
 		svg {
-			fill: getColor(--text-secondary-color);
+			fill: getColor(--border-color);
 		}
 	}
 
 	.prev-btn {
 		left: 0.9rem;
+
+		@include resp(lg) {
+			left: 1.8rem;
+		}
 	}
 
 	.next-btn {
 		right: 0.9rem;
+
+		@include resp(lg) {
+			right: 1.8rem;
+		}
 	}
 }
 </style>
