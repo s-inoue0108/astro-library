@@ -48,12 +48,19 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 	<head prefix="og: https://ogp.me/ns#">
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
+		<meta name="og:site_name" content={import.meta.env.APP_NAME} />
 		<meta name="viewport" content="width=device-width" />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={Astro.url} />
 		<meta property="og:title" content={title} />
 		<meta property="og:image" content={imageUrl ?? ogpImageURL} />
 		<meta name="generator" content={Astro.generator} />
+
+		<!-- Twitter OGP -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content={import.meta.env.X_OWNER} />
+		<meta name="twitter:creator" content={import.meta.env.X_OWNER} />
+
 		<meta name="theme-color" media="(prefers-color-scheme: light)" content="#CBD5E1" />
 		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#4B5563" />
 
