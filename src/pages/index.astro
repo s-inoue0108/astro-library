@@ -17,7 +17,10 @@ const date = new Date();
 const year = date.getFullYear();
 ---
 
-<IndexLayout title={`ホーム | ${import.meta.env.APP_NAME}`} description="">
+<IndexLayout
+	title={`${import.meta.env.APP_NAME}`}
+	description="Shota Inoueの個人サイトです。プログラミング・化学などの情報を発信しています。"
+>
 	<div class="curtains">
 		<Image src={HeaderImage} alt={import.meta.env.APP_NAME} class="header-img" />
 		<div class="shape-div-top">
