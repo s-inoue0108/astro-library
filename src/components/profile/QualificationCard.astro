@@ -1,0 +1,132 @@
+---
+import type { Qualification } from "../../lib/newt/types";
+// Image
+import { Image } from "astro:assets";
+import NoImage from "../../images/common/no-image.png";
+
+interface Props {
+	qualification: Qualification;
+}
+
+const { qualification } = Astro.props;
+const { name, date, credential, image } = qualification;
+
+const getUrl = (credential: Qualification["credential"]): string => {
+	if (!credential) return "";
+	if (typeof credential.data === "string") {
+		return credential.data;
+	}
+	return credential.data.src;
+};
+
+const url = getUrl(credential);
+---
+
+{
+	credential ? (
+		<a href={url} target="_blank" rel="noopener noreferrer" class="qualification-card">
+			<figure>
+				{image ? (
+					<Image src={image.src} width={image.width} height={image.height} alt={image.altText} />
+				) : (
+					<Image src={NoImage} alt="No Image" />
+				)}
+			</figure>
+			<div class="texts">
+				<span class="name">{name}</span>
+				<span class="date">{new Intl.DateTimeFormat().format(new Date(date))}&nbsp;取得</span>
+			</div>
+		</a>
+	) : (
+		<div class="qualification-card">
+			<figure>
+				{image ? (
+					<Image src={image.src} width={image.width} height={image.height} alt={image.altText} />
+				) : (
+					<Image src={NoImage} alt="No Image" />
+				)}
+			</figure>
+			<span class="name">{name}</span>
+			<span class="date">{new Intl.DateTimeFormat().format(new Date(date))}&nbsp;取得</span>
+		</div>
+	)
+}
+
+<style lang="scss">
+	.qualification-card {
+		background-color: getColor(--bg-secondary-color);
+		display: flex;
+		width: 100%;
+		height: 128px;
+		padding: 0.5rem;
+		border-radius: 8px;
+
+		&:active {
+			opacity: 0.5;
+			transition: 0.2s ease;
+		}
+
+		@include resp(lg) {
+			margin: auto;
+			width: 75%;
+			height: 192px;
+			padding: 1rem;
+			border-radius: 12px;
+
+			&:hover {
+				opacity: 0.5;
+				transition: 0.2s ease;
+			}
+		}
+
+		figure {
+			width: 30%;
+			height: 100%;
+
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+		}
+
+		.texts {
+			position: relative;
+			padding-left: 1rem;
+			width: 70%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+
+			@include resp(lg) {
+				padding-left: 1.5rem;
+			}
+
+			.name {
+				font-size: 1.6rem;
+				font-weight: 600;
+				letter-spacing: 2px;
+
+				@include resp(lg) {
+					font-size: 2.4rem;
+					letter-spacing: 3px;
+				}
+			}
+
+			.date {
+				position: absolute;
+				left: 1rem;
+				bottom: 0;
+				color: getColor(--text-secondary-color);
+				letter-spacing: 1px;
+				font-weight: 400;
+
+				@include resp(lg) {
+					left: 1.5rem;
+					font-size: 1.5rem;
+					letter-spacing: 2px;
+				}
+			}
+		}
+	}
+</style>

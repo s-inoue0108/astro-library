@@ -4,7 +4,7 @@ import PageTitle from "../components/blog/background/PageTitle.astro";
 import PageTitleForPc from "../components/blog/background/PageTitleForPc.astro";
 import { svgPaths, svgViewBoxes } from "../lib/svg/paths";
 import ProgressBar from "../components/profile/ProgressBar.vue";
-import QualificationCard from "../components/profile/QualificationCard.vue";
+import QualificationCard from "../components/profile/QualificationCard.astro";
 import SectionTitle from "../components/profile/SectionTitle.vue";
 
 import WorkCard from "../components/profile/WorkCard.astro";
@@ -177,14 +177,6 @@ const getSkillsByCategory = (category: string): Skill[] => {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-
-			@include resp(lg) {
-				padding: 0 3rem;
-			}
-
-			@include resp(lg) {
-				padding: 0 5rem;
-			}
 
 			.qualification {
 				width: 100%;
