@@ -37,18 +37,18 @@ const { page } = Astro.props;
 ---
 
 <Layout
-	title={`ドキュメント | ${import.meta.env.APP_NAME}`}
-	description="ドキュメントを公開しています"
+	title={`ドキュメント | ページ${page.currentPage} | ${import.meta.env.APP_NAME}`}
+	description="過去に作成したドキュメントを公開しています"
 >
 	<PageTitle
 		title="ドキュメント"
-		description="在学生向けに過去のドキュメントを公開しています"
+		description="過去に作成したドキュメントを公開しています"
 		svgIconPath={svgPaths.folder}
 		svgViewBox={svgViewBoxes.folder}
 	/>
 	<PageTitleForPc
 		title="ドキュメント"
-		description="在学生向けに過去制作したドキュメントを公開しています"
+		description="過去に作成したドキュメントを公開しています"
 		svgIconPath={svgPaths.folder}
 		svgViewBox={svgViewBoxes.folder}
 	/>

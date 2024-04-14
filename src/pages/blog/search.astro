@@ -5,6 +5,15 @@ import { articles } from "../../lib/newt/instance";
 import NoContent from "../../components/blog/background/NoContent.astro";
 ---
 
-<Layout title={`記事を検索 | ブログ | ${import.meta.env.APP_NAME}`} description="記事検索ページ">
-	{articles && articles.length > 0 ? <SearchUi articles={articles} client:load /> : <NoContent message="記事がありません" />}
+<Layout
+	title={`記事を検索 | ブログ | ${import.meta.env.APP_NAME}`}
+	description="キーワードを含む記事を検索できます"
+>
+	{
+		articles && articles.length > 0 ? (
+			<SearchUi articles={articles} client:load />
+		) : (
+			<NoContent message="記事がありません" />
+		)
+	}
 </Layout>

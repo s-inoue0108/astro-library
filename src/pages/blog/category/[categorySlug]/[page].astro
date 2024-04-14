@@ -46,7 +46,7 @@ const { page, category } = Astro.props;
 ---
 
 <Layout
-	title={`${category.name}の記事一覧 | ページ${page.currentPage} | ブログ | ${import.meta.env.APP_NAME}`}
+	title={`${category.name} | ページ${page.currentPage} | ブログ | ${import.meta.env.APP_NAME}`}
 	description={category.description ?? ""}
 >
 	<div id="contents">

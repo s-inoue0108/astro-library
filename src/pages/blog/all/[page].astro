@@ -41,21 +41,21 @@ const { page } = Astro.props;
 ---
 
 <Layout
-	title={`ブログ | ページ${page.currentPage} | ${import.meta.env.APP_NAME}`}
-	description={`ブログ | 記事一覧`}
+	title={`記事一覧 | ページ${page.currentPage} | ブログ | ${import.meta.env.APP_NAME}`}
+	description="プログラミング等の記事を書いています"
 >
 	<div id="contents">
 		<section id="articles">
 			<PageTitleForPc
 				title="ブログ"
-				description="すべての記事"
+				description="記事の一覧です"
 				svgIconPath={svgPaths.penNib}
 				svgViewBox={svgViewBoxes.penNib}
 				marginRem={2}
 			/>
 			<PageTitle
 				title="ブログ"
-				description="すべての記事"
+				description="記事の一覧です"
 				svgIconPath={svgPaths.penNib}
 				svgViewBox={svgViewBoxes.penNib}
 			/>
