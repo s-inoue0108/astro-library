@@ -1,7 +1,7 @@
 ---
 import { categories } from "../../../lib/newt/instance";
 import SvgButton from "../../../components/common/buttons/Svg.vue";
-import SearchButton from "../../common/buttons/Search.vue";
+import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 
 const currentPath = Astro.url.pathname;
 ---
@@ -30,7 +30,19 @@ const currentPath = Astro.url.pathname;
 				})
 		}
 	</ul>
-	<SearchButton />
+	<div class="search-btn">
+		<SvgButton
+			svgIconPath={svgPaths.magnifyingGlass}
+			svgViewBox={svgViewBoxes.magnifyingGlass}
+			isLink={true}
+			linkUrl="/blog/search"
+			widthScale={2}
+			heightScale={0.8}
+			title="検索"
+			fontScale={0.8}
+			fontWeight={600}
+		/>
+	</div>
 </nav>
 
 <style lang="scss">
@@ -87,6 +99,11 @@ const currentPath = Astro.url.pathname;
 					padding: calc(64px * 0.1);
 				}
 			}
+		}
+
+		.search-btn {
+			color: getColor(--text-secondary-color);
+			fill: getColor(--text-secondary-color);
 		}
 	}
 

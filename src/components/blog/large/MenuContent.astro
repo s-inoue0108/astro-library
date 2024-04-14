@@ -10,7 +10,7 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 	<ul class="menu-links">
 		<li class="menu-link">
 			<a href="/blog/all/1">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.penNib} class="other-svgs">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.penNib} class="h1-svgs">
 					<path d={svgPaths.penNib}></path>
 				</svg>
 				<span>ブログ</span>
@@ -40,16 +40,16 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox={svgViewBoxes.magnifyingGlass}
-							class="other-svgs"
+							class="h2-svgs"
 						>
 							<path d={svgPaths.magnifyingGlass}></path>
 						</svg>
-						<span>記事をさがす</span>
+						<span>検索</span>
 					</a>
 				</li>
 				<li class="category">
 					<a href="/blog/link/1">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.link} class="other-svgs">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.link} class="h2-svgs">
 							<path d={svgPaths.link}></path>
 						</svg>
 						<span>開発リンク集</span>
@@ -60,7 +60,7 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 		<hr />
 		<li class="menu-link">
 			<a href="/profile">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.user} class="other-svgs">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.user} class="h1-svgs">
 					<path d={svgPaths.user}></path>
 				</svg>
 				<span>プロフィール</span>
@@ -68,11 +68,7 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 			<ul class="hash-categories">
 				<li class="category">
 					<a href="/profile#about-section">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox={svgViewBoxes.hashtag}
-							class="other-svgs"
-						>
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.hashtag} class="h2-svgs">
 							<path d={svgPaths.hashtag}></path>
 						</svg>
 						<span>About</span>
@@ -80,11 +76,7 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 				</li>
 				<li class="category">
 					<a href="/profile#qualifications-section">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox={svgViewBoxes.hashtag}
-							class="other-svgs"
-						>
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.hashtag} class="h2-svgs">
 							<path d={svgPaths.hashtag}></path>
 						</svg>
 						<span>Qualifications</span>
@@ -92,11 +84,7 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 				</li>
 				<li class="category">
 					<a href="/profile#skills-section">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox={svgViewBoxes.hashtag}
-							class="other-svgs"
-						>
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.hashtag} class="h2-svgs">
 							<path d={svgPaths.hashtag}></path>
 						</svg>
 						<span>Skills</span>
@@ -104,11 +92,7 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 				</li>
 				<li class="category">
 					<a href="/profile#works-section">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox={svgViewBoxes.hashtag}
-							class="other-svgs"
-						>
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.hashtag} class="h2-svgs">
 							<path d={svgPaths.hashtag}></path>
 						</svg>
 						<span>Works</span>
@@ -119,7 +103,7 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 		<hr />
 		<li class="menu-link">
 			<a href="/document/1">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.folder} class="other-svgs">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.folder} class="h1-svgs">
 					<path d={svgPaths.folder}></path>
 				</svg>
 				<span>ドキュメント</span>
@@ -128,7 +112,7 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 		<hr />
 		<li class="menu-link">
 			<a href="/contact">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.envelope} class="other-svgs">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.envelope} class="h1-svgs">
 					<path d={svgPaths.envelope}></path>
 				</svg>
 				<span>お問い合わせ</span>
@@ -234,8 +218,12 @@ import ZennLogo from "../../../images/common/zenn-logo.svg";
 					}
 				}
 
-				.other-svgs {
+				.h1-svgs {
 					fill: getColor(--text-primary-color);
+				}
+
+				.h2-svgs {
+					fill: getColor(--text-secondary-color);
 				}
 			}
 
