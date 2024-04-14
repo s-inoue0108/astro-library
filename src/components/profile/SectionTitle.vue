@@ -28,7 +28,7 @@ const { title, prevHref, nextHref } = defineProps<Props>();
 
 <style scoped lang="scss">
 .section-title {
-	background: getColor(--bg-primary-color);
+	background: getColor(--bg-secondary-color);
 	position: sticky;
 	top: 36px;
 	width: calc(100% + 2rem);

@@ -20,6 +20,12 @@ const getUrl = (credential: Qualification["credential"]): string => {
 };
 
 const url = getUrl(credential);
+
+const getYearWithMonth = (date: Date): string => {
+	return `${date.getFullYear()}年${date.getMonth() + 1}月`;
+};
+
+const yearWithMonth = getYearWithMonth(new Date(date));
 ---
 
 {
@@ -34,7 +40,7 @@ const url = getUrl(credential);
 			</figure>
 			<div class="texts">
 				<span class="name">{name}</span>
-				<span class="date">{new Intl.DateTimeFormat().format(new Date(date))}&nbsp;取得</span>
+				<span class="date">{yearWithMonth}&nbsp;取得</span>
 			</div>
 		</a>
 	) : (
@@ -47,7 +53,7 @@ const url = getUrl(credential);
 				)}
 			</figure>
 			<span class="name">{name}</span>
-			<span class="date">{new Intl.DateTimeFormat().format(new Date(date))}&nbsp;取得</span>
+			<span class="date">{yearWithMonth}&nbsp;取得</span>
 		</div>
 	)
 }

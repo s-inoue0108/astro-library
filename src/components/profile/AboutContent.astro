@@ -1,0 +1,70 @@
+---
+// Image
+import { Image } from "astro:assets";
+// HeaderImage
+import HeaderImage from "../../images/common/portfolio-favicon.png";
+---
+
+<div class="image">
+	<Image src={HeaderImage} alt="Shota Inoue" />
+</div>
+<h1 class="name">Shota Inoue</h1>
+<p class="introduction">
+	化学系の大学4年生です。2023年から、JavaScriptを中心としたWebフロントエンドの技術を趣味で学習しています。
+</p>
+
+<script>
+	import { gsap } from "gsap";
+	import { ScrollTrigger } from "gsap/ScrollTrigger";
+	gsap.registerPlugin(ScrollTrigger);
+</script>
+
+<style lang="scss">
+	.image {
+		width: 320px;
+		margin: auto;
+
+		@include resp(lg) {
+			width: 480px;
+		}
+
+		img {
+			width: 100%;
+			height: auto;
+			border-radius: 9999px;
+			object-fit: cover;
+			box-shadow: 10px 10px 10px getColor(--shadow-color);
+
+			@include resp(lg) {
+				box-shadow: 15px 15px 15px getColor(--shadow-color);
+			}
+		}
+	}
+
+	.name {
+		margin-top: 1.5rem;
+		font-size: 2.4rem;
+		font-weight: 600;
+		letter-spacing: 3px;
+		text-align: center;
+
+		@include resp(lg) {
+			font-size: 3.6rem;
+			letter-spacing: 4px;
+			margin-top: 2.5rem;
+		}
+	}
+
+	.introduction {
+		color: getColor(--text-secondary-color);
+		margin-top: 1.5rem;
+		line-height: 1.7rem;
+
+		@include resp(lg) {
+			padding: 0 15%;
+			font-size: 1.5rem;
+			letter-spacing: 1px;
+			margin-top: 2.5rem;
+		}
+	}
+</style>

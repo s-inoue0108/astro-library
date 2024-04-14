@@ -6,12 +6,12 @@ import { svgPaths, svgViewBoxes } from "../lib/svg/paths";
 import ProgressBar from "../components/profile/ProgressBar.vue";
 import QualificationCard from "../components/profile/QualificationCard.astro";
 import SectionTitle from "../components/profile/SectionTitle.vue";
+import AboutContent from "../components/profile/AboutContent.astro";
 
 import WorkCard from "../components/profile/WorkCard.astro";
 
 import type { Skill } from "../lib/newt/types";
 
-import { Content as ProfileContent } from "../markdown/profile.md";
 import { getQualifications, getSkills, getWorks } from "../lib/newt/client";
 
 const skills = await getSkills();
@@ -42,14 +42,13 @@ const getSkillsByCategory = (category: string): Skill[] => {
 		svgIconPath={svgPaths.user}
 		svgViewBox={svgViewBoxes.user}
 	/>
-
-	<SectionTitle title="Introduction" nextHref="/profile#qualifications-section" />
-	<section id="introduction-section">
-		<ProfileContent />
+	<SectionTitle title="About" nextHref="/profile#qualifications-section" />
+	<section id="about-section">
+		<AboutContent />
 	</section>
 	<SectionTitle
 		title="Qualifications"
-		prevHref="/profile#introduction-section"
+		prevHref="/profile#about-section"
 		nextHref="/profile#skills-section"
 	/>
 	<section id="qualifications-section">
@@ -111,7 +110,7 @@ const getSkillsByCategory = (category: string): Skill[] => {
 </Layout>
 
 <style lang="scss">
-	#introduction-section {
+	#about-section {
 		position: relative;
 		min-height: 100vh;
 	}
