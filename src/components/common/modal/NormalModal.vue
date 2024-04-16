@@ -33,7 +33,8 @@ const { title, svgIconPath, svgViewBox } = defineProps<Props>();
 	border-radius: 4px;
 	background: getColor(--bg-secondary-color);
 	padding: 0.5rem;
-	margin: 3rem 0;
+	margin: 1.5rem 0;
+	box-shadow: 3px 3px 3px getColor(--shadow-color);
 
 	.modal-info {
 		display: flex;

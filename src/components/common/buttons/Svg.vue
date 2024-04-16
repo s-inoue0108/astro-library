@@ -91,13 +91,13 @@ button {
 
 	&:active {
 		opacity: 0.5;
-		transition: 0.3s ease;
+		transition: 0.2s ease;
 	}
 
 	@include resp(lg) {
 		&:hover {
 			opacity: 0.5;
-			transition: 0.3s all;
+			transition: 0.2s ease;
 		}
 	}
 
@@ -128,6 +128,7 @@ button {
 
 		svg {
 			width: auto;
+			max-width: 60%;
 			height: 60%;
 			fill: v-bind(svgFillColor);
 		}

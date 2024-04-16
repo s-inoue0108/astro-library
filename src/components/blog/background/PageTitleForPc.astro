@@ -95,7 +95,7 @@ const margin = marginRem && marginRem !== 0 ? `${marginRem}rem` : "0";
 		display: none;
 
 		@include resp(lg) {
-			width: calc(100% - var(--margin));
+			width: calc(100% - 0.5 * var(--margin));
 			display: block;
 		}
 

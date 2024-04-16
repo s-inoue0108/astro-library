@@ -64,6 +64,7 @@ const toggleOpen = (): void => {
 	background: getColor(--bg-secondary-color);
 	padding: 0.5rem;
 	margin: 1rem 0;
+	box-shadow: 3px 3px 3px getColor(--shadow-color);
 
 	.modal-info {
 		display: flex;

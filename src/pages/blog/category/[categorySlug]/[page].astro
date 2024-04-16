@@ -103,6 +103,7 @@ const { page, category } = Astro.props;
 	#contents {
 		@include resp(lg) {
 			display: flex;
+			margin-bottom: 3rem;
 		}
 
 		#articles {
@@ -114,7 +115,7 @@ const { page, category } = Astro.props;
 		#sidebar {
 			@include resp(lg) {
 				width: 25%;
-				margin-top: -2rem;
+				margin-top: -0.5rem;
 			}
 		}
 	}

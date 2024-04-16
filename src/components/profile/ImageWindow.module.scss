@@ -3,6 +3,7 @@
 	border-radius: 8px;
 	position: relative;
 	background: getColor(--bg-secondary-color);
+	box-shadow: 3px 3px 3px getColor(--shadow-color);
 
 	@include resp(lg) {
 		border-width: 12px;

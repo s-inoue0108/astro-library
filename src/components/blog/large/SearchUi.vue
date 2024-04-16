@@ -96,7 +96,7 @@ const showedArticles = computed<Article[]>(() => {
 	align-items: center;
 	width: 100%;
 	height: 36px;
-	box-shadow: 0 3px 3px getColor(--shadow-color);
+	box-shadow: 3px 3px 3px getColor(--shadow-color);
 	border-radius: 8px;
 
 	@include resp(lg) {

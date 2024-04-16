@@ -5,26 +5,14 @@ import { svgPaths, svgViewBoxes } from "../lib/svg/paths";
 ---
 
 <Layout title="ページが存在しません | 404 Not Found" description="">
-	<div class="error">
+	<section class="error">
 		<h1 class="status">404</h1>
 		<p class="message">ページが存在しません</p>
-	</div>
-	<div class="return-to-home">
-		<SvgButton
-			title="Return to Home"
-			is-link={true}
-			linkUrl="/"
-			width-scale={6.2}
-			svgIconPath={svgPaths.caretRight}
-			svgViewBox={svgViewBoxes.caretRight}
-			height-scale={1}
-		/>
-	</div>
+	</section>
 </Layout>
 
 <style scoped lang="scss">
 	.error {
-		color: getColor(--text-secondary-color);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -37,44 +25,33 @@ import { svgPaths, svgViewBoxes } from "../lib/svg/paths";
 		width: 100%;
 
 		@include resp(lg) {
-			top: 35%;
+			gap: 2rem;
 		}
 
 		.status {
-			font-size: 3rem;
+			font-size: 4rem;
 			font-weight: 700;
-			letter-spacing: 1px;
+			letter-spacing: 3px;
 
 			@include resp(lg) {
-				font-size: 8rem;
-				letter-spacing: 2px;
+				font-size: 10rem;
+				letter-spacing: 6px;
 			}
 		}
 
 		.message {
-			border-top: solid 1px getColor(--text-secondary-color);
+			border-top: solid 2px getColor(--text-primary-color);
 			font-size: 1.2rem;
 			font-weight: 500;
 			letter-spacing: 1px;
 			padding: 2rem;
 
 			@include resp(lg) {
+				padding: 4rem;
 				font-size: 3rem;
-				letter-spacing: 2px;
+				letter-spacing: 4px;
+				border-top-width: 4px;
 			}
-		}
-	}
-
-	.return-to-home {
-		position: absolute;
-		top: calc(50% + 8rem);
-		left: 50%;
-		transform: translateX(-50%);
-		color: getColor(--text-secondary-color);
-		fill: getColor(--text-secondary-color);
-
-		@include resp(lg) {
-			top: 65%;
 		}
 	}
 </style>

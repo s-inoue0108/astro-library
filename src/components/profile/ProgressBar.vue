@@ -50,6 +50,7 @@ const toggleView = (): void => {
 	border-radius: 9999px;
 	width: 84px;
 	height: 84px;
+	box-shadow: 0 0 5px getColor(--shadow-color);
 
 	&:active {
 		opacity: 0.5;

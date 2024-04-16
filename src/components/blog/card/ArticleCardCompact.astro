@@ -24,7 +24,11 @@ const svgColor = category.themeColor;
 				alt={thambnail.altText}
 			/>
 			<div class="svg-bg">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox={category.svgViewBox}>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox={category.svgViewBox}
+					fill={category.themeColor}
+				>
 					<path d={category.svgIconPath}></path>
 				</svg>
 			</div>
@@ -40,6 +44,7 @@ const svgColor = category.themeColor;
 		height: 80px;
 		display: block;
 		border-radius: 4px;
+		box-shadow: 3px 3px 3px getColor(--shadow-color);
 
 		@include resp(lg) {
 			height: 128px;
@@ -95,7 +100,6 @@ const svgColor = category.themeColor;
 						margin-left: 2px;
 						width: auto;
 						height: 1.2rem;
-						fill: var(--svgColor);
 
 						@include resp(lg) {
 							margin-left: 4px;
