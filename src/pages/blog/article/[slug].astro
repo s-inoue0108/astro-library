@@ -40,9 +40,7 @@ import PageTopButton from "../../../components/blog/article/PageTopButton.vue";
 export const getStaticPaths = async () => {
 	const articles = await getArticles();
 
-	if (!articles || articles.length <= 0) {
-		return null;
-	}
+	if (!articles || articles.length <= 0) return;
 
 	return articles.map((article) => ({
 		params: { slug: article.slug },
@@ -93,7 +91,7 @@ const sideArticles = await getSideArticlesBySlug(articles, article.slug);
 <ArticleLayout
 	title={`${article.title} | ブログ | ${import.meta.env.APP_NAME}`}
 	description={`${article.description}`}
-	imageUrl={article.thambnail ? new URL(article.thambnail.src) : undefined}
+	imageUrl={new URL(`/blog/ogp/${article.slug}.png`)}
 >
 	<Metadata metadata={article} />
 	<div id="content">
