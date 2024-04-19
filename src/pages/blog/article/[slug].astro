@@ -91,7 +91,7 @@ const sideArticles = await getSideArticlesBySlug(articles, article.slug);
 <ArticleLayout
 	title={`${article.title} | ブログ | ${import.meta.env.APP_NAME}`}
 	description={`${article.description}`}
-	imageUrl={new URL(`/blog/ogp/${article.slug}.png`)}
+	imageUrl={new URL(`blog/ogp/${article.slug}.png`)}
 >
 	<Metadata metadata={article} />
 	<div id="content">

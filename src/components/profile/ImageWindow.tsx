@@ -3,7 +3,7 @@ import styles from "./ImageWindow.module.scss";
 
 import { useRef } from "react";
 import { Pagination, Mousewheel } from "swiper/modules";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import type { NewtImageProps } from "../../lib/newt/types";
 
 import { svgPaths, svgViewBoxes } from "../../lib/svg/paths";
@@ -12,8 +12,6 @@ import type { Swiper as SwiperType } from "swiper/types";
 interface Props {
 	images: NewtImageProps[];
 }
-
-const data: string[] = ["Slide 1", "Slide 2", "Slide 3", "Slide 4"];
 
 const ImageWindow = (props: Props) => {
 	const swiperRef = useRef<SwiperType>();
@@ -62,25 +60,3 @@ const ImageWindow = (props: Props) => {
 };
 
 export default ImageWindow;
-
-// const PrevBtn = () => {
-// 	const swiper = useSwiper();
-// 	return (
-// 		<button type="button" onClick={() => swiperRef.current.slidePrev()}>
-// 			<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.chevronLeft}>
-// 				<path d={svgPaths.chevronLeft}></path>
-// 			</svg>
-// 		</button>
-// 	);
-// };
-
-// const NextBtn = () => {
-// 	const swiper = useSwiper();
-// 	return (
-// 		<button type="button" onClick={() => swiperRef.current.slideNext()}>
-// 			<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.chevronRight}>
-// 				<path d={svgPaths.chevronRight}></path>
-// 			</svg>
-// 		</button>
-// 	);
-// };

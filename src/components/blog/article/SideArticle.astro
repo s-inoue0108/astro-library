@@ -20,7 +20,7 @@ const { direction, article } = Astro.props;
 				return (
 					<a href={`/blog/article/${article.slug}`} class="prev">
 						<Image src={article.thambnail.src} width={article.thambnail.width} height={article.thambnail.height} alt={article.thambnail.altText} class="img-prev" />
-						<div class="title">{article.title}</div>
+						<div class="title">{sliceText(article.title, 70)}</div>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.chevronRight}>
 							<path d={svgPaths.chevronRight} />
 						</svg>
@@ -32,7 +32,7 @@ const { direction, article } = Astro.props;
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBoxes.chevronLeft}>
 							<path d={svgPaths.chevronLeft} />
 						</svg>
-						<div class="title">{article.title}</div>
+						<div class="title">{sliceText(article.title, 70)}</div>
 						<Image src={article.thambnail.src} width={article.thambnail.width} height={article.thambnail.height} alt={article.thambnail.altText} class="img-next" />
 					</a>
 				);
