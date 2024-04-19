@@ -1,4 +1,3 @@
-import satori from "satori";
 import { getArticles, getPreviewBySlug } from "../../../lib/newt/client";
 import { getOgImage } from "../../../components/blog/article/OgImage";
 import type { APIContext } from "astro";
