@@ -1,13 +1,16 @@
 import fs from "fs";
 import satori from "satori";
-import sharp from "sharp";
+import { Resvg } from "@resvg/resvg-js";
 
-export const getOgImage = async (text: string): Promise<Buffer> => {
+export const getOgImageResponse = async (text: string): Promise<Response> => {
 	const fontRegular = fs.readFileSync("src/fonts/NotoSansJP-Regular.ttf");
 	const fontBold = fs.readFileSync("src/fonts/NotoSansJP-Bold.ttf");
 	const authorImage = await fetch(
 		"https://si-library.assets.newt.so/v1/b086d97b-f8fb-43db-bb87-26212a3c32f4/portfolio-favicon.png"
 	).then((res) => res.arrayBuffer());
+
+	const width = 1200;
+	const height = 630;
 
 	const svg = await satori(
 		<main
@@ -90,8 +93,8 @@ export const getOgImage = async (text: string): Promise<Buffer> => {
 			</section>
 		</main>,
 		{
-			width: 1200,
-			height: 630,
+			width,
+			height,
 			fonts: [
 				{
 					name: "Noto Sans JP",
@@ -109,5 +112,21 @@ export const getOgImage = async (text: string): Promise<Buffer> => {
 		}
 	);
 
-	return await sharp(Buffer.from(svg)).png().toBuffer();
+	const resvg = new Resvg(svg, {
+		font: {
+			loadSystemFonts: false,
+		},
+		fitTo: {
+			mode: "width",
+			value: width,
+		},
+	});
+
+	const image = resvg.render();
+
+	return new Response(image.asPng(), {
+		headers: {
+			"Content-Type": "image/png",
+		},
+	});
 };

@@ -1,5 +1,5 @@
 import { getArticles, getPreviewBySlug } from "../../../lib/newt/client";
-import { getOgImage } from "../../../components/blog/article/OgImage";
+import { getOgImageResponse } from "../../../components/blog/article/OgImage";
 import type { APIContext } from "astro";
 
 export const getStaticPaths = async () => {
@@ -18,11 +18,7 @@ export const GET = async ({ params }: APIContext) => {
 
 	if (!secret || !article) return;
 
-	const ogpImage = await getOgImage(article.title);
+	const ogImageResponse = await getOgImageResponse(article.title);
 
-	return new Response(ogpImage, {
-		headers: {
-			"Content-Type": "image/png",
-		},
-	});
+	return ogImageResponse;
 };
