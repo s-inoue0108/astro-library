@@ -132,10 +132,10 @@ const sideRawArticles = await getSideArticlesBySlug(rawArticles, slug);
 			<AuthorData />
 			<ul class="side-articles">
 				<li class="prev-article">
-					<SideArticle article={sideArticles.prev} direction="prev" />
+					{sideArticles.prev && <SideArticle article={sideArticles.prev} direction="prev" />}
 				</li>
 				<li class="next-article">
-					<SideArticle article={sideArticles.next} direction="next" />
+					{sideArticles.next && <SideArticle article={sideArticles.next} direction="next" />}
 				</li>
 			</ul>
 		</article>

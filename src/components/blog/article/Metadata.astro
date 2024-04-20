@@ -12,17 +12,14 @@ interface Props {
 
 const { metadata } = Astro.props;
 const { title, description, thambnail, category, tags, _sys } = metadata;
+
+const image = thambnail ? thambnail : category.image;
+const { src, width, height, altText } = image;
 ---
 
 <div class="metadata">
 	<div class="image">
-		<Image
-			src={thambnail.src}
-			width={thambnail.width}
-			height={thambnail.height}
-			alt={thambnail.altText}
-			class="thambnail"
-		/>
+		<Image src={src} width={width} height={height} alt={altText} class="thambnail" />
 		<a href={`/blog/category/${category.slug}/1`} class="category">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"

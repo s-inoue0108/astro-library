@@ -46,7 +46,7 @@ export interface Category extends CommonProps {
 	name: string;
 	slug: string;
 	description?: string;
-	image?: NewtImageProps;
+	image: NewtImageProps;
 	svgIconPath: string;
 	svgViewBox: string;
 	themeColor: string;
@@ -75,7 +75,7 @@ export interface Article extends CommonProps {
 	title: string;
 	slug: string;
 	description?: string;
-	thambnail: NewtImageProps;
+	thambnail?: NewtImageProps;
 	category: Category;
 	tags?: Tag[];
 	content: {

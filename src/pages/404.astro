@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="ページが存在しません | 404 Not Found" description="">
+<Layout title=`404 Not Found | ${import.meta.env.APP_NAME}` description="ページが存在しません">
 	<section class="error">
 		<h1 class="status">404</h1>
 		<p class="message">ページが存在しません</p>

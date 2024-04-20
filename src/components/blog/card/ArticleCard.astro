@@ -5,7 +5,6 @@ import { svgPaths, svgViewBoxes } from "../../../lib/svg/paths";
 // Image
 import { Image } from "astro:assets";
 // Header Image
-import NoImage from "../../../images/common/no-image.png";
 import { sliceText } from "../../../lib/fusejs/instance";
 
 interface Props {
@@ -13,12 +12,15 @@ interface Props {
 }
 
 const { article } = Astro.props;
-const { title, slug, description, thambnail, tags, _sys } = article;
+const { title, slug, description, thambnail, tags, _sys, category } = article;
+
+const image = thambnail ? thambnail : category.image;
+const { src, width, height, altText } = image;
 ---
 
 <a href={`/blog/article/${slug}`} class="card">
 	<figure class="thambnail">
-		{thambnail ? <Image src={thambnail.src} width={thambnail.width} height={thambnail.height} alt={thambnail?.altText ?? ""} /> : <Image src={NoImage} alt="No Image" />}
+		<Image src={src} width={width} height={height} alt={altText} />
 	</figure>
 	<ul class="info">
 		<li class="title">

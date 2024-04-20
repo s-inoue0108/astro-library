@@ -32,7 +32,7 @@ export const getArticles = async (
 	depth: 0 | 1 | 2 = 2,
 	categoryId?: Category["_id"],
 	tagIds?: Tag["_id"][]
-): Promise<Article[] | null> => {
+): Promise<Article[]> => {
 	try {
 		const { items: articles } = await newtClient.getContents<Article>({
 			appUid: "blog",
@@ -60,7 +60,7 @@ export const getRawArticles = async (
 	depth: 0 | 1 | 2 = 2,
 	categoryId?: Category["_id"],
 	tagIds?: Tag["_id"][]
-): Promise<RawArticle[] | null> => {
+): Promise<RawArticle[]> => {
 	try {
 		const { items: articles } = await newtPreviewClient.getContents<RawArticle>({
 			appUid: "blog",
@@ -82,7 +82,7 @@ export const getRawArticles = async (
 };
 
 // Get Blog Categories
-export const getCategories = async (depth: 0 | 1 | 2 = 2): Promise<Category[] | null> => {
+export const getCategories = async (depth: 0 | 1 | 2 = 2): Promise<Category[]> => {
 	try {
 		const { items: categories } = await newtClient.getContents<Category>({
 			appUid: "blog",
@@ -99,7 +99,7 @@ export const getCategories = async (depth: 0 | 1 | 2 = 2): Promise<Category[] | 
 };
 
 // Get Blog Tags
-export const getTags = async (depth: 0 | 1 | 2 = 2): Promise<Tag[] | null> => {
+export const getTags = async (depth: 0 | 1 | 2 = 2): Promise<Tag[]> => {
 	try {
 		const { items: tags } = await newtClient.getContents<Tag>({
 			appUid: "blog",
@@ -116,7 +116,7 @@ export const getTags = async (depth: 0 | 1 | 2 = 2): Promise<Tag[] | null> => {
 };
 
 // Get Dev Links
-export const getDevLinks = async (depth: 0 | 1 | 2 = 2): Promise<DevLink[] | null> => {
+export const getDevLinks = async (depth: 0 | 1 | 2 = 2): Promise<DevLink[]> => {
 	try {
 		const { items: links } = await newtClient.getContents<DevLink>({
 			appUid: "blog",
@@ -133,7 +133,7 @@ export const getDevLinks = async (depth: 0 | 1 | 2 = 2): Promise<DevLink[] | nul
 };
 
 // Get Document Files
-export const getDocFiles = async (depth: 0 | 1 | 2 = 2): Promise<DocumentFile[] | null> => {
+export const getDocFiles = async (depth: 0 | 1 | 2 = 2): Promise<DocumentFile[]> => {
 	try {
 		const { items: docs } = await newtClient.getContents<DocumentFile>({
 			appUid: "blog",
@@ -173,7 +173,7 @@ export const getCategoryBySlug = async (
 export const getTagsBySlugs = async (
 	slugs: Tag["slug"][],
 	depth: 0 | 1 | 2 = 2
-): Promise<Tag[] | null> => {
+): Promise<Tag[]> => {
 	try {
 		const { items: tags } = await newtClient.getContents<Tag>({
 			appUid: "blog",
@@ -216,10 +216,7 @@ export const getPreviewBySlug = async (
 };
 
 // Get Skills
-export const getSkills = async (
-	limit: number = 1000,
-	depth: 0 | 1 | 2 = 2
-): Promise<Skill[] | null> => {
+export const getSkills = async (limit: number = 1000, depth: 0 | 1 | 2 = 2): Promise<Skill[]> => {
 	try {
 		const { items: skills } = await newtClient.getContents<Skill>({
 			appUid: "profile",
@@ -237,10 +234,7 @@ export const getSkills = async (
 };
 
 // Get Works
-export const getWorks = async (
-	limit: number = 1000,
-	depth: 0 | 1 | 2 = 2
-): Promise<Work[] | null> => {
+export const getWorks = async (limit: number = 1000, depth: 0 | 1 | 2 = 2): Promise<Work[]> => {
 	try {
 		const { items: works } = await newtClient.getContents<Work>({
 			appUid: "profile",
@@ -261,7 +255,7 @@ export const getWorks = async (
 export const getQualifications = async (
 	limit: number = 1000,
 	depth: 0 | 1 | 2 = 2
-): Promise<Qualification[] | null> => {
+): Promise<Qualification[]> => {
 	try {
 		const { items: qualifications } = await newtClient.getContents<Qualification>({
 			appUid: "profile",

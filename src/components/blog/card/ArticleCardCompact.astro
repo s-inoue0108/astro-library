@@ -11,18 +11,14 @@ interface Props {
 const { article } = Astro.props;
 const { title, slug, thambnail, category } = article;
 
-const svgColor = category.themeColor;
+const image = thambnail ? thambnail : category.image;
+const { src, width, height, altText } = image;
 ---
 
 <a href={`/blog/article/${slug}`} class="card">
 	<ul class="info">
 		<li class="thambnail">
-			<Image
-				width={thambnail.width}
-				height={thambnail.height}
-				src={thambnail.src}
-				alt={thambnail.altText}
-			/>
+			<Image width={width} height={height} src={src} alt={altText} />
 			<div class="svg-bg">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +33,7 @@ const svgColor = category.themeColor;
 	</ul>
 </a>
 
-<style lang="scss" define:vars={{ svgColor }}>
+<style lang="scss">
 	.card {
 		background: getColor(--bg-secondary-color);
 		width: 100%;
