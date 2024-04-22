@@ -43,7 +43,6 @@
     "@types/grecaptcha": "^3.0.8",
     "@types/highlightjs": "^9.12.6",
     "@types/katex": "^0.16.7",
-    "@types/sharp": "^0.32.0",
     "destyle.css": "^4.0.1",
     "sass": "^1.71.1"
   }

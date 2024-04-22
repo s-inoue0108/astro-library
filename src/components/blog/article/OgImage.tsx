@@ -29,7 +29,7 @@ export const getOgImageResponse = async (text: string): Promise<Response> => {
 					transform: "translate(-50%, -50%)",
 					height: "90%",
 					width: "90%",
-					backgroundColor: "rgba(0, 11, 41, 0.7)",
+					backgroundColor: "rgba(0, 11, 41, 0.3)",
 					borderRadius: "16px",
 					padding: "20px 5%",
 				}}
@@ -51,7 +51,7 @@ export const getOgImageResponse = async (text: string): Promise<Response> => {
 						left: "70px",
 						bottom: "90px",
 						width: "940px",
-						border: "solid 1px #94a3b8",
+						border: "solid 1px #e8ecf1",
 					}}
 				/>
 				<img
@@ -71,7 +71,7 @@ export const getOgImageResponse = async (text: string): Promise<Response> => {
 						position: "absolute",
 						bottom: "8px",
 						left: "148px",
-						color: "#94a3b8",
+						color: "#e8ecf1",
 						fontSize: "32px",
 						fontWeight: 700,
 					}}
@@ -83,7 +83,7 @@ export const getOgImageResponse = async (text: string): Promise<Response> => {
 						position: "absolute",
 						bottom: "10px",
 						right: "81px",
-						color: "#94a3b8",
+						color: "#e8ecf1",
 						fontSize: "24px",
 						fontWeight: 400,
 					}}
