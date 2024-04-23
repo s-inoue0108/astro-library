@@ -51,7 +51,7 @@ export const getOgImageResponse = async (text: string): Promise<Response> => {
 						left: "70px",
 						bottom: "90px",
 						width: "940px",
-						border: "solid 1px #e8ecf1",
+						border: "solid 1px #cbd5e1",
 					}}
 				/>
 				<img
@@ -71,7 +71,7 @@ export const getOgImageResponse = async (text: string): Promise<Response> => {
 						position: "absolute",
 						bottom: "8px",
 						left: "148px",
-						color: "#e8ecf1",
+						color: "#cbd5e1",
 						fontSize: "32px",
 						fontWeight: 700,
 					}}
@@ -83,7 +83,7 @@ export const getOgImageResponse = async (text: string): Promise<Response> => {
 						position: "absolute",
 						bottom: "10px",
 						right: "81px",
-						color: "#e8ecf1",
+						color: "#cbd5e1",
 						fontSize: "24px",
 						fontWeight: 400,
 					}}
