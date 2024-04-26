@@ -60,7 +60,7 @@ const { page } = Astro.props;
 				svgViewBox={svgViewBoxes.penNib}
 			/>
 			<CategoriesNavBar />
-			<ArticleCards articles={articles} />
+			<ArticleCards articles={page.data} />
 			<Pager page={page} />
 		</section>
 		<section id="sidebar">
