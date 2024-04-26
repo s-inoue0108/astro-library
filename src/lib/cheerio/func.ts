@@ -35,8 +35,8 @@ export const mathRenderer = async (rawText: string): Promise<string> => {
 				text
 					.replaceAll("$", "")
 					.replaceAll(/(<br>|<\\br>|<br \/>|&nbsp;|amp;)/g, "")
-					.replaceAll(/(&lt:)/g, "<")
-					.replaceAll(/(&gt:)/g, ">"),
+					.replaceAll(/(&lt;)/g, "<")
+					.replaceAll(/(&gt;)/g, ">"),
 				{ output: "html", displayMode: false }
 			);
 		});
