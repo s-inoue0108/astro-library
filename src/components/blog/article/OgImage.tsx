@@ -3,8 +3,9 @@ import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
 
 export const getOgImageResponse = async (text: string): Promise<Response> => {
-	const fontRegular = fs.readFileSync("src/fonts/NotoSansJP-Regular.ttf");
-	const fontBold = fs.readFileSync("src/fonts/NotoSansJP-Bold.ttf");
+	const montserratRegular = fs.readFileSync("src/fonts/Montserrat-Regular.ttf");
+	const montserratBold = fs.readFileSync("src/fonts/Montserrat-Bold.ttf");
+	const notoSansJPBold = fs.readFileSync("src/fonts/NotoSansJP-Bold.ttf");
 	const authorImage = await fetch(
 		"https://si-library.assets.newt.so/v1/b086d97b-f8fb-43db-bb87-26212a3c32f4/portfolio-favicon.png"
 	).then((res) => res.arrayBuffer());
@@ -30,12 +31,13 @@ export const getOgImageResponse = async (text: string): Promise<Response> => {
 					height: "90%",
 					width: "90%",
 					backgroundColor: "rgba(0, 11, 41, 0.3)",
-					borderRadius: "16px",
+					borderRadius: "32px",
 					padding: "20px 5%",
 				}}
 			>
 				<h1
 					style={{
+						fontFamily: "Noto Sans JP",
 						width: "100%",
 						color: "#ffffff",
 						fontSize: "70px",
@@ -61,28 +63,30 @@ export const getOgImageResponse = async (text: string): Promise<Response> => {
 					height={48}
 					style={{
 						position: "absolute",
-						bottom: "24px",
-						left: "81px",
+						bottom: "20px",
+						right: "504px",
 						borderRadius: "9999px",
 					}}
 				/>
 				<p
 					style={{
+						fontFamily: "Montserrat",
 						position: "absolute",
 						bottom: "8px",
-						left: "148px",
+						right: "72px",
 						color: "#cbd5e1",
 						fontSize: "32px",
 						fontWeight: 700,
 					}}
 				>
-					Shota Inoue
+					{import.meta.env.APP_NAME}
 				</p>
 				<p
 					style={{
+						fontFamily: "Montserrat",
 						position: "absolute",
 						bottom: "10px",
-						right: "81px",
+						left: "72px",
 						color: "#cbd5e1",
 						fontSize: "24px",
 						fontWeight: 400,
@@ -97,14 +101,20 @@ export const getOgImageResponse = async (text: string): Promise<Response> => {
 			height,
 			fonts: [
 				{
-					name: "Noto Sans JP",
-					data: fontRegular,
+					name: "Montserrat",
+					data: montserratRegular,
 					weight: 400,
 					style: "normal",
 				},
 				{
+					name: "Montserrat",
+					data: montserratBold,
+					weight: 700,
+					style: "normal",
+				},
+				{
 					name: "Noto Sans JP",
-					data: fontBold,
+					data: notoSansJPBold,
 					weight: 700,
 					style: "normal",
 				},
