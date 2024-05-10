@@ -18,7 +18,7 @@ export const GET = async ({ params }: APIContext) => {
 
 	if (!secret || !article) return;
 
-	const ogImageResponse = await getOgImageResponse(article.title);
+	const ogImageResponse = await getOgImageResponse(article.title, article.tags);
 
 	return ogImageResponse;
 };

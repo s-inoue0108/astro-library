@@ -1,8 +1,9 @@
 import fs from "fs";
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
+import type { Tag } from "../../../lib/newt/types";
 
-export const getOgImageResponse = async (text: string): Promise<Response> => {
+export const getOgImageResponse = async (title: string, tags?: Tag[]): Promise<Response> => {
 	const montserratRegular = fs.readFileSync("src/fonts/Montserrat-Regular.ttf");
 	const montserratBold = fs.readFileSync("src/fonts/Montserrat-Bold.ttf");
 	const notoSansJPBold = fs.readFileSync("src/fonts/NotoSansJP-Bold.ttf");
@@ -45,7 +46,7 @@ export const getOgImageResponse = async (text: string): Promise<Response> => {
 						letterSpacing: "2px",
 					}}
 				>
-					{text}
+					{title}
 				</h1>
 				<hr
 					style={{
@@ -64,7 +65,7 @@ export const getOgImageResponse = async (text: string): Promise<Response> => {
 					style={{
 						position: "absolute",
 						bottom: "20px",
-						right: "504px",
+						left: "72px",
 						borderRadius: "9999px",
 					}}
 				/>
@@ -73,27 +74,35 @@ export const getOgImageResponse = async (text: string): Promise<Response> => {
 						fontFamily: "Montserrat",
 						position: "absolute",
 						bottom: "8px",
-						right: "72px",
+						left: "128px",
 						color: "#cbd5e1",
 						fontSize: "32px",
-						fontWeight: 700,
-					}}
-				>
-					{import.meta.env.APP_NAME}
-				</p>
-				<p
-					style={{
-						fontFamily: "Montserrat",
-						position: "absolute",
-						bottom: "10px",
-						left: "72px",
-						color: "#cbd5e1",
-						fontSize: "24px",
 						fontWeight: 400,
 					}}
 				>
-					{import.meta.env.APP_URL}
+					Shota Inoue
 				</p>
+				<div
+					style={{
+						fontFamily: "Montserrat",
+						position: "absolute",
+						bottom: "6px",
+						right: "72px",
+						color: "#cbd5e1",
+						fontSize: "24px",
+						fontWeight: 700,
+						display: "flex",
+						flexDirection: "row-reverse",
+						gap: "16px",
+						alignItems: "center",
+					}}
+				>
+					{tags &&
+						tags.length > 0 &&
+						tags.slice(0, 3).map((tag) => {
+							return <p>{`#${tag.name}`}</p>;
+						})}
+				</div>
 			</section>
 		</main>,
 		{
