@@ -32,8 +32,8 @@ onMounted(async () => {
 	window.addEventListener("scroll", async () => {
 		try {
 			const scroll = window.scrollY;
-			headingsData.value.forEach((h) => {
-				const anchor = document.getElementById(`toc-${h.lev}-${h.text}`);
+			headingsData.value.forEach((h, idx) => {
+				const anchor = document.getElementById(`toc-${idx}-${h.text}`);
 				if (h.offsets![0] < scroll && scroll <= h.offsets![1]) {
 					anchor!.classList.add("highlight");
 				} else {
@@ -52,7 +52,7 @@ onMounted(async () => {
 		<ul class="headings">
 			<li class="heading" v-for="(h, idx) in headingsData" :key="idx">
 				<a
-					:id="`toc-${h.lev}-${h.text}`"
+					:id="`toc-${idx}-${h.text}`"
 					:href="`#${idx}-${h.text}`"
 					class="toc-h1"
 					v-if="h.lev === 'h1'"
@@ -66,7 +66,7 @@ onMounted(async () => {
 					{{ h.text }}
 				</a>
 				<a
-					:id="`toc-${h.lev}-${h.text}`"
+					:id="`toc-${idx}-${h.text}`"
 					:href="`#${idx}-${h.text}`"
 					class="toc-h2"
 					v-else-if="h.lev === 'h2'"
@@ -74,12 +74,12 @@ onMounted(async () => {
 					<span class="before" />
 					{{ h.text }}
 				</a>
-				<a :id="`toc-${h.lev}-${h.text}`" :href="`#${idx}-${h.text}`" class="toc-h-else" v-else>
+				<a :id="`toc-${idx}-${h.text}`" :href="`#${idx}-${h.text}`" class="toc-h-else" v-else>
 					{{ h.text }}
 				</a>
 			</li>
 			<li class="heading">
-				<a id="toc-h1-rel-articles" href="#関連記事" class="toc-h1">
+				<a id="toc-rel-articles" href="#関連記事" class="toc-h1">
 					<span class="before">
 						<svg xmlns="http://www.w3.org/2000/svg" :viewBox="svgViewBoxes.penNib">
 							<path :d="svgPaths.penNib"></path>
