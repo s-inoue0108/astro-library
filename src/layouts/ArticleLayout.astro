@@ -80,6 +80,18 @@ const ogpImageURL = new URL("portfolio-favicon.png", import.meta.env.APP_URL);
 		<!--Sitemap -->
 		<link rel="sitemap" href="/sitemap-index.xml" />
 
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-CYF55805ED"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
+
+			gtag("config", "G-CYF55805ED");
+		</script>
+
 		<!--title -->
 		<title>{title}</title>
 	</head>
