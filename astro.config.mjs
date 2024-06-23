@@ -38,6 +38,12 @@ export default defineConfig({
 				},
 			},
 		},
+		ssr: {
+			external: ["@resvg/resvg-js"],
+		},
+		optimizeDeps: {
+			exclude: ["@resvg/resvg-js"],
+		},
 	},
 	output: "hybrid",
 	adapter: vercel({
