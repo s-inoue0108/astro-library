@@ -10,7 +10,7 @@ interface Props {
 	tags?: Tag[] | null;
 }
 
-const selectedTerm = ref<"デフォルト" | "タグ数順" | "記事数順">("デフォルト");
+const selectedTerm = ref<"タグ数順" | "記事数順">("記事数順");
 
 const { categories, articles, tags } = defineProps<Props>();
 
@@ -68,9 +68,8 @@ watchEffect(() => {
 					</svg>
 				</label>
 				<select v-model="selectedTerm" id="select-term" name="select-term">
-					<option>デフォルト</option>
-					<option>タグ数順</option>
 					<option>記事数順</option>
+					<option>タグ数順</option>
 				</select>
 			</div>
 		</template>
