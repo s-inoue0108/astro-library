@@ -32,7 +32,7 @@ const toggleOpen = async (): Promise<void> => {
 	const menuContent = document.querySelector(".menu-content");
 	if (!isOpen.value && menuContent!.classList.contains("is-open")) {
 		isOpen.value = true;
-	} else if (isOpen.value && !menuContent!.classList.contains("is-open")) {
+	} else {
 		isOpen.value = false;
 	}
 };

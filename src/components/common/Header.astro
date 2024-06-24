@@ -138,16 +138,14 @@ const isDocument = getIsCurrent("document");
 			"-=0.3"
 		);
 
-	let isOpen: boolean = false;
 	menuBtn!.addEventListener("click", async () => {
-		if (isOpen) {
+		if (menuContent!.classList.contains("is-open")) {
 			menuContent!.classList.remove("is-open");
 			await closeMenu.restart();
 		} else {
 			menuContent!.classList.add("is-open");
 			await openMenu.restart();
 		}
-		isOpen = !isOpen;
 	});
 
 	gsap.set(title, {
